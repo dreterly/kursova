@@ -99,3 +99,7 @@
 .home-search button:hover {
   background-color: #c91450;
 }
+.logo {
+  text-decoration: none;
+  color: inherit;
+}

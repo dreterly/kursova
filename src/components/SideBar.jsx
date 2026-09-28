@@ -1,6 +1,9 @@
 import { House, Map, MapPin, Circle, UserCog } from "lucide-react";
+
+import { NavLink } from "react-router-dom";
+
 import "./sideBar.css";
-import { Link } from "react-router-dom";
+
 export function SideBar() {
   return (
     <aside className="sidebar">
@@ -8,57 +11,98 @@ export function SideBar() {
         {/* Навігація */}
         <div className="sidebar-section">
           <p className="sidebar-title">Навігація</p>
+
           <nav className="sidebar-nav">
-            <Link to="/" className="sidebar-link">
-              <span>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "sidebar-link active" : "sidebar-link"
+              }
+              end
+            >
+              <span className="link-content">
                 <House />
+                <span>Головна</span>
               </span>
-              <span>Головна</span>
-            </Link>
-            <a href="#" className="sidebar-link active">
-              <span>
+            </NavLink>
+
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                isActive ? "sidebar-link active" : "sidebar-link"
+              }
+            >
+              <span className="link-content">
                 <MapPin />
+                <span>GPS-Моніторинг</span>
               </span>
-              <span>GPS-Моніторинг</span>
-            </a>
-            <a href="#" className="sidebar-link">
-              <span>
+            </NavLink>
+
+            <NavLink
+              to="/map"
+              className={({ isActive }) =>
+                isActive ? "sidebar-link active" : "sidebar-link"
+              }
+            >
+              <span className="link-content">
                 <Map />
+                <span>Карта пошуку</span>
               </span>
-              <span>Карта пошуку</span>
-            </a>
+            </NavLink>
           </nav>
         </div>
+
         {/* Оголошення */}
         <div className="sidebar-section">
           <p className="sidebar-title">Оголошення</p>
+
           <nav className="sidebar-nav">
-            <Link to="/lost" className="sidebar-link announcement-link">
-              
-              
-                <span className="link-content">
-                  <Circle color="#ff0000" /> <span>Загублені</span>
-                </span>
-             
-              <span className="counter lost-counter">23</span>
-           </Link>
-            <Link to="/found" className="sidebar-link announcement-link">
-              
+            <NavLink
+              to="/lost"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebar-link announcement-link active"
+                  : "sidebar-link announcement-link"
+              }
+            >
               <span className="link-content">
-                <Circle color="#1eff00" /> <span>Знайдені</span>
+                <Circle color="#ff0000" />
+                <span>Загублені</span>
               </span>
+
+              <span className="counter lost-counter">23</span>
+            </NavLink>
+
+            <NavLink
+              to="/found"
+              className={({ isActive }) =>
+                isActive
+                  ? "sidebar-link announcement-link active"
+                  : "sidebar-link announcement-link"
+              }
+            >
+              <span className="link-content">
+                <Circle color="#1eff00" />
+                <span>Знайдені</span>
+              </span>
+
               <span className="counter found-counter">41</span>
-            </Link>
+            </NavLink>
           </nav>
         </div>
       </div>
+
       {/* Налаштування */}
       <div className="sidebar-settings">
-       <Link to='/profile/settings' className="settings-link">
-          <UserCog color="#E6195E" />
-          
+        <NavLink
+          to="/profile/settings"
+          className={({ isActive }) =>
+            isActive ? "settings-link active" : "settings-link"
+          }
+        >
+          <UserCog />
           <span>Налаштування кабінету</span>
-        </Link>
+        </NavLink>
       </div>
     </aside>
   );
