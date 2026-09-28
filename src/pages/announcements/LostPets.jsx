@@ -1,0 +1,110 @@
+
+import { useState } from "react";
+
+import { announcements } from "../../data/announcements.js";
+import { pets } from "../../data/pets.js";
+
+import { AnnouncementCard } from "../../components/AnnouncementCard.jsx";
+
+import "./lostPets.css";
+
+export function LostPets() {
+  const [search, setSearch] = useState("");
+  const [type, setType] = useState("");
+  const [city, setCity] = useState("");
+  const [date, setDate] = useState("");
+
+  const lostPets = announcements
+    .filter((announcement) => {
+      const pet = pets.find(
+        (pet) => pet.id === announcement.petId
+      );
+
+      return (
+        announcement.type === "lost" &&
+        pet &&
+        pet.name.toLowerCase().includes(search.toLowerCase()) &&
+        (type === "" || pet.type === type) &&
+        (city === "" || announcement.city === city) &&
+        (date === "" || announcement.date === date)
+      );
+    })
+    .map((announcement) => {
+      const pet = pets.find(
+        (pet) => pet.id === announcement.petId
+      );
+
+      return {
+        ...announcement,
+
+        // Дані тварини
+        name: pet.name,
+        image: pet.image,
+        breed: pet.breed,
+        age: pet.age,
+        gender: pet.gender,
+
+        // Дані оголошення
+        city: announcement.city,
+        date: announcement.date,
+        description: announcement.description,
+      };
+    });
+
+  return (
+    <main className="lost-pets">
+      <h1>Загублені тварини</h1>
+
+      <div className="lost-filters">
+        <input
+          type="text"
+          placeholder="Пошук..."
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+
+        <select
+          value={type}
+          onChange={(event) => setType(event.target.value)}
+        >
+          <option value="">Усі</option>
+          <option value="Кіт">Кіт</option>
+          <option value="Кішка">Кішка</option>
+          <option value="Собака">Собака</option>
+          <option value="Інше">Інше</option>
+        </select>
+
+        <select
+          value={city}
+          onChange={(event) => setCity(event.target.value)}
+        >
+          <option value="">Усі</option>
+          <option value="Житомир">Житомир</option>
+          <option value="Київ">Київ</option>
+          <option value="Львів">Львів</option>
+        </select>
+
+        <input
+          type="date"
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
+        />
+      </div>
+
+      <div className="lost-pets-list">
+        {lostPets.map((announcement) => (
+          <AnnouncementCard
+            key={announcement.id}
+            announcement={announcement}
+          />
+        ))}
+      </div>
+
+      {lostPets.length === 0 && (
+        <p className="no-results">
+          За вашим запитом оголошень не знайдено.
+        </p>
+      )}
+    </main>
+  );
+}

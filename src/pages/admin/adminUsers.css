@@ -1,0 +1,78 @@
+
+.admin-users {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+}
+
+.admin-users-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-users-header {
+  margin-bottom: 25px;
+}
+
+.admin-users-header h1 {
+  margin: 0;
+  color: #2D3142;
+  font-size: 28px;
+}
+
+.admin-users-header p {
+  margin: 6px 0 0;
+  color: #777;
+}
+
+.admin-users-table-wrapper {
+  overflow-x: auto;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+}
+
+.admin-users-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+}
+
+.admin-users-table th {
+  padding: 15px;
+  background-color: #F8F9FA;
+  color: #555;
+  text-align: left;
+  font-size: 13px;
+}
+
+.admin-users-table td {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  color: #444;
+  font-size: 14px;
+}
+
+.user-role {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.user-role.user {
+  background-color: #F8F9FA;
+  color: #666;
+}
+
+.user-role.admin {
+  background-color: #FFE8F0;
+  color: #E6195E;
+}
+
+@media (max-width: 700px) {
+  .admin-users {
+    padding: 20px 15px;
+  }
+}

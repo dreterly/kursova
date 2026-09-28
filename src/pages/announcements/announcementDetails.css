@@ -1,0 +1,100 @@
+
+.announcement-details {
+  min-height: 100vh;
+  padding: 40px 30px;
+  background-color: #F8F9FA;
+}
+
+.announcement-details-card {
+  display: flex;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.announcement-details-image {
+  width: 450px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.announcement-details-content {
+  flex: 1;
+}
+
+.announcement-details-status {
+  display: inline-block;
+  padding: 7px 14px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.announcement-details-status.lost {
+  background-color: #E6195E;
+  color: white;
+}
+
+.announcement-details-status.found {
+  background-color: #F6E033;
+  color: #333;
+}
+
+.announcement-details-content h1 {
+  margin: 0 0 20px;
+  font-size: 32px;
+  color: #333;
+}
+
+.announcement-details-content p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 16px;
+}
+
+.announcement-details-content h2 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.contact-info {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.map-button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background-color: #E6195E;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map-button:hover {
+  background-color: #c91450;
+}
+
+@media (max-width: 800px) {
+  .announcement-details-card {
+    flex-direction: column;
+  }
+
+  .announcement-details-image {
+    width: 100%;
+    height: 350px;
+  }
+}

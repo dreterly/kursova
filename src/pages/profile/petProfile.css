@@ -1,0 +1,297 @@
+
+.pet-profile-page {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+}
+
+.pet-profile-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  color: #E6195E;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.back-link svg {
+  width: 17px;
+}
+
+/* Заголовок */
+
+.pet-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  border-radius: 18px;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.pet-profile-header img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.pet-profile-header h1 {
+  margin: 0 0 7px;
+  color: #222;
+  font-size: 28px;
+}
+
+.pet-profile-header p {
+  margin: 0;
+  color: #777;
+}
+
+/* Вкладки */
+
+.pet-profile-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  padding: 7px;
+  border-radius: 12px;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.pet-profile-tabs button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 9px;
+  background-color: transparent;
+  color: #777;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pet-profile-tabs button:hover {
+  background-color: #F8F9FA;
+}
+
+.pet-profile-tabs button.active {
+  background-color: #FFE8F0;
+  color: #E6195E;
+}
+
+/* Основна секція */
+
+.pet-profile-section {
+  padding: 25px;
+  border-radius: 18px;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.pet-profile-section h2 {
+  margin: 0 0 25px;
+  color: #222;
+  font-size: 20px;
+}
+
+.pet-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 40px;
+}
+
+.pet-info-grid div {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.pet-info-grid span {
+  color: #777;
+}
+
+.pet-info-grid strong {
+  color: #333;
+}
+
+.pet-description {
+  margin-top: 25px;
+}
+
+.pet-description span {
+  color: #777;
+  font-size: 14px;
+}
+
+.pet-description p {
+  margin-top: 7px;
+  color: #444;
+}
+
+/* Мікрочип */
+
+.chip-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #F8F9FA;
+}
+
+.chip-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: #FFE8F0;
+  font-size: 23px;
+}
+
+.chip-card div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chip-card span {
+  color: #777;
+  font-size: 13px;
+}
+
+.chip-card strong {
+  color: #333;
+}
+
+/* GPS */
+
+.gps-map {
+  position: relative;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 15px;
+  background-color: #EEF1F3;
+  background-image:
+    radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.gps-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #E6195E;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.gps-marker svg {
+  width: 25px;
+}
+
+.location-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #F8F9FA;
+}
+
+.location-card > svg {
+  width: 22px;
+  color: #E6195E;
+}
+
+.location-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.location-card span {
+  color: #777;
+  font-size: 12px;
+}
+
+.location-card strong {
+  color: #333;
+}
+
+/* Історія */
+
+.route-history {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.history-item {
+  display: flex;
+  gap: 12px;
+}
+
+.history-item > svg {
+  width: 20px;
+  margin-top: 12px;
+  color: #E6195E;
+}
+
+.history-item > div {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background-color: #F8F9FA;
+}
+
+.history-item strong {
+  color: #333;
+}
+
+.history-item span {
+  float: right;
+  color: #999;
+  font-size: 12px;
+}
+
+.history-item p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .pet-profile-page {
+    padding: 20px 15px;
+  }
+
+  .pet-profile-tabs {
+    overflow-x: auto;
+  }
+
+  .pet-profile-tabs button {
+    white-space: nowrap;
+  }
+
+  .pet-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

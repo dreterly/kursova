@@ -1,0 +1,52 @@
+.found-pets {
+  min-height: 100vh;
+  padding: 40px 30px;
+  background-color: #f8f9fa;
+}
+.found-pets h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+  font-size: 32px;
+} /* Фільтри */
+.found-filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto 35px;
+}
+.found-filters input,
+.found-filters select {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 15px;
+  outline: none;
+}
+.found-filters input[type="text"] {
+  width: 250px;
+}
+.found-filters input:focus,
+.found-filters select:focus {
+  border-color: #e6195e;
+}
+.found-filters select:focus {
+  border-color: #f6e033;
+} /* Картки */
+.found-pets-list {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+} /* Немає результатів */
+.no-results {
+  margin-top: 40px;
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+}

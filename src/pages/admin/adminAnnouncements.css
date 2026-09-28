@@ -1,0 +1,130 @@
+
+.admin-announcements {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+}
+
+.admin-announcements-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-announcements-header {
+  margin-bottom: 25px;
+}
+
+.admin-announcements-header h1 {
+  margin: 0;
+  color: #2D3142;
+  font-size: 28px;
+}
+
+.admin-announcements-header p {
+  margin: 6px 0 0;
+  color: #777;
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.admin-table th {
+  padding: 15px;
+  background-color: #F8F9FA;
+  color: #555;
+  text-align: left;
+  font-size: 13px;
+}
+
+.admin-table td {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  color: #444;
+  font-size: 14px;
+}
+
+.admin-type,
+.admin-status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-type.lost {
+  background-color: #FFE8F0;
+  color: #E6195E;
+}
+
+.admin-type.found {
+  background-color: #FFF7CC;
+  color: #8A7600;
+}
+
+.admin-status.active {
+  background-color: #E8F7EC;
+  color: #34854A;
+}
+
+.admin-status:not(.active) {
+  background-color: #eee;
+  color: #777;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.admin-actions button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-actions svg {
+  width: 14px;
+  height: 14px;
+}
+
+.admin-edit-button {
+  border: 1px solid #F6E033;
+  background-color: white;
+  color: #777;
+}
+
+.admin-delete-button {
+  border: 1px solid #ffd1dc;
+  background-color: white;
+  color: #E6195E;
+}
+
+.admin-edit-button:hover {
+  background-color: #FFFBE0;
+}
+
+.admin-delete-button:hover {
+  background-color: #FFE8F0;
+}
+
+@media (max-width: 700px) {
+  .admin-announcements {
+    padding: 20px 15px;
+  }
+}

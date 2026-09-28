@@ -1,0 +1,96 @@
+
+.settings-page {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+}
+
+.settings-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.settings-header {
+  margin-bottom: 25px;
+}
+
+.settings-header h1 {
+  margin: 0;
+  color: #2D3142;
+  font-size: 28px;
+}
+
+.settings-header p {
+  margin: 6px 0 0;
+  color: #777;
+}
+
+.settings-form {
+  padding: 25px;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  margin-bottom: 7px;
+  color: #444;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 11px 12px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #E6195E;
+}
+
+.password-section {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.password-section h2 {
+  margin: 0 0 18px;
+  color: #333;
+  font-size: 19px;
+}
+
+.save-settings-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #E6195E;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-settings-button:hover {
+  background-color: #c91450;
+}
+
+@media (max-width: 600px) {
+  .settings-page {
+    padding: 20px 15px;
+  }
+
+  .settings-form {
+    padding: 20px;
+  }
+}

@@ -1,0 +1,131 @@
+
+.add-pet-page {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+}
+
+.add-pet-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.add-pet-header {
+  margin-bottom: 25px;
+}
+
+.add-pet-header h1 {
+  margin: 0;
+  color: #2D3142;
+  font-size: 28px;
+}
+
+.add-pet-header p {
+  margin-top: 6px;
+  color: #777;
+}
+
+.add-pet-form {
+  padding: 30px;
+  border-radius: 18px;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  margin-bottom: 7px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 11px 13px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #E6195E;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 11px 20px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cancel-button {
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #555;
+}
+
+.save-button {
+  border: none;
+  background-color: #E6195E;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #c91450;
+}
+
+@media (max-width: 600px) {
+  .add-pet-page {
+    padding: 20px 15px;
+  }
+
+  .add-pet-form {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .save-button {
+    text-align: center;
+  }
+}

@@ -1,0 +1,79 @@
+.create-announcement {
+  min-height: 100vh;
+  padding: 40px 30px;
+  background-color: #f8f9fa;
+}
+
+.create-announcement h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+}
+
+.announcement-form {
+  display: grid;
+  gap: 18px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.announcement-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #333;
+  font-weight: 600;
+}
+
+.announcement-form input,
+.announcement-form select,
+.announcement-form textarea {
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.announcement-form input:focus,
+.announcement-form select:focus,
+.announcement-form textarea:focus {
+  border-color: #e6195e;
+}
+
+.announcement-form textarea {
+  resize: vertical;
+}
+
+.announcement-form button {
+  margin-top: 10px;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background-color: #e6195e;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.announcement-form button:hover {
+  background-color: #c91450;
+}
+
+.created-announcements {
+  max-width: 700px;
+  margin: 30px auto;
+}
+
+.created-announcement {
+  margin-bottom: 15px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+}

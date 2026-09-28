@@ -1,0 +1,520 @@
+
+.profile {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+  flex-direction: column;overflow-x: hidden;
+}
+
+/* Верхня частина */
+
+.profile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 25px;
+}
+
+.profile-top h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #2D3142;
+}
+
+.profile-top p {
+  margin: 5px 0 0;
+  color: #777;
+}
+
+.profile-security {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border: 1px solid #F6E033;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.profile-security svg {
+  width: 17px;
+  color: #E6195E;
+}
+
+.profile-security span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #E6195E;
+}
+
+/* Картки тварин */
+
+.my-pets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+}
+
+.pet-profile-card {
+  position: relative;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pet-profile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.pet-profile-card.selected {
+  border-color: #E6195E;
+  box-shadow: 0 0 0 3px rgba(230, 25, 94, 0.12);
+}
+
+.pet-profile-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #eee;
+}
+
+.pet-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.selected-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: #E6195E;
+  color: white;
+}
+
+.selected-icon svg {
+  width: 15px;
+}
+
+.pet-profile-card h3 {
+  margin: 0;
+  color: #222;
+  font-size: 18px;
+}
+
+.pet-profile-card p {
+  margin: 5px 0 12px;
+  color: #777;
+  font-size: 13px;
+}
+
+.chip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background-color: #E7F8EE;
+  color: #1E9E55;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chip-badge svg {
+  width: 13px;
+}
+
+/* Додати тварину */
+
+.add-pet-card {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 2px dashed #F7A6C3;
+  border-radius: 16px;
+  background-color: #FFF8FA;
+  color: #E6195E;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-pet-card:hover {
+  background-color: #FFF0F4;
+  border-color: #E6195E;
+}
+
+.add-pet-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #FFE5EE;
+}
+
+.add-pet-icon svg {
+  width: 24px;
+}
+
+/* Інформація */
+
+.pet-information {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 18px;
+}
+
+.pet-information > h2 {
+  margin: 0 0 25px;
+  color: #222;
+  font-size: 20px;
+}
+
+/* Вибрана тварина */
+
+.selected-pet-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.selected-pet-header > img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.selected-pet-main {
+  flex: 1;
+}
+
+.selected-pet-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.selected-pet-title h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #222;
+}
+
+.selected-pet-title span {
+  color: #777;
+  font-size: 14px;
+}
+
+.chip-number {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background-color: #F8F9FA;
+  color: #555;
+  font-size: 12px;
+}
+
+.pet-location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  color: #666;
+  font-size: 13px;
+}
+
+.pet-location svg {
+  width: 17px;
+  color: #E6195E;
+}
+
+.pet-location strong {
+  color: #222;
+}
+
+.battery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.battery small {
+  color: #999;
+}
+
+.battery strong {
+  padding: 6px 10px;
+  border-radius: 15px;
+  background-color: #E7F8EE;
+  color: #1E9E55;
+  font-size: 12px;
+}
+
+/* Вкладки */
+
+.pet-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.pet-tabs button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #777;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pet-tabs button:hover {
+  background-color: #F8F9FA;
+}
+
+.pet-tabs button.active {
+  background-color: #FFE8F0;
+  color: #E6195E;
+}
+
+/* Дані */
+
+.pet-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 40px;
+  padding-top: 25px;
+}
+
+.pet-data div {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.pet-data span {
+  color: #777;
+}
+
+.pet-data strong {
+  color: #333;
+}
+
+/* GPS */
+
+.gps-section {
+  padding-top: 25px;
+}
+
+.fake-map {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  background-color: #EEF1F3;
+  background-image:
+    radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.map-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+}
+
+.map-marker svg {
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border-radius: 50%;
+  background-color: #E6195E;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.map-marker span {
+  margin-top: 6px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.gps-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding: 13px;
+  border-radius: 10px;
+  background-color: #F8F9FA;
+}
+
+.gps-info strong {
+  font-size: 13px;
+}
+
+.gps-info p {
+  margin: 4px 0 0;
+  color: #888;
+  font-size: 12px;
+}
+
+.gps-info button {
+  padding: 8px 13px;
+  border: none;
+  border-radius: 8px;
+  background-color: #E6195E;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Історія */
+
+.history {
+  padding-top: 25px;
+}
+
+.history-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.history-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #FFF0F4;
+  color: #E6195E;
+}
+
+.history-icon svg {
+  width: 15px;
+}
+
+.history-item > div:last-child {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #F8F9FA;
+}
+
+.history-item strong {
+  color: #333;
+  font-size: 14px;
+}
+
+.history-item span {
+  float: right;
+  color: #999;
+  font-size: 12px;
+}
+
+.history-item p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 12px;
+}
+
+/* Адаптивність */
+
+@media (max-width: 900px) {
+  .my-pets {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .selected-pet-header {
+    flex-wrap: wrap;
+  }
+
+  .battery {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile {
+    padding: 20px 15px;
+  }
+
+  .profile-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .my-pets {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-data {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-pet-title {
+    flex-direction: column;
+  }
+
+  .pet-tabs {
+    overflow-x: auto;
+  }
+
+  .gps-info {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .gps-info button {
+    width: 100%;
+  }
+}

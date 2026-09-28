@@ -1,0 +1,164 @@
+
+.admin-pets {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #F8F9FA;
+}
+
+.admin-pets-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.admin-pets-header {
+  margin-bottom: 25px;
+}
+
+.admin-pets-header h1 {
+  margin: 0;
+  color: #2D3142;
+  font-size: 28px;
+}
+
+.admin-pets-header p {
+  margin: 6px 0 0;
+  color: #777;
+}
+
+.admin-pets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-pet-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 16px;
+}
+
+.admin-pet-card > img {
+  width: 100px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.admin-pet-info {
+  flex: 1;
+}
+
+.admin-pet-info h3 {
+  margin: 0 0 6px;
+  color: #2D3142;
+  font-size: 18px;
+}
+
+.admin-pet-info p {
+  margin: 4px 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.admin-pet-status {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 5px 9px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-pet-status.lost {
+  background-color: #FFE8F0;
+  color: #E6195E;
+}
+
+.admin-pet-status.found {
+  background-color: #FFF7CC;
+  color: #8A7600;
+}
+
+.admin-pet-status.owned {
+  background-color: #E8F7EC;
+  color: #34854A;
+}
+
+.admin-pet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 135px;
+}
+
+.admin-pet-actions a,
+.admin-pet-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.admin-pet-actions svg {
+  width: 14px;
+  height: 14px;
+}
+
+.admin-view-button {
+  background-color: #F8F9FA;
+  color: #555;
+}
+
+.admin-edit-button {
+  border: 1px solid #F6E033;
+  background-color: white;
+  color: #777;
+}
+
+.admin-delete-button {
+  border: 1px solid #ffd1dc;
+  background-color: white;
+  color: #E6195E;
+}
+
+.admin-view-button:hover {
+  background-color: #eee;
+}
+
+.admin-edit-button:hover {
+  background-color: #FFFBE0;
+}
+
+.admin-delete-button:hover {
+  background-color: #FFE8F0;
+}
+
+@media (max-width: 700px) {
+  .admin-pets {
+    padding: 20px 15px;
+  }
+
+  .admin-pet-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-pet-card > img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .admin-pet-actions {
+    width: 100%;
+  }
+}
