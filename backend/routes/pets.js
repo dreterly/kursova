@@ -6,7 +6,6 @@ const db = require("../config/db");
 
 // GET /api/pets
 // Отримати всіх тварин
-
 router.get("/", async (req, res) => {
   try {
     const [pets] = await db.query("SELECT * FROM pets");
@@ -21,9 +20,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET /api/pets/user/:userId
+// Отримати тварин конкретного користувача
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const [pets] = await db.query("SELECT * FROM pets WHERE user_id = ?", [
+      req.params.userId,
+    ]);
+
+    res.json(pets);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Помилка отримання тварин користувача",
+    });
+  }
+});
+
 // GET /api/pets/:id
 // Отримати одну тварину
-
 router.get("/:id", async (req, res) => {
   try {
     const [pets] = await db.query("SELECT * FROM pets WHERE id = ?", [
@@ -48,7 +64,6 @@ router.get("/:id", async (req, res) => {
 
 // POST /api/pets
 // Додати тварину
-
 router.post("/", async (req, res) => {
   try {
     const {
@@ -105,7 +120,6 @@ router.post("/", async (req, res) => {
 
 // PUT /api/pets/:id
 // Редагувати тварину
-
 router.put("/:id", async (req, res) => {
   try {
     const { name, type, breed, gender, birth_date, color, chip_number, photo } =
@@ -168,7 +182,6 @@ router.put("/:id", async (req, res) => {
 
 // DELETE /api/pets/:id
 // Видалити тварину
-
 router.delete("/:id", async (req, res) => {
   try {
     const [result] = await db.query("DELETE FROM pets WHERE id = ?", [
