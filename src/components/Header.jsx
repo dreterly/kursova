@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { PawPrint, Bell } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,11 +25,7 @@ export default function Header() {
     <header className="header">
       <Link to="/" className="logo">
         <h1>
-          <PawPrint
-            strokeWidth={2.25}
-            color="#E6195E"
-            size="50px"
-          />
+          <PawPrint strokeWidth={2.25} color="#E6195E" size="50px" />
           PET<span>FINDER</span>
         </h1>
       </Link>
@@ -47,9 +42,7 @@ export default function Header() {
       </form>
 
       <Link to="/create-announcement">
-        <button className="create-button">
-          + Створити оголошення
-        </button>
+        <button className="create-button">+ Створити оголошення</button>
       </Link>
 
       <Link to="/profile/notifications">

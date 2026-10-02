@@ -1,4 +1,3 @@
-
 .header {
   background-color: #f6e033;
   padding: 14px 24px;
@@ -9,8 +8,6 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid #e6d000;
 }
-
-
 
 .create-button {
   background-color: #e6195e;
@@ -30,7 +27,7 @@
 
 .notification {
   position: relative;
- 
+
   cursor: pointer;
   border: none;
   background: none;
@@ -69,7 +66,6 @@
   display: flex;
   justify-content: center;
   max-width: 600px;
-  
 }
 
 .home-search input {
@@ -83,14 +79,14 @@
 }
 
 .home-search input:focus {
-  border-color: #E6195E;
+  border-color: #e6195e;
 }
 
 .home-search button {
   padding: 14px 24px;
   border: none;
   border-radius: 0 10px 10px 0;
-  background-color: #E6195E;
+  background-color: #e6195e;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -102,4 +98,15 @@
 .logo {
   text-decoration: none;
   color: inherit;
+}
+.header a {
+  text-decoration: none;
+}
+
+.header a:hover {
+  text-decoration: none;
+}
+
+.header a:visited {
+  text-decoration: none;
 }

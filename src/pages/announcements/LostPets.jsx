@@ -10,12 +10,25 @@ import "./lostPets.css";
 export function LostPets() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-
   const [type, setType] = useState("");
   const [city, setCity] = useState("");
   const [date, setDate] = useState("");
 
+  // Беремо пошуковий текст прямо з URL
+  const search = searchParams.get("search") || "";
+
+  // Пошук через поле на сторінці
+  function handleSearchChange(event) {
+    const value = event.target.value;
+
+    if (value.trim()) {
+      setSearchParams({ search: value });
+    } else {
+      setSearchParams({});
+    }
+  }
+
+  // Фільтрація загублених тварин
   const lostPets = announcements
     .filter((announcement) => {
       const pet = pets.find((pet) => pet.id === announcement.petId);
@@ -51,18 +64,6 @@ export function LostPets() {
         description: announcement.description,
       };
     });
-
-  function handleSearchChange(event) {
-    const value = event.target.value;
-
-    setSearch(value);
-
-    if (value.trim()) {
-      setSearchParams({ search: value });
-    } else {
-      setSearchParams({});
-    }
-  }
 
   return (
     <main className="lost-pets">

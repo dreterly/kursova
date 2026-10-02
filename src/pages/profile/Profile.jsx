@@ -1,31 +1,34 @@
-import { useState } from "react";
-import {
-  // PawPrint,
-  MapPin,
-  // Navigation,
-  // Clock,
-  Plus,
-  Check,
-  ShieldCheck,
-} from "lucide-react";
+import { MapPin, Plus, Check, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-import { pets } from "../../data/pets.js";
-
+import { useEffect, useState } from "react";
+import { getPets } from "../../services/petsApi.js";
 import "./profile.css";
 
 export function Profile() {
-  const myPets = pets.filter((pet) => pet.status === "owned");
+  const [pets, setPets] = useState([]);
+  const [selectedPetId, setSelectedPetId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [selectedPetId, setSelectedPetId] = useState(myPets[0]?.id);
+  useEffect(() => {
+    getPets()
+      .then((data) => {
+        setPets(data);
 
-  // const [activeTab, setActiveTab] = useState("data");
-
-  // const selectedPet =
-  //   myPets.find((pet) => pet.id === selectedPetId) || myPets[0];
+        if (data.length > 0) {
+          setSelectedPetId(data[0].id);
+        }
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <main className="profile">
-      {/* Заголовок */}
       <div className="profile-top">
         <div>
           <h1>Мої тварини</h1>
@@ -39,52 +42,55 @@ export function Profile() {
         </div>
       </div>
 
-      {/* Картки тварин */}
-      <section className="my-pets">
-        {myPets.map((pet) => {
-          const isSelected = pet.id === selectedPetId;
+      {loading && <p>Завантаження тварин...</p>}
 
-          return (
-            <Link
-              to={`/profile/pets/${pet.id}`}
-              key={pet.id}
-              className={`pet-profile-card ${isSelected ? "selected" : ""}`}
-              onClick={() => setSelectedPetId(pet.id)}
-            >
-              <div className="pet-profile-image">
-                <img src={pet.image} alt={pet.name} />
+      {error && <p>{error}</p>}
 
-                {isSelected && (
-                  <span className="selected-icon">
-                    <Check />
-                  </span>
-                )}
-              </div>
+      {!loading && !error && (
+        <section className="my-pets">
+          {pets.map((pet) => {
+            const isSelected = pet.id === selectedPetId;
 
-              <h3>{pet.name}</h3>
+            return (
+              <Link
+                to={`/profile/pets/${pet.id}`}
+                key={pet.id}
+                className={`pet-profile-card ${isSelected ? "selected" : ""}`}
+                onClick={() => setSelectedPetId(pet.id)}
+              >
+                <div className="pet-profile-image">
+                  <img src={pet.photo} alt={pet.name} />
 
-              <p>
-                {pet.type} • {pet.age} роки
-              </p>
+                  {isSelected && (
+                    <span className="selected-icon">
+                      <Check />
+                    </span>
+                  )}
+                </div>
 
-              <span className="chip-badge">
-                <MapPin />
-                Чипований
-              </span>
-            </Link>
-          );
-        })}
+                <h3>{pet.name}</h3>
 
-        <Link to="/profile/pets/add" className="add-pet-card">
-          <div className="add-pet-icon">
-            <Plus />
-          </div>
+                <p>
+                  {pet.type} • {pet.breed}
+                </p>
 
-          <span>+ Додати тварину</span>
-        </Link>
-      </section>
+                <span className="chip-badge">
+                  <MapPin />
+                  {pet.chip_number ? "Чипований" : "Без чипа"}
+                </span>
+              </Link>
+            );
+          })}
 
-     
+          <Link to="/profile/pets/add" className="add-pet-card">
+            <div className="add-pet-icon">
+              <Plus />
+            </div>
+
+            <span>+ Додати тварину</span>
+          </Link>
+        </section>
+      )}
     </main>
   );
 }

@@ -1,10 +1,13 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { createPet } from "../../services/petsApi.js";
 
 import "./addPets.css";
 
 export function AddPets() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     image: "",
     name: "",
@@ -17,6 +20,8 @@ export function AddPets() {
     chipNumber: "",
   });
 
+  const [error, setError] = useState("");
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -26,28 +31,46 @@ export function AddPets() {
     });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log("Нова тварина:", form);
+    setError("");
 
-    alert("Тварину додано!");
+    try {
+      await createPet({
+        user_id: 1,
+        name: form.name,
+        type: form.type,
+        breed: form.breed,
+        gender: form.gender,
+        birth_date: form.birthDate,
+        color: form.color,
+        chip_number: form.chipNumber,
+        photo: form.image,
+      });
+
+      alert("Тварину додано!");
+
+      navigate("/profile");
+    } catch (error) {
+      setError(error.message);
+    }
   }
 
   return (
     <main className="add-pet-page">
-
       <div className="add-pet-container">
-
         <div className="add-pet-header">
           <h1>Додати тварину</h1>
           <p>Заповніть інформацію про свого улюбленця</p>
         </div>
 
-        <form className="add-pet-form" onSubmit={handleSubmit}>
+        {error && <p className="form-error">{error}</p>}
 
+        <form className="add-pet-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Фото</label>
+
             <input
               type="file"
               name="image"
@@ -57,9 +80,9 @@ export function AddPets() {
           </div>
 
           <div className="form-row">
-
             <div className="form-group">
               <label>Ім'я</label>
+
               <input
                 type="text"
                 name="name"
@@ -72,6 +95,7 @@ export function AddPets() {
 
             <div className="form-group">
               <label>Вид</label>
+
               <select
                 name="type"
                 value={form.type}
@@ -85,13 +109,12 @@ export function AddPets() {
                 <option value="Інше">Інше</option>
               </select>
             </div>
-
           </div>
 
           <div className="form-row">
-
             <div className="form-group">
               <label>Порода</label>
+
               <input
                 type="text"
                 name="breed"
@@ -103,23 +126,19 @@ export function AddPets() {
 
             <div className="form-group">
               <label>Стать</label>
-              <select
-                name="gender"
-                value={form.gender}
-                onChange={handleChange}
-              >
+
+              <select name="gender" value={form.gender} onChange={handleChange}>
                 <option value="">Оберіть стать</option>
                 <option value="Самець">Самець</option>
                 <option value="Самка">Самка</option>
               </select>
             </div>
-
           </div>
 
           <div className="form-row">
-
             <div className="form-group">
               <label>Дата народження</label>
+
               <input
                 type="date"
                 name="birthDate"
@@ -130,6 +149,7 @@ export function AddPets() {
 
             <div className="form-group">
               <label>Колір</label>
+
               <input
                 type="text"
                 name="color"
@@ -138,11 +158,11 @@ export function AddPets() {
                 onChange={handleChange}
               />
             </div>
-
           </div>
 
           <div className="form-group">
             <label>Особливі ознаки</label>
+
             <textarea
               name="features"
               placeholder="Опишіть особливі ознаки тварини..."
@@ -154,6 +174,7 @@ export function AddPets() {
 
           <div className="form-group">
             <label>Номер мікрочипа</label>
+
             <input
               type="text"
               name="chipNumber"
@@ -172,11 +193,8 @@ export function AddPets() {
               Додати тварину
             </button>
           </div>
-
         </form>
-
       </div>
-
     </main>
   );
 }

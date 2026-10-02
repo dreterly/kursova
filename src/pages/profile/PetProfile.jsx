@@ -1,31 +1,111 @@
 
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { MapPin, Clock, ArrowLeft } from "lucide-react";
 
-import { pets } from "../../data/pets.js";
+import {
+  getPetById,
+  updatePet,
+  deletePet,
+} from "../../services/petsApi.js";
 
 import "./petProfile.css";
 
 export function PetProfile() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  const pet = pets.find((item) => item.id === Number(id));
-
+  const [pet, setPet] = useState(null);
   const [activeTab, setActiveTab] = useState("info");
+  const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  if (!pet) {
+  useEffect(() => {
+    getPetById(id)
+      .then((data) => {
+        setPet(data);
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [id]);
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setPet({
+      ...pet,
+      [name]: value,
+    });
+  }
+
+  async function handleSave() {
+    try {
+      await updatePet(id, {
+        name: pet.name,
+        type: pet.type,
+        breed: pet.breed,
+        gender: pet.gender,
+        birth_date: pet.birth_date,
+        color: pet.color,
+        chip_number: pet.chip_number,
+        photo: pet.photo,
+      });
+
+      setEditing(false);
+      alert("Дані тварини оновлено!");
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  async function handleDelete() {
+    const confirmed = window.confirm(
+      `Ви впевнені, що хочете видалити тварину "${pet.name}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await deletePet(id);
+
+      alert("Тварину видалено!");
+
+      navigate("/profile");
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  if (loading) {
+    return (
+      <main className="pet-profile-page">
+        <h1>Завантаження...</h1>
+      </main>
+    );
+  }
+
+  if (error || !pet) {
     return (
       <main className="pet-profile-page">
         <h1>Тварину не знайдено</h1>
-        <Link to="/profile">Повернутися до профілю</Link>
+        <p>{error}</p>
+
+        <Link to="/profile">
+          Повернутися до профілю
+        </Link>
       </main>
     );
   }
 
   return (
     <main className="pet-profile-page">
-
       <div className="pet-profile-container">
 
         <Link to="/profile" className="back-link">
@@ -33,26 +113,21 @@ export function PetProfile() {
           Назад до профілю
         </Link>
 
-        {/* Заголовок тварини */}
         <section className="pet-profile-header">
-
-          <img
-            src={pet.image}
-            alt={pet.name}
-          />
+          {pet.photo ? (
+            <img src={pet.photo} alt={pet.name} />
+          ) : null}
 
           <div>
             <h1>🐱 {pet.name}</h1>
+
             <p>
               {pet.type} • {pet.breed}
             </p>
           </div>
-
         </section>
 
-        {/* Вкладки */}
         <nav className="pet-profile-tabs">
-
           <button
             className={activeTab === "info" ? "active" : ""}
             onClick={() => setActiveTab("info")}
@@ -80,58 +155,174 @@ export function PetProfile() {
           >
             Історія маршруту
           </button>
-
         </nav>
 
-        {/* Основна інформація */}
         {activeTab === "info" && (
           <section className="pet-profile-section">
 
-            <h2>Основна інформація</h2>
+            <div className="section-header">
+              <h2>Основна інформація</h2>
 
-            <div className="pet-info-grid">
+              {!editing && (
+                <div className="section-actions">
 
-              <div>
-                <span>Ім'я</span>
-                <strong>{pet.name}</strong>
-              </div>
+                  <button
+                    onClick={() => setEditing(true)}
+                  >
+                    Редагувати
+                  </button>
 
-              <div>
-                <span>Вид</span>
-                <strong>{pet.type}</strong>
-              </div>
+                  <button
+                    className="delete-button"
+                    onClick={handleDelete}
+                  >
+                    Видалити
+                  </button>
 
-              <div>
-                <span>Порода</span>
-                <strong>{pet.breed}</strong>
-              </div>
-
-              <div>
-                <span>Стать</span>
-                <strong>{pet.gender}</strong>
-              </div>
-
-              <div>
-                <span>Вік</span>
-                <strong>{pet.age} роки</strong>
-              </div>
-
-              <div>
-                <span>Колір</span>
-                <strong>{pet.color}</strong>
-              </div>
-
+                </div>
+              )}
             </div>
 
-            <div className="pet-description">
-              <span>Особливі ознаки</span>
-              <p>{pet.description}</p>
-            </div>
+            {editing ? (
+              <div className="pet-edit-form">
+
+                <label>
+                  Ім'я
+
+                  <input
+                    name="name"
+                    value={pet.name || ""}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Вид
+
+                  <input
+                    name="type"
+                    value={pet.type || ""}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Порода
+
+                  <input
+                    name="breed"
+                    value={pet.breed || ""}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Стать
+
+                  <input
+                    name="gender"
+                    value={pet.gender || ""}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Дата народження
+
+                  <input
+                    type="date"
+                    name="birth_date"
+                    value={
+                      pet.birth_date
+                        ? pet.birth_date.slice(0, 10)
+                        : ""
+                    }
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Колір
+
+                  <input
+                    name="color"
+                    value={pet.color || ""}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Номер мікрочипа
+
+                  <input
+                    name="chip_number"
+                    value={pet.chip_number || ""}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <div>
+                  <button onClick={handleSave}>
+                    Зберегти зміни
+                  </button>
+
+                  <button onClick={() => setEditing(false)}>
+                    Скасувати
+                  </button>
+                </div>
+
+              </div>
+            ) : (
+              <div className="pet-info-grid">
+
+                <div>
+                  <span>Ім'я</span>
+                  <strong>{pet.name}</strong>
+                </div>
+
+                <div>
+                  <span>Вид</span>
+                  <strong>{pet.type}</strong>
+                </div>
+
+                <div>
+                  <span>Порода</span>
+                  <strong>
+                    {pet.breed || "Не вказано"}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Стать</span>
+                  <strong>
+                    {pet.gender || "Не вказано"}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Дата народження</span>
+
+                  <strong>
+                    {pet.birth_date
+                      ? pet.birth_date.slice(0, 10)
+                      : "Не вказано"}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Колір</span>
+
+                  <strong>
+                    {pet.color || "Не вказано"}
+                  </strong>
+                </div>
+
+              </div>
+            )}
 
           </section>
         )}
 
-        {/* Мікрочип */}
         {activeTab === "chip" && (
           <section className="pet-profile-section">
 
@@ -145,8 +336,9 @@ export function PetProfile() {
 
               <div>
                 <span>Номер мікрочипа</span>
+
                 <strong>
-                  {pet.chipNumber || "Мікрочип не вказано"}
+                  {pet.chip_number || "Мікрочип не вказано"}
                 </strong>
               </div>
 
@@ -155,32 +347,32 @@ export function PetProfile() {
           </section>
         )}
 
-        {/* GPS */}
-     
-{activeTab === "gps" && (
-  <section className="pet-profile-section">
+        {activeTab === "gps" && (
+          <section className="pet-profile-section">
 
-    <h2>GPS</h2>
+            <h2>GPS</h2>
 
-    <div className="location-card">
-      <MapPin />
+            <div className="location-card">
 
-      <div>
-        <span>Останнє місцезнаходження</span>
-        <strong>📍 {pet.city}</strong>
-      </div>
-    </div>
+              <MapPin />
 
-    <p className="gps-demo">
-      GPS-моніторинг поки працює в демонстраційному режимі.
-    </p>
+              <div>
+                <span>Останнє місцезнаходження</span>
 
-  </section>
-)}
+                <strong>
+                  GPS поки не підключено
+                </strong>
+              </div>
 
+            </div>
 
+            <p className="gps-demo">
+              GPS-моніторинг поки працює в демонстраційному режимі.
+            </p>
 
-        {/* Історія маршруту */}
+          </section>
+        )}
+
         {activeTab === "history" && (
           <section className="pet-profile-section">
 
@@ -192,9 +384,15 @@ export function PetProfile() {
                 <Clock />
 
                 <div>
-                  <strong>вул. Київська, 32</strong>
+                  <strong>
+                    вул. Київська, 32
+                  </strong>
+
                   <span>15:40</span>
-                  <p>Остання зафіксована точка</p>
+
+                  <p>
+                    Остання зафіксована точка
+                  </p>
                 </div>
               </div>
 
@@ -202,9 +400,15 @@ export function PetProfile() {
                 <Clock />
 
                 <div>
-                  <strong>Сквер на Соборному майдані</strong>
+                  <strong>
+                    Сквер на Соборному майдані
+                  </strong>
+
                   <span>13:10</span>
-                  <p>Рух тварини</p>
+
+                  <p>
+                    Рух тварини
+                  </p>
                 </div>
               </div>
 
@@ -212,9 +416,15 @@ export function PetProfile() {
                 <Clock />
 
                 <div>
-                  <strong>вул. Київська, 14</strong>
+                  <strong>
+                    вул. Київська, 14
+                  </strong>
+
                   <span>09:00</span>
-                  <p>Початок маршруту</p>
+
+                  <p>
+                    Початок маршруту
+                  </p>
                 </div>
               </div>
 
@@ -224,7 +434,6 @@ export function PetProfile() {
         )}
 
       </div>
-
     </main>
   );
 }

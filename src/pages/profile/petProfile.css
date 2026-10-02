@@ -1,8 +1,7 @@
-
 .pet-profile-page {
   min-height: 100vh;
   padding: 35px;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 .pet-profile-container {
@@ -15,7 +14,7 @@
   align-items: center;
   gap: 6px;
   margin-bottom: 20px;
-  color: #E6195E;
+  color: #e6195e;
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
@@ -78,12 +77,12 @@
 }
 
 .pet-profile-tabs button:hover {
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 .pet-profile-tabs button.active {
-  background-color: #FFE8F0;
-  color: #E6195E;
+  background-color: #ffe8f0;
+  color: #e6195e;
 }
 
 /* Основна секція */
@@ -144,7 +143,7 @@
   gap: 15px;
   padding: 20px;
   border-radius: 12px;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 .chip-icon {
@@ -154,7 +153,7 @@
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  background-color: #FFE8F0;
+  background-color: #ffe8f0;
   font-size: 23px;
 }
 
@@ -180,9 +179,8 @@
   height: 350px;
   overflow: hidden;
   border-radius: 15px;
-  background-color: #EEF1F3;
-  background-image:
-    radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-color: #eef1f3;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
@@ -197,7 +195,7 @@
   height: 50px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background-color: #E6195E;
+  background-color: #e6195e;
   color: white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -213,12 +211,12 @@
   margin-top: 15px;
   padding: 15px;
   border-radius: 10px;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 .location-card > svg {
   width: 22px;
-  color: #E6195E;
+  color: #e6195e;
 }
 
 .location-card div {
@@ -252,14 +250,14 @@
 .history-item > svg {
   width: 20px;
   margin-top: 12px;
-  color: #E6195E;
+  color: #e6195e;
 }
 
 .history-item > div {
   flex: 1;
   padding: 12px 15px;
   border-radius: 10px;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 .history-item strong {
@@ -294,4 +292,142 @@
   .pet-info-grid {
     grid-template-columns: 1fr;
   }
+}
+/* Редагування тварини */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.section-header button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 9px;
+  background-color: #e6195e;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.section-header button:hover {
+  background-color: #c91450;
+}
+
+/* Форма */
+
+.pet-edit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 25px;
+}
+
+.pet-edit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pet-edit-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  background-color: #f8f9fa;
+  color: #333;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.pet-edit-form input:focus {
+  border-color: #e6195e;
+  background-color: white;
+  box-shadow: 0 0 0 3px #ffe8f0;
+}
+
+/* Кнопки */
+
+.pet-edit-form > div {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.pet-edit-form > div button {
+  padding: 10px 20px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Зберегти */
+
+.pet-edit-form > div button:first-child {
+  border: none;
+
+  background-color: #e6195e;
+  color: white;
+}
+
+.pet-edit-form > div button:first-child:hover {
+  background-color: #c91450;
+}
+
+/* Скасувати */
+
+.pet-edit-form > div button:last-child {
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #555;
+}
+
+.pet-edit-form > div button:last-child:hover {
+  background-color: #f8f9fa;
+}
+
+/* Помилка */
+
+.form-error {
+  margin-bottom: 15px;
+  padding: 12px 15px;
+  border-radius: 9px;
+  background-color: #fff0f0;
+  color: #d32f2f;
+  font-size: 14px;
+}
+
+/* Адаптація */
+
+@media (max-width: 700px) {
+  .pet-edit-form {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-edit-form > div {
+    justify-content: stretch;
+  }
+
+  .pet-edit-form > div button {
+    flex: 1;
+  }
+}
+.section-actions {
+  display: flex;
+  gap: 10px;
 }

@@ -1,10 +1,20 @@
 import { House, Map, MapPin, Circle, UserCog } from "lucide-react";
-
 import { NavLink } from "react-router-dom";
+
+import { announcements } from "../data/announcements.js";
 
 import "./sideBar.css";
 
 export function SideBar() {
+  // Рахуємо кількість загублених і знайдених оголошень
+  const lostCount = announcements.filter(
+    (announcement) => announcement.type === "lost",
+  ).length;
+
+  const foundCount = announcements.filter(
+    (announcement) => announcement.type === "found",
+  ).length;
+
   return (
     <aside className="sidebar">
       <div className="sidebar-content">
@@ -31,6 +41,7 @@ export function SideBar() {
               className={({ isActive }) =>
                 isActive ? "sidebar-link active" : "sidebar-link"
               }
+              end
             >
               <span className="link-content">
                 <MapPin />
@@ -43,6 +54,7 @@ export function SideBar() {
               className={({ isActive }) =>
                 isActive ? "sidebar-link active" : "sidebar-link"
               }
+              end
             >
               <span className="link-content">
                 <Map />
@@ -57,6 +69,7 @@ export function SideBar() {
           <p className="sidebar-title">Оголошення</p>
 
           <nav className="sidebar-nav">
+            {/* Загублені */}
             <NavLink
               to="/lost"
               className={({ isActive }) =>
@@ -70,9 +83,10 @@ export function SideBar() {
                 <span>Загублені</span>
               </span>
 
-              <span className="counter lost-counter">23</span>
+              <span className="counter lost-counter">{lostCount}</span>
             </NavLink>
 
+            {/* Знайдені */}
             <NavLink
               to="/found"
               className={({ isActive }) =>
@@ -86,7 +100,7 @@ export function SideBar() {
                 <span>Знайдені</span>
               </span>
 
-              <span className="counter found-counter">41</span>
+              <span className="counter found-counter">{foundCount}</span>
             </NavLink>
           </nav>
         </div>
