@@ -22,11 +22,13 @@ router.get("/", async (req, res) => {
 
 // GET /api/pets/user/:userId
 // Отримати тварин конкретного користувача
+
 router.get("/user/:userId", async (req, res) => {
   try {
-    const [pets] = await db.query("SELECT * FROM pets WHERE user_id = ?", [
-      req.params.userId,
-    ]);
+    const [pets] = await db.query(
+      "SELECT * FROM pets WHERE user_id = ? AND is_own = TRUE",
+      [req.params.userId],
+    );
 
     res.json(pets);
   } catch (error) {
@@ -64,6 +66,7 @@ router.get("/:id", async (req, res) => {
 
 // POST /api/pets
 // Додати тварину
+
 router.post("/", async (req, res) => {
   try {
     const {
@@ -76,6 +79,7 @@ router.post("/", async (req, res) => {
       color,
       chip_number,
       photo,
+      is_own,
     } = req.body;
 
     const [result] = await db.query(
@@ -89,9 +93,10 @@ router.post("/", async (req, res) => {
         birth_date,
         color,
         chip_number,
-        photo
+        photo,
+        is_own
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user_id,
         name,
@@ -102,6 +107,7 @@ router.post("/", async (req, res) => {
         color,
         chip_number,
         photo,
+        is_own ?? true,
       ],
     );
 
