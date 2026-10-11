@@ -1,0 +1,46 @@
+"filename", "language", "JavaScript", "JavaScript JSX", "PostCSS", "JSON", "comment", "blank", "total"
+"c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\announcements.js", "JavaScript", 21, 0, 0, 0, 12, 4, 37
+"c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\auth.js", "JavaScript", 57, 0, 0, 0, 5, 5, 67
+"c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\gps.js", "JavaScript", 37, 0, 0, 0, 1, 7, 45
+"c:\Users\ichen\Desktop\Курсова\PetFinder\backend\server.js", "JavaScript", 2, 0, 0, 0, 0, 0, 2
+"c:\Users\ichen\Desktop\Курсова\PetFinder\package-lock.json", "JSON", 0, 0, 0, 34, 0, 0, 34
+"c:\Users\ichen\Desktop\Курсова\PetFinder\package.json", "JSON", 0, 0, 0, 2, 0, 0, 2
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\App.jsx", "JavaScript JSX", 0, 18, 0, 0, 0, -3, 15
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\GPSMonitoring.jsx", "JavaScript JSX", 0, 430, 0, 0, 82, 136, 648
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\Home.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, -2, -2
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\Map.jsx", "JavaScript JSX", 0, 174, 0, 0, 5, 32, 211
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminAnnouncementDetails.jsx", "JavaScript JSX", 0, 205, 0, 0, 0, 45, 250
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminAnnouncements.jsx", "JavaScript JSX", 0, 67, 0, 0, 0, 14, 81
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminDashboard.jsx", "JavaScript JSX", 0, 75, 0, 0, 0, 15, 90
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminPetDetails.jsx", "JavaScript JSX", 0, 50, 0, 0, 0, 13, 63
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminPets.jsx", "JavaScript JSX", 0, 71, 0, 0, 0, 12, 83
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminUsers.jsx", "JavaScript JSX", 0, 58, 0, 0, 0, 11, 69
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\EditAdminAnnouncement.jsx", "JavaScript JSX", 0, 93, 0, 0, 0, 36, 129
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\EditAdminPet.jsx", "JavaScript JSX", 0, 52, 0, 0, 0, 19, 71
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\EditAdminUser.jsx", "JavaScript JSX", 0, 31, 0, 0, 0, 9, 40
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminAnnouncementDetails.css", "PostCSS", 0, 0, 312, 0, 0, 52, 364
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminAnnouncements.css", "PostCSS", 0, 0, 311, 0, 39, 167, 517
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminDashboard.css", "PostCSS", 0, 0, 277, 0, 27, 138, 442
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminPetDetails.css", "PostCSS", 0, 0, 209, 0, 42, 163, 414
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminPets.css", "PostCSS", 0, 0, 315, 0, 42, 174, 531
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminUsers.css", "PostCSS", 0, 0, 339, 0, 33, 162, 534
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\editAdminAnnouncement.css", "PostCSS", 0, 0, 209, 0, 8, 37, 254
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\editAdminPet.css", "PostCSS", 0, 0, 215, 0, 8, 39, 262
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\editAdminUser.css", "PostCSS", 0, 0, 226, 0, 26, 132, 384
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\AnnouncementDetails.jsx", "JavaScript JSX", 0, 110, 0, 0, 7, 7, 124
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\CreateAnnouncement.jsx", "JavaScript JSX", 0, 81, 0, 0, 5, 11, 97
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\FoundPets.jsx", "JavaScript JSX", 0, 90, 0, 0, 4, 15, 109
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\LostPets.jsx", "JavaScript JSX", 0, 3, 0, 0, 12, 20, 35
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\announcementDetails.css", "PostCSS", 0, 0, 293, 0, 36, 62, 391
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\createAnnouncement.css", "PostCSS", 0, 0, 224, 0, 27, 49, 300
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\foundPets.css", "PostCSS", 0, 0, 316, 0, 24, 167, 507
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\lostPets.css", "PostCSS", 0, 0, 28, 0, -7, 17, 38
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\gpsMonitoring.css", "PostCSS", 0, 0, 672, 0, 71, 295, 1038
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\home.css", "PostCSS", 0, 0, -3, 0, 0, -69, -72
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\map.css", "PostCSS", 0, 0, 253, 0, 34, 108, 395
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\Settings.jsx", "JavaScript JSX", 0, 107, 0, 0, 4, 32, 143
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\settings.css", "PostCSS", 0, 0, 3, 0, 2, -2, 3
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\announcementsApi.js", "JavaScript", 3, 0, 0, 0, 0, 3, 6
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\gpsApi.js", "JavaScript", 9, 0, 0, 0, 0, 5, 14
+"c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\usersApi.js", "JavaScript", 17, 0, 0, 0, 1, 6, 24
+"Total", "-", 146, 1715, 4199, 36, 550, 2143, 8789

@@ -1,9 +1,12 @@
+import { Bell, MessageCircle, Eye, CheckCircle, ArrowLeft } from "lucide-react";
 
-import { Bell, MessageCircle, Eye, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import "./notifications.css";
 
 export function Notifications() {
+  const navigate = useNavigate();
+
   const notifications = [
     {
       id: 1,
@@ -30,12 +33,22 @@ export function Notifications() {
 
   return (
     <main className="notifications-page">
-
       <div className="notifications-container">
-
         <div className="notifications-header">
+          <button
+            type="button"
+            className="back-button"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft />
+            Повернутися назад
+          </button>
+
           <div className="notifications-title">
-            <Bell />
+            <div className="notifications-title-icon">
+              <Bell />
+            </div>
+
             <div>
               <h1>Сповіщення</h1>
               <p>Останні повідомлення та оновлення</p>
@@ -44,9 +57,7 @@ export function Notifications() {
         </div>
 
         <div className="notifications-list">
-
           {notifications.map((notification) => {
-
             let Icon = Bell;
 
             if (notification.type === "comment") {
@@ -62,10 +73,7 @@ export function Notifications() {
             }
 
             return (
-              <div
-                key={notification.id}
-                className="notification-card"
-              >
+              <div key={notification.id} className="notification-card">
                 <div className="notification-icon">
                   <Icon />
                 </div>
@@ -80,11 +88,8 @@ export function Notifications() {
               </div>
             );
           })}
-
         </div>
-
       </div>
-
     </main>
   );
 }

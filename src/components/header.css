@@ -1,112 +1,533 @@
+
+/* =========================
+   HEADER
+========================= */
+
 .header {
-  background-color: #f6e033;
-  padding: 14px 24px;
+  position: relative;
+  z-index: 100;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  gap: 18px;
+
+  padding: 12px 24px;
+
+  background-color: #f6e033;
   border-bottom: 1px solid #e6d000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 }
 
-.create-button {
-  background-color: #e6195e;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s;
-}
-.create-button:hover {
-  background-color: #b30e44;
-}
+/* Логотип */
 
-.notification {
-  position: relative;
-
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-}
-.profile-page {
+.logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 6px 12px;
-  border: 1px solid #eadf7c;
-  border-radius: 12px;
-  cursor: pointer;
-}
-.profile-page span {
-  font-size: 20px;
-  font-weight: 600;
-  color: #374151;
+  flex-shrink: 0;
+
+  color: inherit;
+  text-decoration: none;
 }
 
-.avatar {
-  width: 28px;
-  height: 28px;
-  background-color: #e6195e;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  font-weight: 700;
+.logo:hover,
+.logo:visited {
+  color: inherit;
+  text-decoration: none;
 }
+
+/* Пошук */
 
 .home-search {
   display: flex;
-  justify-content: center;
-  max-width: 600px;
+  align-items: stretch;
+
+  width: 100%;
+  max-width: 560px;
+  min-width: 0;
+  margin: 0 auto;
 }
 
 .home-search input {
   width: 100%;
-  padding: 10px 16px;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 11px 15px;
+
   border: 1px solid #ddd;
+  border-right: none;
   border-radius: 10px 0 0 10px;
   outline: none;
-  font-size: 16px;
-  background-color: white;
+
+  background-color: #fff;
+  color: #343a40;
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .home-search input:focus {
   border-color: #e6195e;
+  box-shadow: 0 0 0 2px rgba(230, 25, 94, 0.08);
+}
+
+.home-search input::placeholder {
+  color: #999;
 }
 
 .home-search button {
-  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  min-height: 42px;
+  padding: 0 18px;
+
   border: none;
   border-radius: 0 10px 10px 0;
+
   background-color: #e6195e;
-  color: white;
-  font-size: 16px;
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .home-search button:hover {
   background-color: #c91450;
 }
-.logo {
+
+/* Створення оголошення */
+
+.create-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 0 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #e6195e;
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
   text-decoration: none;
-  color: inherit;
-}
-.header a {
-  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
-.header a:hover {
-  text-decoration: none;
+.create-button:hover {
+  background-color: #c91450;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 9px rgba(230, 25, 94, 0.2);
 }
 
-.header a:visited {
+.create-button:active {
+  transform: translateY(0);
+}
+
+/* Сповіщення */
+
+.notification {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+  color: #343a40;
   text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.notification:hover {
+  background-color: rgba(255, 255, 255, 0.65);
+  color: #e6195e;
+}
+
+/* Профіль */
+
+.profile-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-page {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 5px 10px 5px 5px;
+
+  border: 1px solid #eadf7c;
+  border-radius: 12px;
+
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #343a40;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.profile-page:hover {
+  background-color: #fff;
+  border-color: #e6195e;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+/* Аватар */
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+  background-color: #e6195e;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Стрілочка */
+
+.profile-arrow {
+  margin-left: 2px;
+  color: #777;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.profile-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Випадаюче меню */
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1000;
+
+  width: 205px;
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
+  padding: 7px;
+
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+  animation: profileDropdown 0.15s ease;
+}
+
+@keyframes profileDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Елементи меню */
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #343a40;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #ffebf1;
+  color: #e6195e;
+}
+
+.dropdown-divider {
+  height: 1px;
+  margin: 5px 4px;
+  background-color: #eee;
+}
+
+/* Вихід */
+
+.logout-item {
+  color: #e6195e;
+}
+
+.logout-item:hover {
+  background-color: #fff0f4;
+  color: #c91450;
+}
+
+/* Кнопка входу */
+
+.login-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  padding: 5px 10px 5px 5px;
+
+  border: 1px solid #eadf7c;
+  border-radius: 12px;
+
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #343a40;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #fff;
+  border-color: #e6195e;
+}
+
+.login-button:visited {
+  color: #343a40;
+}
+
+/* =========================
+   АДАПТИВНІСТЬ
+========================= */
+
+@media (max-width: 1100px) {
+  .header {
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .home-search {
+    max-width: 420px;
+  }
+
+  .create-button {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+}
+
+/* Планшети */
+
+@media (max-width: 850px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .home-search {
+    order: 5;
+    flex-basis: 100%;
+    max-width: none;
+    margin-top: 2px;
+  }
+}
+
+/* Телефони */
+
+@media (max-width: 550px) {
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .notification {
+    width: 38px;
+    height: 38px;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .profile-page {
+    gap: 5px;
+    padding: 3px 5px;
+  }
+
+  .profile-page > span:not(.profile-arrow) {
+    display: none;
+  }
+
+  .profile-arrow {
+    font-size: 12px;
+  }
+
+  .create-button {
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+
+    font-size: 0;
+  }
+
+  .create-button::before {
+    content: "+";
+    font-size: 23px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .home-search {
+    order: 5;
+    flex-basis: 100%;
+    width: 100%;
+    margin: 2px 0 0;
+  }
+
+  .home-search input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .home-search button {
+    min-height: 40px;
+    padding: 0 13px;
+    font-size: 13px;
+  }
+
+  .profile-dropdown {
+    right: -4px;
+  }
+}
+
+/* Дуже вузькі екрани */
+
+@media (max-width: 360px) {
+  .header {
+    padding: 8px;
+    gap: 5px;
+  }
+
+  .notification {
+    width: 34px;
+    height: 34px;
+  }
+
+  .create-button {
+    width: 36px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .login-button {
+    gap: 5px;
+    padding-right: 7px;
+    font-size: 12px;
+  }
+}
+
+/* Клавіатурна навігація */
+
+.header button:focus-visible,
+.header a:focus-visible,
+.home-search input:focus-visible {
+  outline: 2px solid #343a40;
+  outline-offset: 3px;
+}
+
+/* Налаштування анімацій */
+
+@media (prefers-reduced-motion: reduce) {
+  .header *,
+  .header *::before,
+  .header *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

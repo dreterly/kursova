@@ -1,8 +1,8 @@
-
 .notifications-page {
   min-height: 100vh;
   padding: 35px;
-  background-color: #F8F9FA;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
 }
 
 .notifications-container {
@@ -14,34 +14,108 @@
   margin-bottom: 25px;
 }
 
+/* Кнопка назад */
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 18px;
+  padding: 7px 11px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+
+  background-color: #ffffff;
+  color: #687386;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.back-button:hover {
+  border-color: #f3c5d4;
+  background-color: #fff7fa;
+  color: #e6195e;
+  transform: translateX(-2px);
+  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.08);
+}
+
+.back-button:active {
+  transform: translateX(0);
+}
+
+/* Заголовок */
+
 .notifications-title {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
-.notifications-title > svg {
-  width: 30px;
-  height: 30px;
-  color: #E6195E;
+.notifications-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background-color: #ffebf1;
+  color: #e6195e;
+}
+
+.notifications-title-icon svg {
+  width: 25px;
+  height: 25px;
 }
 
 .notifications-title h1 {
   margin: 0;
-  color: #2D3142;
+
+  color: #2d3142;
   font-size: 28px;
+  font-weight: 700;
 }
 
 .notifications-title p {
   margin: 5px 0 0;
+
   color: #777;
+  font-size: 14px;
 }
+
+/* Список */
 
 .notifications-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
+
+/* Картка */
 
 .notification-card {
   display: flex;
@@ -50,10 +124,28 @@
 
   padding: 18px;
 
-  background-color: white;
-  border: 1px solid #eee;
+  background-color: #ffffff;
+
+  border: 1px solid #eeeeee;
   border-radius: 15px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.notification-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #f3c5d4;
+
+  box-shadow: 0 5px 16px rgba(230, 25, 94, 0.08);
+}
+
+/* Іконка повідомлення */
 
 .notification-icon {
   display: flex;
@@ -62,16 +154,21 @@
 
   width: 45px;
   height: 45px;
+
   flex-shrink: 0;
 
   border-radius: 50%;
-  background-color: #FFE8F0;
-  color: #E6195E;
+
+  background-color: #ffe8f0;
+  color: #e6195e;
 }
 
 .notification-icon svg {
   width: 21px;
+  height: 21px;
 }
+
+/* Текст */
 
 .notification-content {
   flex: 1;
@@ -79,27 +176,49 @@
 
 .notification-content h3 {
   margin: 0 0 5px;
-  color: #333;
+
+  color: #333333;
+
   font-size: 16px;
+  font-weight: 600;
 }
 
 .notification-content p {
   margin: 0 0 6px;
-  color: #666;
+
+  color: #666666;
+
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .notification-content span {
-  color: #999;
+  color: #999999;
   font-size: 12px;
 }
+
+/* Адаптивність */
 
 @media (max-width: 600px) {
   .notifications-page {
     padding: 20px 15px;
   }
 
+  .notifications-title h1 {
+    font-size: 24px;
+  }
+
+  .notifications-title p {
+    font-size: 13px;
+  }
+
   .notification-card {
     align-items: flex-start;
+    padding: 15px;
+  }
+
+  .notification-icon {
+    width: 40px;
+    height: 40px;
   }
 }

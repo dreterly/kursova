@@ -1,12 +1,21 @@
 import { useState } from "react";
-import { PawPrint, Bell } from "lucide-react";
+import { PawPrint, Bell, User, LogOut, ChevronDown } from "lucide-react";
+
 import { Link, useNavigate } from "react-router-dom";
+
+import { logout } from "../services/auth.js";
 
 import "./header.css";
 
 export default function Header() {
   const [search, setSearch] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
+
   const navigate = useNavigate();
+
+  const savedUser = localStorage.getItem("user");
+
+  const user = savedUser ? JSON.parse(savedUser) : null;
 
   function handleSearch(event) {
     event.preventDefault();
@@ -21,16 +30,34 @@ export default function Header() {
     navigate(`/lost?search=${encodeURIComponent(searchText)}`);
   }
 
+  function handleLogout() {
+    setShowMenu(false);
+
+    logout();
+
+    navigate("/login");
+  }
+
   return (
     <header className="header">
+      {/* Логотип */}
+
       <Link to="/" className="logo">
+        <PawPrint className="logo-icon" size={50} strokeWidth={2.5} />
+
         <h1>
-          <PawPrint strokeWidth={2.25} color="#E6195E" size="50px" />
           PET<span>FINDER</span>
         </h1>
       </Link>
 
+      {/* Пошук */}
+
       <form className="home-search" onSubmit={handleSearch}>
+        {/* <Search
+          className="search-icon"
+          size={18}
+        /> */}
+
         <input
           type="text"
           placeholder="Пошук тварини..."
@@ -41,22 +68,88 @@ export default function Header() {
         <button type="submit">Пошук</button>
       </form>
 
-      <Link to="/create-announcement">
-        <button className="create-button">+ Створити оголошення</button>
+      {/* Створити оголошення */}
+
+      <Link to="/create-announcement" className="create-button">
+        + Створити оголошення
       </Link>
 
-      <Link to="/profile/notifications">
-        <button className="notification">
-          <Bell size={30} strokeWidth={2.25} />
-        </button>
+      {/* Сповіщення */}
+
+      <Link
+        to="/profile/notifications"
+        className="notification"
+        aria-label="Сповіщення"
+      >
+        <Bell size={25} strokeWidth={2.25} />
+
+        <span className="notification-badge">2</span>
       </Link>
 
-      <Link to="/profile">
-        <button className="profile-page">
-          <div className="avatar">В</div>
-          <span>Вікторія ▾</span>
-        </button>
-      </Link>
+      {/* Профіль */}
+
+      {user ? (
+        <div className="profile-menu">
+          <button
+            className="profile-page"
+            onClick={() => setShowMenu(!showMenu)}
+          >
+            <div className="avatar">
+              {user.name ? user.name.charAt(0).toUpperCase() : "?"}
+            </div>
+
+            <span className="profile-name">{user.name}</span>
+
+            <ChevronDown
+              className={`profile-arrow ${showMenu ? "open" : ""}`}
+              size={17}
+            />
+          </button>
+
+          {/* Випадаюче меню */}
+
+          {showMenu && (
+            <div className="profile-dropdown">
+              <Link
+                to="/profile"
+                className="dropdown-item"
+                onClick={() => setShowMenu(false)}
+              >
+                <User size={18} />
+
+                <span>Особистий кабінет</span>
+              </Link>
+
+              <Link
+                to="/profile/settings"
+                className="dropdown-item"
+                onClick={() => setShowMenu(false)}
+              >
+                <User size={18} />
+
+                <span>Налаштування</span>
+              </Link>
+
+              <div className="dropdown-divider" />
+
+              <button
+                className="dropdown-item logout-item"
+                onClick={handleLogout}
+              >
+                <LogOut size={18} />
+
+                <span>Вийти</span>
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <Link to="/login" className="login-button">
+          <div className="avatar">?</div>
+
+          <span>Увійти</span>
+        </Link>
+      )}
     </header>
   );
 }

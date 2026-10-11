@@ -1,78 +1,612 @@
-
 .admin-users {
   min-height: 100vh;
-  padding: 35px;
-  background-color: #F8F9FA;
+  padding: 35px 30px 60px;
+  background-color: #f8f9fa;
 }
 
 .admin-users-container {
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1150px;
   margin: 0 auto;
 }
 
+/* ============================= */
+/* КНОПКА НАЗАД */
+/* ============================= */
+
+.admin-users-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 25px;
+  padding: 8px 13px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+
+  background-color: #ffffff;
+  color: #687386;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-users-back-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.admin-users-back-button:hover {
+  border-color: #f3c5d4;
+  background-color: #fff7fa;
+  color: #e6195e;
+  transform: translateX(-2px);
+  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.08);
+}
+
+/* ============================= */
+/* ЗАГОЛОВОК */
+/* ============================= */
+
 .admin-users-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
   margin-bottom: 25px;
 }
 
+.admin-users-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.admin-users-title-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.admin-users-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #e6195e;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
 .admin-users-header h1 {
-  margin: 0;
-  color: #2D3142;
-  font-size: 28px;
+  margin: 0 0 5px;
+
+  color: #343a40;
+
+  font-size: 30px;
+  font-weight: 750;
 }
 
 .admin-users-header p {
-  margin: 6px 0 0;
-  color: #777;
+  margin: 0;
+
+  color: #687386;
+
+  font-size: 14px;
 }
+
+/* ============================= */
+/* ЛІЧИЛЬНИК */
+/* ============================= */
+
+.admin-users-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+  padding: 15px 18px;
+
+  border: 1px solid #f0e7a5;
+  border-radius: 12px;
+
+  background-color: #fffdf0;
+}
+
+.admin-users-count span {
+  color: #777;
+
+  font-size: 13px;
+}
+
+.admin-users-count strong {
+  color: #343a40;
+
+  font-size: 20px;
+}
+
+/* ============================= */
+/* ТАБЛИЦЯ */
+/* ============================= */
 
 .admin-users-table-wrapper {
   overflow-x: auto;
-  background-color: white;
-  border: 1px solid #eee;
+
+  border: 1px solid #eeeeee;
   border-radius: 16px;
+
+  background-color: #ffffff;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
 }
 
 .admin-users-table {
   width: 100%;
-  min-width: 700px;
+  min-width: 850px;
+
   border-collapse: collapse;
 }
 
 .admin-users-table th {
-  padding: 15px;
-  background-color: #F8F9FA;
-  color: #555;
+  padding: 15px 16px;
+
+  border-bottom: 1px solid #eeeeee;
+
+  background-color: #fafafa;
+
+  color: #687386;
+
+  font-size: 12px;
+  font-weight: 700;
+
   text-align: left;
-  font-size: 13px;
+  white-space: nowrap;
 }
 
 .admin-users-table td {
-  padding: 15px;
-  border-top: 1px solid #eee;
+  padding: 15px 16px;
+
+  border-top: 1px solid #f1f1f1;
+
   color: #444;
-  font-size: 14px;
+
+  font-size: 13px;
+
+  vertical-align: middle;
 }
 
-.user-role {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
+.admin-users-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.admin-users-table tbody tr:hover {
+  background-color: #fffafd;
+}
+
+/* ============================= */
+/* ДАНІ КОРИСТУВАЧА */
+/* ============================= */
+
+.user-id {
+  color: #9aa3af !important;
+
+  font-size: 12px !important;
   font-weight: 600;
 }
 
+.user-name {
+  color: #343a40;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-email {
+  color: #687386 !important;
+}
+
+.user-date {
+  color: #687386 !important;
+
+  white-space: nowrap;
+}
+
+/* ============================= */
+/* РОЛЬ */
+/* ============================= */
+
+.user-role {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
 .user-role.user {
-  background-color: #F8F9FA;
-  color: #666;
+  background-color: #f1f3f5;
+  color: #687386;
 }
 
 .user-role.admin {
-  background-color: #FFE8F0;
-  color: #E6195E;
+  background-color: #fff0f5;
+  color: #e6195e;
 }
 
-@media (max-width: 700px) {
+/* ============================= */
+/* ДІЇ */
+/* ============================= */
+
+.admin-users-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-user-edit,
+.admin-user-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 7px 10px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.admin-user-edit {
+  border: 1px solid #f3c5d4;
+
+  background-color: #fff7fa;
+  color: #e6195e;
+}
+
+.admin-user-edit:hover {
+  background-color: #e6195e;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+.admin-user-delete {
+  border: 1px solid #eeeeee;
+
+  background-color: #ffffff;
+  color: #777;
+}
+
+.admin-user-delete:hover {
+  border-color: #f3c5d4;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+
+  transform: translateY(-1px);
+}
+
+.admin-user-edit svg,
+.admin-user-delete svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ============================= */
+/* ПОРОЖНІЙ СТАН */
+/* ============================= */
+
+.admin-users-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 500px;
+
+  margin: 40px auto 0;
+  padding: 40px 25px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+
+  background-color: #ffffff;
+
+  text-align: center;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
+}
+
+.admin-users-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 60px;
+  height: 60px;
+
+  margin-bottom: 15px;
+
+  border-radius: 15px;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.admin-users-empty-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.admin-users-empty h2 {
+  margin: 0 0 8px;
+
+  color: #343a40;
+
+  font-size: 20px;
+}
+
+.admin-users-empty p {
+  margin: 0;
+
+  color: #687386;
+
+  font-size: 13px;
+}
+
+/* ============================= */
+/* ЗАВАНТАЖЕННЯ */
+/* ============================= */
+
+.admin-users-state {
+  min-height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #687386;
+
+  font-size: 14px;
+}
+
+.admin-users-loader {
+  width: 34px;
+  height: 34px;
+
+  border: 3px solid #f3d7e1;
+  border-top-color: #e6195e;
+
+  border-radius: 50%;
+
+  animation: admin-users-loader-spin 0.8s linear infinite;
+}
+
+@keyframes admin-users-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================= */
+/* ПОМИЛКА */
+/* ============================= */
+
+.admin-users-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 500px;
+
+  margin: 60px auto 0;
+  padding: 35px 25px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+
+  background-color: #ffffff;
+
+  text-align: center;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
+}
+
+.admin-users-error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  margin-bottom: 15px;
+
+  border-radius: 14px;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.admin-users-error-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.admin-users-error h2 {
+  margin: 0 0 8px;
+
+  color: #343a40;
+
+  font-size: 20px;
+}
+
+.admin-users-error p {
+  margin: 0 0 20px;
+
+  color: #687386;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-users-retry {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  background-color: #e6195e;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.admin-users-retry svg {
+  width: 16px;
+  height: 16px;
+}
+
+.admin-users-retry:hover {
+  background-color: #c91450;
+
+  transform: translateY(-1px);
+}
+
+/* ============================= */
+/* АДАПТИВНІСТЬ */
+/* ============================= */
+
+@media (max-width: 800px) {
   .admin-users {
-    padding: 20px 15px;
+    padding: 25px 18px 40px;
+  }
+
+  .admin-users-header {
+    align-items: flex-start;
+  }
+
+  .admin-users-title-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .admin-users-title-icon svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .admin-users-header h1 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-users {
+    padding: 20px 14px 35px;
+  }
+
+  .admin-users-header {
+    gap: 10px;
+  }
+
+  .admin-users-title-icon {
+    display: none;
+  }
+
+  .admin-users-label {
+    font-size: 9px;
+  }
+
+  .admin-users-header h1 {
+    font-size: 23px;
+  }
+
+  .admin-users-header p {
+    font-size: 12px;
+  }
+
+  .admin-users-count {
+    padding: 13px 15px;
+  }
+
+  .admin-users-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-user-edit,
+  .admin-user-delete {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .admin-users-back-button {
+    margin-bottom: 20px;
+  }
+
+  .admin-users-count strong {
+    font-size: 18px;
   }
 }

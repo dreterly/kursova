@@ -1,0 +1,146 @@
+Date : 2026-10-07 19:30:39
+Directory : c:\Users\ichen\Desktop\Курсова\PetFinder
+Total : 96 files,  20057 codes, 817 comments, 4472 blanks, all 25346 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| PostCSS        |         30 |      8,926 |        589 |      2,969 |     12,484 |
+| JavaScript JSX |         35 |      5,801 |        144 |      1,228 |      7,173 |
+| JSON           |          5 |      3,823 |          0 |          5 |      3,828 |
+| JavaScript     |         20 |      1,458 |         84 |        259 |      1,801 |
+| XML            |          4 |         27 |          0 |          2 |         29 |
+| HTML           |          1 |         13 |          0 |          1 |         14 |
+| Markdown       |          1 |          9 |          0 |          8 |         17 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                     | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                        |         96 |     20,057 |        817 |      4,472 |     25,346 |
+| . (Files)                                                                                |          7 |      3,667 |          1 |         16 |      3,684 |
+| backend                                                                                  |         11 |      1,040 |         59 |        155 |      1,254 |
+| backend (Files)                                                                          |          3 |        224 |          0 |         13 |        237 |
+| backend\config                                                                           |          1 |         10 |          0 |          3 |         13 |
+| backend\middleware                                                                       |          2 |         32 |          0 |         15 |         47 |
+| backend\routes                                                                           |          5 |        774 |         59 |        124 |        957 |
+| public                                                                                   |          2 |         25 |          0 |          1 |         26 |
+| src                                                                                      |         76 |     15,325 |        757 |      4,300 |     20,382 |
+| src (Files)                                                                              |          4 |        240 |          4 |         36 |        280 |
+| src\assets                                                                               |          2 |          2 |          0 |          1 |          3 |
+| src\components                                                                           |         10 |      1,119 |         52 |        239 |      1,410 |
+| src\context                                                                              |          1 |         46 |          2 |          9 |         57 |
+| src\data                                                                                 |          2 |        349 |          9 |         24 |        382 |
+| src\layouts                                                                              |          1 |         17 |          0 |          5 |         22 |
+| src\pages                                                                                |         49 |     13,305 |        675 |      3,908 |     17,888 |
+| src\pages (Files)                                                                        |          9 |      2,346 |        254 |        824 |      3,424 |
+| src\pages\admin                                                                          |         18 |      5,194 |        225 |      1,638 |      7,057 |
+| src\pages\announcements                                                                  |          8 |      2,243 |        146 |        630 |      3,019 |
+| src\pages\profile                                                                        |         14 |      3,522 |         50 |        816 |      4,388 |
+| src\services                                                                             |          7 |        247 |         15 |         78 |        340 |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                 | language       | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\ichen\Desktop\Курсова\PetFinder\.oxlintrc.json                                  | JSON           |          8 |          0 |          1 |          9 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\README.md                                       | Markdown       |          9 |          0 |          8 |         17 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\config\db.js                            | JavaScript     |         10 |          0 |          3 |         13 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\middleware\adminMiddleware.js           | JavaScript     |          9 |          0 |          5 |         14 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\middleware\authMiddleware.js            | JavaScript     |         23 |          0 |         10 |         33 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\package-lock.json                       | JSON           |        189 |          0 |          1 |        190 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\package.json                            | JSON           |         14 |          0 |          1 |         15 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\admin.js                         | JavaScript     |        196 |          2 |         27 |        225 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\announcements.js                 | JavaScript     |        219 |         24 |         33 |        276 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\auth.js                          | JavaScript     |        154 |         16 |         25 |        195 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\gps.js                           | JavaScript     |         37 |          1 |          7 |         45 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\routes\pets.js                          | JavaScript     |        168 |         16 |         32 |        216 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\backend\server.js                               | JavaScript     |         21 |          0 |         11 |         32 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\eslint.config.js                                | JavaScript     |         20 |          0 |          2 |         22 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\index.html                                      | HTML           |         13 |          0 |          1 |         14 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\package-lock.json                               | JSON           |      3,564 |          0 |          1 |      3,565 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\package.json                                    | JSON           |         48 |          0 |          1 |         49 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\public\favicon.svg                              | XML            |          1 |          0 |          0 |          1 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\public\icons.svg                                | XML            |         24 |          0 |          1 |         25 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\App.css                                     | PostCSS        |          0 |          0 |          1 |          1 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\App.jsx                                     | JavaScript JSX |        184 |          4 |         28 |        216 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\assets\react.svg                            | XML            |          1 |          0 |          0 |          1 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\assets\vite.svg                             | XML            |          1 |          0 |          1 |          2 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\AdminRoute.jsx                   | JavaScript JSX |         13 |          0 |          6 |         19 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\AnnouncementCard.jsx             | JavaScript JSX |         63 |          0 |          1 |         64 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\Header.jsx                       | JavaScript JSX |        106 |         10 |         40 |        156 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\PetCard.jsx                      | JavaScript JSX |         46 |          0 |          1 |         47 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\ProtectedRoute.jsx               | JavaScript JSX |          8 |          0 |          4 |         12 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\SideBar.jsx                      | JavaScript JSX |        126 |          0 |          1 |        127 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\announcementCard.css             | PostCSS        |        158 |          1 |          1 |        160 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\header.css                       | PostCSS        |        303 |         40 |        183 |        526 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\petCard.css                      | PostCSS        |        109 |          0 |          1 |        110 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\components\sideBar.css                      | PostCSS        |        187 |          1 |          1 |        189 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\context\AuthContext.jsx                     | JavaScript JSX |         46 |          2 |          9 |         57 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\data\announcements.js                       | JavaScript     |        142 |          0 |          9 |        151 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\data\pets.js                                | JavaScript     |        207 |          9 |         15 |        231 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\index.css                                   | PostCSS        |         44 |          0 |          5 |         49 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\layouts\MainLoyout.jsx                      | JavaScript JSX |         17 |          0 |          5 |         22 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\main.jsx                                    | JavaScript JSX |         12 |          0 |          2 |         14 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\GPSMonitoring.jsx                     | JavaScript JSX |        430 |         82 |        136 |        648 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\Home.jsx                              | JavaScript JSX |        114 |          2 |         23 |        139 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\Login.jsx                             | JavaScript JSX |        108 |          0 |         27 |        135 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\Map.jsx                               | JavaScript JSX |        177 |          5 |         33 |        215 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\Register.jsx                          | JavaScript JSX |        160 |          0 |         37 |        197 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminAnnouncementDetails.jsx    | JavaScript JSX |        205 |          0 |         45 |        250 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminAnnouncements.jsx          | JavaScript JSX |        213 |          0 |         40 |        253 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminDashboard.jsx              | JavaScript JSX |        173 |          0 |         33 |        206 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminPetDetails.jsx             | JavaScript JSX |        212 |          0 |         48 |        260 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminPets.jsx                   | JavaScript JSX |        182 |          0 |         38 |        220 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\AdminUsers.jsx                  | JavaScript JSX |        189 |          0 |         39 |        228 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\EditAdminAnnouncement.jsx       | JavaScript JSX |        270 |          0 |         63 |        333 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\EditAdminPet.jsx                | JavaScript JSX |        261 |          0 |         49 |        310 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\EditAdminUser.jsx               | JavaScript JSX |        179 |          0 |         43 |        222 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminAnnouncementDetails.css    | PostCSS        |        312 |          0 |         52 |        364 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminAnnouncements.css          | PostCSS        |        419 |         39 |        189 |        647 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminDashboard.css              | PostCSS        |        350 |         27 |        152 |        529 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminPetDetails.css             | PostCSS        |        443 |         42 |        207 |        692 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminPets.css                   | PostCSS        |        451 |         42 |        202 |        695 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\adminUsers.css                  | PostCSS        |        404 |         33 |        176 |        613 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\editAdminAnnouncement.css       | PostCSS        |        311 |          8 |         57 |        376 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\editAdminPet.css                | PostCSS        |        304 |          8 |         56 |        368 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\admin\editAdminUser.css               | PostCSS        |        316 |         26 |        149 |        491 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\AnnouncementDetails.jsx | JavaScript JSX |        181 |          7 |         29 |        217 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\CreateAnnouncement.jsx  | JavaScript JSX |        298 |         11 |         43 |        352 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\FoundPets.jsx           | JavaScript JSX |        174 |          4 |         36 |        214 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\LostPets.jsx            | JavaScript JSX |        182 |         13 |         53 |        248 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\announcementDetails.css | PostCSS        |        378 |         36 |         78 |        492 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\createAnnouncement.css  | PostCSS        |        293 |         27 |         60 |        380 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\foundPets.css           | PostCSS        |        368 |         24 |        168 |        560 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\announcements\lostPets.css            | PostCSS        |        369 |         24 |        163 |        556 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\auth.css                              | PostCSS        |        210 |         33 |        118 |        361 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\gpsMonitoring.css                     | PostCSS        |        672 |         71 |        295 |      1,038 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\home.css                              | PostCSS        |        222 |         27 |         47 |        296 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\map.css                               | PostCSS        |        253 |         34 |        108 |        395 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\AddPets.jsx                   | JavaScript JSX |        221 |          0 |         52 |        273 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\EditAnnouncement.jsx          | JavaScript JSX |        243 |          0 |         57 |        300 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\MyAnnouncements.jsx           | JavaScript JSX |        163 |          0 |         35 |        198 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\Notifications.jsx             | JavaScript JSX |         80 |          0 |         16 |         96 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\PetProfile.jsx                | JavaScript JSX |        339 |          0 |         66 |        405 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\Profile.jsx                   | JavaScript JSX |        174 |          0 |         32 |        206 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\Settings.jsx                  | JavaScript JSX |        252 |          4 |         58 |        314 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\addPets.css                   | PostCSS        |        201 |          0 |         41 |        242 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\editAnnouncement.css          | PostCSS        |        227 |          0 |         31 |        258 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\myAnnouncements.css           | PostCSS        |        337 |         12 |         65 |        414 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\notifications.css             | PostCSS        |        157 |          7 |         61 |        225 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\petProfile.css                | PostCSS        |        411 |         13 |        172 |        596 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\profile.css                   | PostCSS        |        467 |          7 |         81 |        555 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\pages\profile\settings.css                  | PostCSS        |        250 |          7 |         49 |        306 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\adminUsersApi.js                   | JavaScript     |         35 |          0 |         13 |         48 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\announcementsApi.js                | JavaScript     |         79 |          6 |         23 |        108 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\auth.js                            | JavaScript     |          5 |          0 |          2 |          7 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\authApi.js                         | JavaScript     |         29 |          2 |          9 |         40 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\gpsApi.js                          | JavaScript     |          9 |          0 |          5 |         14 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\petsApi.js                         | JavaScript     |         73 |          6 |         20 |         99 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\src\services\usersApi.js                        | JavaScript     |         17 |          1 |          6 |         24 |
+| c:\Users\ichen\Desktop\Курсова\PetFinder\vite.config.js                                  | JavaScript     |          5 |          1 |          2 |          8 |
+| Total                                                                                    |                |     20,057 |        817 |      4,472 |     25,346 |
++------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

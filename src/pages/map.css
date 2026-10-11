@@ -1,0 +1,394 @@
+.map-page {
+  min-height: 100%;
+  padding: 30px;
+  background: #f8f9fa;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.map-header h1 {
+  margin: 0 0 8px;
+  color: #343a40;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.map-header p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 15px;
+}
+
+.map-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 130px;
+  padding: 12px 20px;
+
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.map-counter strong {
+  color: #e6195e;
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.map-counter span {
+  color: #6c757d;
+  font-size: 12px;
+}
+
+/* =========================
+   ЛЕГЕНДА
+========================= */
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 14px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #555555;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.legend-marker {
+  display: inline-block;
+
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+}
+
+.lost-legend {
+  background: #e6195e;
+  box-shadow: 0 0 0 3px rgba(230, 25, 94, 0.12);
+}
+
+.found-legend {
+  background: #f6e033;
+  box-shadow: 0 0 0 3px rgba(246, 224, 51, 0.18);
+}
+
+/* =========================
+   КАРТА
+========================= */
+
+.map-wrapper {
+  width: 100%;
+  height: 650px;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+  border: 1px solid #eeeeee;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.09);
+}
+
+.petfinder-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================
+   КАСТОМНІ МАРКЕРИ
+========================= */
+
+.custom-map-marker-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-map-marker {
+  width: 42px;
+  height: 42px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50% 50% 50% 0;
+
+  transform: rotate(-45deg);
+
+  border: 3px solid #ffffff;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.25),
+    0 0 0 4px rgba(255, 255, 255, 0.45);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Загублена тварина — малиновий */
+
+.lost-marker {
+  background: #e6195e;
+}
+
+/* Знайдена тварина — лимонний */
+
+.found-marker {
+  background: #f6e033;
+}
+
+/* Лапка */
+
+.marker-paw {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  background: #ffffff;
+  color: #343a40;
+
+  border-radius: 50%;
+
+  font-size: 17px;
+
+  transform: rotate(45deg);
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+/* Для жовтого маркера теж біла лапка */
+
+.found-marker .marker-paw {
+  background: #ffffff;
+  color: #343a40;
+  filter: none;
+}
+
+/* Тінь під маркером */
+
+.custom-map-marker-shadow {
+  width: 14px;
+  height: 6px;
+
+  margin-top: -2px;
+  margin-left: 14px;
+
+  background: rgba(0, 0, 0, 0.2);
+
+  border-radius: 50%;
+
+  filter: blur(2px);
+}
+
+/* =========================
+   POPUP
+========================= */
+
+.map-popup {
+  min-width: 220px;
+  max-width: 280px;
+}
+
+.map-popup-type {
+  display: inline-block;
+
+  margin-bottom: 8px;
+  padding: 5px 10px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Загублений */
+
+.map-popup-type.lost {
+  color: #ffffff;
+  background: #e6195e;
+}
+
+/* Знайдений */
+
+.map-popup-type.found {
+  color: #343a40;
+  background: #f6e033;
+}
+
+.map-popup h3 {
+  margin: 0 0 10px;
+
+  color: #343a40;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.map-popup p {
+  margin: 6px 0;
+
+  color: #555555;
+
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.map-popup p strong {
+  color: #343a40;
+}
+
+/* =========================
+   КНОПКА "ПЕРЕГЛЯНУТИ"
+========================= */
+
+.map-popup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 12px;
+  padding: 9px 12px;
+
+  border-radius: 8px;
+
+  background: #e6195e !important;
+  color: #ffffff !important;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-align: center;
+  text-decoration: none !important;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.map-popup-button:hover {
+  background: #c91450 !important;
+  color: #ffffff !important;
+
+  text-decoration: none !important;
+
+  transform: translateY(-1px);
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.map-state {
+  min-height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #6c757d;
+}
+
+.map-spinner {
+  width: 38px;
+  height: 38px;
+
+  border: 4px solid #eeeeee;
+  border-top-color: #e6195e;
+
+  border-radius: 50%;
+
+  animation: map-spin 0.8s linear infinite;
+}
+
+@keyframes map-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.map-error {
+  color: #dc3545;
+}
+
+/* =========================
+   LEAFLET POPUP
+========================= */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+}
+
+.leaflet-popup-content {
+  margin: 14px;
+}
+
+.leaflet-popup-tip {
+  background: #ffffff;
+}
+
+/* =========================
+   АДАПТИВНІСТЬ
+========================= */
+
+@media (max-width: 768px) {
+  .map-page {
+    padding: 20px;
+  }
+
+  .map-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .map-counter {
+    align-self: stretch;
+  }
+
+  .map-wrapper {
+    height: 500px;
+  }
+
+  .map-legend {
+    flex-wrap: wrap;
+  }
+}

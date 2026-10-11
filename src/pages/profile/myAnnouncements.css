@@ -1,88 +1,144 @@
 .my-announcements {
   min-height: 100vh;
   padding: 35px;
+  box-sizing: border-box;
   background-color: #f8f9fa;
 }
 
 .my-announcements-header {
   max-width: 1100px;
   margin: 0 auto 25px;
-
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .my-announcements-header h1 {
   margin: 0;
   color: #2d3142;
   font-size: 28px;
+  font-weight: 750;
 }
 
 .my-announcements-header p {
   margin: 6px 0 0;
   color: #777;
+  font-size: 14px;
 }
 
 .create-announcement-button {
   padding: 11px 17px;
   border-radius: 10px;
   background-color: #e6195e;
-  color: white;
+  color: #ffffff;
   text-decoration: none;
+  font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .create-announcement-button:hover {
   background-color: #c91450;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(230, 25, 94, 0.2);
 }
+
+/* Список */
 
 .my-announcements-list {
   max-width: 1100px;
   margin: 0 auto;
-
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
+/* Картка */
+
 .my-announcement-card {
   display: flex;
   align-items: center;
   gap: 20px;
-
   padding: 18px;
-
-  background-color: white;
-  border: 1px solid #eee;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
   border-radius: 16px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.my-announcement-card > img {
+.my-announcement-card:hover {
+  transform: translateY(-2px);
+  border-color: #f3d9e2;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* Фото */
+
+.my-announcement-image {
   width: 110px;
   height: 100px;
-  object-fit: cover;
+  flex-shrink: 0;
+  overflow: hidden;
   border-radius: 12px;
+  background-color: #f1f1f1;
 }
+
+.my-announcement-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.my-announcement-card:hover .my-announcement-image img {
+  transform: scale(1.03);
+}
+
+.announcement-no-photo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  background-color: #fff7cc;
+}
+
+/* Інформація */
 
 .my-announcement-info {
   flex: 1;
+  min-width: 0;
 }
 
 .my-announcement-info h3 {
   margin: 0 0 7px;
-  color: #222;
+  color: #222222;
   font-size: 19px;
+  font-weight: 700;
 }
 
 .my-announcement-info p {
   margin: 5px 0;
-  color: #777;
+  color: #777777;
   font-size: 13px;
 }
 
+/* Тип */
+
 .announcement-type {
   display: inline-block;
+  margin-bottom: 5px;
   padding: 5px 9px;
   border-radius: 15px;
   font-size: 12px;
@@ -99,11 +155,13 @@
   color: #8a7600;
 }
 
+/* Кнопки */
+
 .my-announcement-actions {
+  min-width: 135px;
   display: flex;
   flex-direction: column;
   gap: 7px;
-  min-width: 130px;
 }
 
 .my-announcement-actions a,
@@ -112,36 +170,174 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-
+  min-height: 35px;
   padding: 8px 10px;
-
+  box-sizing: border-box;
   border-radius: 8px;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.my-announcement-actions a:hover,
+.my-announcement-actions button:hover {
+  transform: translateX(-2px);
 }
 
 .my-announcement-actions svg {
   width: 15px;
+  height: 15px;
 }
 
+/* Переглянути */
+
 .view-button {
+  border: 1px solid #eeeeee;
   background-color: #f8f9fa;
-  color: #555;
+  color: #555555;
 }
+
+.view-button:hover {
+  background-color: #f0f1f3;
+  color: #2d3142;
+  border-color: #dddddd;
+}
+
+/* Редагувати */
 
 .edit-button {
   border: 1px solid #f6e033;
-  background-color: white;
-  color: #777;
+  background-color: #ffffff;
+  color: #777777;
 }
+
+.edit-button:hover {
+  background-color: #fffbe0;
+  color: #6f6100;
+  border-color: #e4ce22;
+}
+
+/* Видалити */
 
 .delete-button {
   border: 1px solid #ffd1dc;
-  background-color: white;
+  background-color: #ffffff;
   color: #e6195e;
 }
+
+.delete-button:hover {
+  background-color: #fff0f4;
+  color: #c91450;
+  border-color: #ffb7c8;
+}
+
+/* Порожній список */
+
+.my-announcements-empty {
+  padding: 45px 25px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+}
+
+.empty-icon {
+  margin-bottom: 10px;
+  font-size: 36px;
+}
+
+.my-announcements-empty h3 {
+  margin: 0 0 8px;
+  color: #2d3142;
+  font-size: 18px;
+}
+
+.my-announcements-empty p {
+  max-width: 430px;
+  margin: 0 auto 20px;
+  color: #777777;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.empty-create-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 17px;
+  border-radius: 9px;
+  background-color: #e6195e;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.empty-create-button:hover {
+  background-color: #c91450;
+}
+
+/* Завантаження / помилка */
+
+.my-announcements-state {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #687386;
+  font-size: 14px;
+}
+
+.my-announcements-state p {
+  margin: 0;
+}
+
+.my-announcements-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #f3c5d4;
+  border-top-color: #e6195e;
+  border-radius: 50%;
+  animation: announcementsSpinner 0.8s linear infinite;
+}
+
+@keyframes announcementsSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.my-announcements-state.error-state p {
+  color: #c91450;
+  font-weight: 600;
+}
+
+.my-announcements-state.error-state button {
+  padding: 9px 17px;
+  border: none;
+  border-radius: 9px;
+  background-color: #e6195e;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.my-announcements-state.error-state button:hover {
+  background-color: #c91450;
+}
+
+/* Адаптивність */
 
 @media (max-width: 700px) {
   .my-announcements {
@@ -151,7 +347,12 @@
   .my-announcements-header {
     align-items: flex-start;
     flex-direction: column;
-    gap: 15px;
+  }
+
+  .create-announcement-button {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   .my-announcement-card {
@@ -159,7 +360,7 @@
     flex-direction: column;
   }
 
-  .my-announcement-card > img {
+  .my-announcement-image {
     width: 100%;
     height: 180px;
   }
@@ -168,3 +369,45 @@
     width: 100%;
   }
 }
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  padding: 7px 11px;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #687386;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-button svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.back-button:hover {
+  border-color: #f3c5d4;
+  background-color: #fff7fa;
+  color: #e6195e;
+  transform: translateX(-2px);
+  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.08);
+}
+
+.back-button:active {
+  transform: translateX(0);
+}
+

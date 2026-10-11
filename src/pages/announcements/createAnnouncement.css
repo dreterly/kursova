@@ -1,79 +1,468 @@
+/* =========================
+   CREATE ANNOUNCEMENT
+========================= */
+
 .create-announcement {
   min-height: 100vh;
-  padding: 40px 30px;
+  padding: 40px 30px 60px;
   background-color: #f8f9fa;
 }
 
-.create-announcement h1 {
-  margin-bottom: 30px;
-  text-align: center;
-  color: #333;
+.create-announcement-container {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
+/* =========================
+   HEADER
+========================= */
+
+.create-announcement-header {
+  margin-bottom: 25px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 18px;
+  padding: 8px 12px;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #687386;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.back-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.back-button:hover {
+  border-color: #f3c5d4;
+  background-color: #fff7fa;
+  color: #e6195e;
+  transform: translateX(-2px);
+}
+
+.create-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.create-title-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.create-title-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.create-title h1 {
+  margin: 0 0 5px;
+  color: #343a40;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.create-title p {
+  margin: 0;
+  color: #687386;
+  font-size: 14px;
+}
+
+/* =========================
+   FORM
+========================= */
+
 .announcement-form {
-  display: grid;
-  gap: 18px;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 30px;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+  border: 1px solid #eeeeee;
   border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.form-section {
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.form-section h2 {
+  margin: 0 0 17px;
+  color: #343a40;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* =========================
+   TYPE BUTTONS
+========================= */
+
+.type-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.type-button {
+  flex: 1;
+  min-width: 220px;
+  padding: 12px 18px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.type-button:hover {
+  transform: translateY(-1px);
+}
+
+.lost-type {
+  color: #e6195e;
+}
+
+.lost-type.active {
+  border-color: #e6195e;
+  background-color: #fff0f5;
+}
+
+.found-type {
+  color: #756900;
+}
+
+.found-type.active {
+  border-color: #f6e033;
+  background-color: #fffbe0;
+}
+
+/* =========================
+   FORM GRID
+========================= */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
 .announcement-form label {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  color: #333;
+  color: #343a40;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .announcement-form input,
 .announcement-form select,
 .announcement-form textarea {
-  padding: 12px 14px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #dddddd;
+  border-radius: 9px;
   outline: none;
-  font-size: 15px;
+  background-color: #ffffff;
+  color: #343a40;
   font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.announcement-form input,
+.announcement-form select {
+  height: 43px;
+}
+
+.announcement-form textarea {
+  resize: vertical;
+  min-height: 110px;
 }
 
 .announcement-form input:focus,
 .announcement-form select:focus,
 .announcement-form textarea:focus {
   border-color: #e6195e;
+  box-shadow: 0 0 0 3px rgba(230, 25, 94, 0.08);
 }
 
-.announcement-form textarea {
-  resize: vertical;
-}
+/* =========================
+   ERROR
+========================= */
 
-.announcement-form button {
-  margin-top: 10px;
-  padding: 13px;
-  border: none;
-  border-radius: 10px;
-  background-color: #e6195e;
-  color: white;
-  font-size: 16px;
+.form-error {
+  padding: 11px 14px;
+  border: 1px solid #f3c5d4;
+  border-radius: 9px;
+  background-color: #fff0f5;
+  color: #c91450;
+  font-size: 13px;
   font-weight: 600;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 5px;
+}
+
+.cancel-button,
+.submit-button {
+  min-width: 150px;
+  padding: 11px 20px;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
 }
 
-.announcement-form button:hover {
+.cancel-button {
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+  color: #687386;
+}
+
+.cancel-button:hover {
+  border-color: #bbbbbb;
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+}
+
+.submit-button {
+  border: 1px solid #e6195e;
+  background-color: #e6195e;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.15);
+}
+
+.submit-button:hover {
   background-color: #c91450;
+  border-color: #c91450;
+  transform: translateY(-1px);
 }
 
-.created-announcements {
-  max-width: 700px;
-  margin: 30px auto;
+.cancel-button:disabled,
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.created-announcement {
-  margin-bottom: 15px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 12px;
+/* =========================
+   ADAPTIVE
+========================= */
+
+@media (max-width: 700px) {
+  .create-announcement {
+    padding: 25px 18px 40px;
+  }
+
+  .create-title {
+    align-items: flex-start;
+  }
+
+  .create-title-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .create-title h1 {
+    font-size: 25px;
+  }
+
+  .create-title p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .announcement-form {
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .type-buttons {
+    flex-direction: column;
+  }
+
+  .type-button {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .form-buttons {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .create-announcement {
+    padding: 20px 14px 35px;
+  }
+
+  .create-title h1 {
+    font-size: 22px;
+  }
+
+  .create-title-icon {
+    display: none;
+  }
+
+  .announcement-form {
+    padding: 15px;
+  }
+}
+/* Вибір місця на карті */
+.location-picker-section {
+  margin-top: 24px;
+}
+
+.location-picker-section h3 {
+  margin-bottom: 8px;
+  color: #343a40;
+  font-size: 18px;
+}
+
+.location-picker-section > p {
+  margin-bottom: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.announcement-location-map {
+  width: 100%;
+  height: 380px;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 2px solid #f0dce4;
+  border-radius: 14px;
+  background: #f8f9fa;
+}
+
+.location-map {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.selected-coordinates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f8f9fa;
+}
+
+.selected-coordinates p {
+  margin: 0;
+  color: #343a40;
+  font-size: 14px;
+}
+
+.clear-location-button {
+  padding: 8px 12px;
+  border: 1px solid #e6195e;
+  border-radius: 8px;
+  background: white;
+  color: #e6195e;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.clear-location-button:hover {
+  background: #e6195e;
+  color: white;
+}
+
+.location-warning {
+  margin-top: 12px;
+  color: #b45309;
+  font-size: 14px;
+}
+
+.form-error {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fff0f0;
+  color: #c62828;
+}
+
+@media (max-width: 600px) {
+  .announcement-location-map {
+    height: 300px;
+  }
+
+  .selected-coordinates {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

@@ -1,161 +1,691 @@
-
 .admin-pets {
   min-height: 100vh;
-  padding: 35px;
-  background-color: #F8F9FA;
+  padding: 35px 30px 60px;
+  background-color: #f8f9fa;
 }
 
 .admin-pets-container {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1150px;
   margin: 0 auto;
 }
 
+/* ============================= */
+/* КНОПКА НАЗАД */
+/* ============================= */
+
+.admin-pets-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 25px;
+  padding: 8px 13px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+
+  background-color: #ffffff;
+  color: #687386;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-pets-back-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.admin-pets-back-button:hover {
+  border-color: #f3c5d4;
+  background-color: #fff7fa;
+  color: #e6195e;
+  transform: translateX(-2px);
+  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.08);
+}
+
+/* ============================= */
+/* ЗАГОЛОВОК */
+/* ============================= */
+
 .admin-pets-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
   margin-bottom: 25px;
 }
 
+.admin-pets-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.admin-pets-title-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.admin-pets-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #e6195e;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
 .admin-pets-header h1 {
-  margin: 0;
-  color: #2D3142;
-  font-size: 28px;
+  margin: 0 0 5px;
+
+  color: #343a40;
+
+  font-size: 30px;
+  font-weight: 750;
 }
 
 .admin-pets-header p {
-  margin: 6px 0 0;
-  color: #777;
+  margin: 0;
+
+  color: #687386;
+
+  font-size: 14px;
 }
+
+/* ============================= */
+/* ЛІЧИЛЬНИК */
+/* ============================= */
+
+.admin-pets-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+  padding: 15px 18px;
+
+  border: 1px solid #f0e7a5;
+  border-radius: 12px;
+
+  background-color: #fffdf0;
+}
+
+.admin-pets-count span {
+  color: #777;
+
+  font-size: 13px;
+}
+
+.admin-pets-count strong {
+  color: #343a40;
+
+  font-size: 20px;
+}
+
+/* ============================= */
+/* СПИСОК ТВАРИН */
+/* ============================= */
 
 .admin-pets-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
+
+/* ============================= */
+/* КАРТКА ТВАРИНИ */
+/* ============================= */
 
 .admin-pet-card {
   display: flex;
   align-items: center;
+
   gap: 18px;
+
   padding: 16px;
-  background-color: white;
-  border: 1px solid #eee;
+
+  border: 1px solid #eeeeee;
   border-radius: 16px;
+
+  background-color: #ffffff;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.035);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.admin-pet-card > img {
-  width: 100px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 12px;
+.admin-pet-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #f3c5d4;
+
+  box-shadow: 0 8px 20px rgba(230, 25, 94, 0.07);
 }
+
+/* ============================= */
+/* ФОТО */
+/* ============================= */
+
+.admin-pet-image {
+  width: 105px;
+  height: 95px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background-color: #f8f9fa;
+}
+
+.admin-pet-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.admin-pet-no-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  color: #c4cad1;
+}
+
+.admin-pet-no-image svg {
+  width: 38px;
+  height: 38px;
+}
+
+/* ============================= */
+/* ІНФОРМАЦІЯ */
+/* ============================= */
 
 .admin-pet-info {
   flex: 1;
+  min-width: 0;
 }
 
 .admin-pet-info h3 {
   margin: 0 0 6px;
-  color: #2D3142;
+
+  color: #343a40;
+
   font-size: 18px;
+  font-weight: 700;
 }
 
 .admin-pet-info p {
   margin: 4px 0;
-  color: #777;
+
+  color: #687386;
+
   font-size: 13px;
 }
 
+.admin-pet-user {
+  color: #8a93a1 !important;
+
+  font-size: 12px !important;
+}
+
 .admin-pet-status {
-  display: inline-block;
-  margin-top: 5px;
-  padding: 5px 9px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+
+  margin-top: 6px;
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
 }
 
-.admin-pet-status.lost {
-  background-color: #FFE8F0;
-  color: #E6195E;
+/* Власна тварина */
+
+.admin-pet-status.own {
+  background-color: #e8f7ec;
+  color: #34854a;
 }
 
-.admin-pet-status.found {
-  background-color: #FFF7CC;
-  color: #8A7600;
+/* Тварина з оголошення */
+
+.admin-pet-status.announcement {
+  background-color: #fff0f5;
+  color: #e6195e;
 }
 
-.admin-pet-status.owned {
-  background-color: #E8F7EC;
-  color: #34854A;
-}
+/* ============================= */
+/* КНОПКИ */
+/* ============================= */
 
 .admin-pet-actions {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+
   gap: 7px;
-  min-width: 135px;
+
+  width: 140px;
+  min-width: 140px;
+
+  flex-shrink: 0;
 }
 
 .admin-pet-actions a,
 .admin-pet-actions button {
+  box-sizing: border-box;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 8px 10px;
+
+  gap: 6px;
+
+  width: 140px;
+  height: 36px;
+
+  margin: 0;
+  padding: 0 10px;
+
   border-radius: 8px;
-  font-size: 12px;
+
+  font-family: inherit;
+  font-size: 11px;
   font-weight: 600;
-  cursor: pointer;
+
+  line-height: 1;
+  text-align: center;
   text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .admin-pet-actions svg {
   width: 14px;
   height: 14px;
+
+  flex-shrink: 0;
 }
 
+/* Переглянути */
+
 .admin-view-button {
-  background-color: #F8F9FA;
+  border: 1px solid #eeeeee;
+
+  background-color: #f8f9fa;
   color: #555;
 }
 
+.admin-view-button:hover {
+  border-color: #dfe2e6;
+
+  background-color: #eef0f2;
+  color: #343a40;
+
+  transform: translateY(-1px);
+}
+
+/* Редагувати */
+
 .admin-edit-button {
-  border: 1px solid #F6E033;
-  background-color: white;
+  border: 1px solid #f6e033;
+
+  background-color: #ffffff;
   color: #777;
 }
 
+.admin-edit-button:hover {
+  background-color: #fffbe0;
+  color: #665b00;
+
+  transform: translateY(-1px);
+}
+
+/* Видалити */
+
 .admin-delete-button {
   border: 1px solid #ffd1dc;
-  background-color: white;
-  color: #E6195E;
-}
 
-.admin-view-button:hover {
-  background-color: #eee;
-}
-
-.admin-edit-button:hover {
-  background-color: #FFFBE0;
+  background-color: #ffffff;
+  color: #e6195e;
 }
 
 .admin-delete-button:hover {
-  background-color: #FFE8F0;
+  background-color: #ffe8f0;
+  color: #c91450;
+
+  transform: translateY(-1px);
 }
 
-@media (max-width: 700px) {
+/* На маленькому екрані кнопки займають всю ширину */
+
+@media (max-width: 650px) {
+  .admin-pet-actions {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-pet-actions a,
+  .admin-pet-actions button {
+    width: 100%;
+  }
+}
+
+
+/* ============================= */
+/* ПОРОЖНІЙ СТАН */
+/* ============================= */
+
+.admin-pets-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 500px;
+
+  margin: 40px auto 0;
+  padding: 40px 25px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+
+  background-color: #ffffff;
+
+  text-align: center;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
+}
+
+.admin-pets-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 60px;
+  height: 60px;
+
+  margin-bottom: 15px;
+
+  border-radius: 15px;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.admin-pets-empty-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.admin-pets-empty h2 {
+  margin: 0 0 8px;
+
+  color: #343a40;
+
+  font-size: 20px;
+}
+
+.admin-pets-empty p {
+  margin: 0;
+
+  color: #687386;
+
+  font-size: 13px;
+}
+
+/* ============================= */
+/* ЗАВАНТАЖЕННЯ */
+/* ============================= */
+
+.admin-pets-state {
+  min-height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #687386;
+
+  font-size: 14px;
+}
+
+.admin-pets-loader {
+  width: 34px;
+  height: 34px;
+
+  border: 3px solid #f3d7e1;
+  border-top-color: #e6195e;
+
+  border-radius: 50%;
+
+  animation: admin-pets-loader-spin 0.8s linear infinite;
+}
+
+@keyframes admin-pets-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================= */
+/* ПОМИЛКА */
+/* ============================= */
+
+.admin-pets-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 500px;
+
+  margin: 60px auto 0;
+  padding: 35px 25px;
+
+  border: 1px solid #eeeeee;
+  border-radius: 16px;
+
+  background-color: #ffffff;
+
+  text-align: center;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
+}
+
+.admin-pets-error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  margin-bottom: 15px;
+
+  border-radius: 14px;
+
+  background-color: #fff0f5;
+  color: #e6195e;
+}
+
+.admin-pets-error-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.admin-pets-error h2 {
+  margin: 0 0 8px;
+
+  color: #343a40;
+
+  font-size: 20px;
+}
+
+.admin-pets-error p {
+  margin: 0 0 20px;
+
+  color: #687386;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-pets-retry {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  background-color: #e6195e;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.admin-pets-retry svg {
+  width: 16px;
+  height: 16px;
+}
+
+.admin-pets-retry:hover {
+  background-color: #c91450;
+
+  transform: translateY(-1px);
+}
+
+/* ============================= */
+/* АДАПТИВНІСТЬ */
+/* ============================= */
+
+@media (max-width: 800px) {
   .admin-pets {
-    padding: 20px 15px;
+    padding: 25px 18px 40px;
+  }
+
+  .admin-pets-header {
+    align-items: flex-start;
+  }
+
+  .admin-pets-title-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .admin-pets-title-icon svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .admin-pets-header h1 {
+    font-size: 25px;
   }
 
   .admin-pet-card {
     align-items: flex-start;
-    flex-direction: column;
   }
 
-  .admin-pet-card > img {
+  .admin-pet-actions {
+    width: 125px;
+  }
+}
+
+@media (max-width: 650px) {
+  .admin-pets {
+    padding: 20px 14px 35px;
+  }
+
+  .admin-pets-header {
+    gap: 10px;
+  }
+
+  .admin-pets-title-icon {
+    display: none;
+  }
+
+  .admin-pets-label {
+    font-size: 9px;
+  }
+
+  .admin-pets-header h1 {
+    font-size: 23px;
+  }
+
+  .admin-pets-header p {
+    font-size: 12px;
+  }
+
+  .admin-pet-card {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 14px;
+  }
+
+  .admin-pet-image {
     width: 100%;
-    height: 180px;
+    height: 210px;
   }
 
   .admin-pet-actions {
