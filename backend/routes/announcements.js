@@ -246,17 +246,27 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
-    const [result] = await db.query(
-      `
-      DELETE FROM announcements
-      WHERE id = ? AND user_id = ?
-      `,
-      [req.params.id, req.user.id],
-    );
+    const announcementId = req.params.id;
+
+    let result;
+
+    if (req.user.role === "admin") {
+      // Адміністратор може видалити будь-яке оголошення
+      [result] = await db.query("DELETE FROM announcements WHERE id = ?", [
+        announcementId,
+      ]);
+    } else {
+      // Звичайний користувач може видаляти лише власні оголошення
+      [result] = await db.query(
+        "DELETE FROM announcements WHERE id = ? AND user_id = ?",
+        [announcementId, req.user.id],
+      );
+    }
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
-        message: "Оголошення не знайдено або воно вам не належить",
+        message:
+          "Оголошення не знайдено або у вас немає прав на його видалення",
       });
     }
 
@@ -264,10 +274,10 @@ router.delete("/:id", authMiddleware, async (req, res) => {
       message: "Оголошення видалено",
     });
   } catch (error) {
-    console.error(error);
+    console.error("Помилка видалення оголошення:", error);
 
     res.status(500).json({
-      message: "Оголошення не вдалося видалити",
+      message: "Не вдалося видалити оголошення",
     });
   }
 });
