@@ -7,19 +7,14 @@ const path = require("path");
 const fs = require("fs");
 const authMiddleware = require("../middleware/authMiddleware");
 
-// ======================================
-// ПАПКА ДЛЯ ФОТОГРАФІЙ
-// ======================================
+// папка для фоток
 
 const uploadsDir = path.join(__dirname, "..", "uploads");
 
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
-
-// ======================================
-// НАЛАШТУВАННЯ ЗАВАНТАЖЕННЯ ФОТО
-// ======================================
+// завантаження фото
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -62,9 +57,6 @@ const upload = multer({
   },
 });
 
-// ======================================
-// ДОПОМІЖНІ ФУНКЦІЇ
-// ======================================
 
 function deletePhoto(photo) {
   if (typeof photo !== "string" || !photo.startsWith("/uploads/")) {
@@ -102,8 +94,8 @@ function parsePetId(value) {
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 
-// Публічні дані тварини.
-// Не повертаємо user_id та інші внутрішні поля.
+// публічні інф тварин
+
 const publicPetFields = `
   id,
   name,
@@ -164,10 +156,10 @@ router.get("/user/:userId", authMiddleware, async (req, res) => {
 
     const [pets] = await db.query(
       `
-      SELECT *
-      FROM pets
-      WHERE user_id = ? AND is_own = TRUE
-      ORDER BY created_at DESC
+        SELECT *
+        FROM pets
+        WHERE user_id = ? AND is_own = TRUE
+        ORDER BY created_at DESC
       `,
       [userId],
     );
@@ -184,12 +176,9 @@ router.get("/user/:userId", authMiddleware, async (req, res) => {
 
 // ======================================
 // GET /api/pets/:id
-// ОТРИМАТИ ОДНУ ПУБЛІЧНУ ТВАРИНУ
+// ОТРИМАТИ ОДНУ ТВАРИНУ
 // ======================================
 
-// Отримати тварину за ID
-// Публічні тварини доступні всім.
-// Власні тварини доступні лише власнику або адміністратору.
 router.get("/:id", async (req, res) => {
   try {
     const petId = parsePetId(req.params.id);
@@ -200,7 +189,6 @@ router.get("/:id", async (req, res) => {
       });
     }
 
-    // Шукаємо тварину незалежно від її типу
     const [pets] = await db.query("SELECT * FROM pets WHERE id = ?", [petId]);
 
     if (pets.length === 0) {
@@ -211,14 +199,14 @@ router.get("/:id", async (req, res) => {
 
     const pet = pets[0];
 
-    // Публічні тварини доступні без авторизації
-    if (!pet.is_own) {
+    // Публічні тварини доступні всім.
+    if (!Boolean(pet.is_own)) {
       const { user_id, chip_number, ...publicPet } = pet;
 
       return res.json(publicPet);
     }
 
-    // Власні тварини потребують авторизації
+    // Власні тварини доступні власнику або адміністратору.
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -233,7 +221,6 @@ router.get("/:id", async (req, res) => {
 
     try {
       const jwt = require("jsonwebtoken");
-
       decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
       return res.status(401).json({
@@ -241,9 +228,7 @@ router.get("/:id", async (req, res) => {
       });
     }
 
-    // Перевіряємо, чи користувач є власником або адміністратором
     const isOwner = String(decoded.id) === String(pet.user_id);
-
     const isAdmin = decoded.role === "admin";
 
     if (!isOwner && !isAdmin) {
@@ -252,7 +237,6 @@ router.get("/:id", async (req, res) => {
       });
     }
 
-    // Приватні дані повертаємо лише авторизованому користувачу
     return res.json(pet);
   } catch (error) {
     console.error("Помилка отримання тварини:", error);
@@ -265,15 +249,23 @@ router.get("/:id", async (req, res) => {
 
 // ======================================
 // POST /api/pets
-// ДОДАТИ ВЛАСНУ ТВАРИНУ
+// СТВОРИТИ ВЛАСНУ ТВАРИНУ АБО ТВАРИНУ ДЛЯ ОГОЛОШЕННЯ
 // ======================================
 
 router.post("/", authMiddleware, upload.single("photo"), async (req, res) => {
   let photo = req.file ? `/uploads/${req.file.filename}` : null;
 
   try {
-    const { name, type, breed, gender, birth_date, color, chip_number } =
-      req.body || {};
+    const {
+      name,
+      type,
+      breed,
+      gender,
+      birth_date,
+      color,
+      chip_number,
+      is_own,
+    } = req.body || {};
 
     const userId = req.user?.id;
 
@@ -292,6 +284,15 @@ router.post("/", authMiddleware, upload.single("photo"), async (req, res) => {
         message: "Заповніть обов'язкові поля: ім'я та вид тварини",
       });
     }
+
+    /*
+     * Якщо is_own передано як false або "false",
+     * тварина створюється для оголошення.
+     *
+     * Якщо поле не передано, за замовчуванням
+     * це власна тварина користувача.
+     */
+    const isOwn = is_own !== false && String(is_own).toLowerCase() !== "false";
 
     const formattedBirthDate = birth_date
       ? String(birth_date).slice(0, 10)
@@ -312,7 +313,7 @@ router.post("/", authMiddleware, upload.single("photo"), async (req, res) => {
           is_own
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `,
+      `,
       [
         userId,
         name.trim(),
@@ -323,7 +324,7 @@ router.post("/", authMiddleware, upload.single("photo"), async (req, res) => {
         color || null,
         chip_number || null,
         photo,
-        true,
+        isOwn,
       ],
     );
 
@@ -349,7 +350,7 @@ router.post("/", authMiddleware, upload.single("photo"), async (req, res) => {
 
 // ======================================
 // PUT /api/pets/:id
-// РЕДАГУВАТИ ВЛАСНУ ТВАРИНУ АБО ТВАРИНУ ЯК АДМІН
+// РЕДАГУВАТИ ТВАРИНУ
 // ======================================
 
 router.put("/:id", authMiddleware, upload.single("photo"), async (req, res) => {
@@ -427,7 +428,7 @@ router.put("/:id", authMiddleware, upload.single("photo"), async (req, res) => {
           chip_number = ?,
           photo = ?
         WHERE id = ?
-        `,
+      `,
       [
         name === undefined ? currentPet.name : name.trim(),
         type ?? currentPet.type,
@@ -467,7 +468,7 @@ router.put("/:id", authMiddleware, upload.single("photo"), async (req, res) => {
 
 // ======================================
 // DELETE /api/pets/:id
-// ВИДАЛИТИ ВЛАСНУ ТВАРИНУ АБО ТВАРИНУ ЯК АДМІН
+// ВИДАЛИТИ ТВАРИНУ
 // ======================================
 
 router.delete("/:id", authMiddleware, async (req, res) => {
