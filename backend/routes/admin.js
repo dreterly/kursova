@@ -3,9 +3,36 @@ const express = require("express");
 const authMiddleware = require("../middleware/authMiddleware");
 const adminMiddleware = require("../middleware/adminMiddleware");
 const db = require("../config/db");
-
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const router = express.Router();
+const uploadsDir = path.join(__dirname, "..", "uploads");
 
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    if (allowed.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Дозволені формати: JPG, PNG, WEBP, GIF"));
+    }
+  },
+});
 router.get("/", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const [[usersResult]] = await db.query(
@@ -74,22 +101,30 @@ router.put(
     }
   },
 );
-router.put("/pets/:id", authMiddleware, adminMiddleware, async (req, res) => {
-  try {
-    const {
-      name,
-      type,
-      breed,
-      gender,
-      birth_date,
-      color,
-      chip_number,
-      photo,
-      is_own,
-    } = req.body;
-    const [result] = await db.query(
-      `UPDATE pets SET name = ?, type = ?, breed = ?, gender = ?, birth_date = ?, color = ?, chip_number = ?, photo = ?, is_own = ? WHERE id = ?`,
-      [
+
+router.put(
+  "/pets/:id",
+  authMiddleware,
+  adminMiddleware,
+  upload.single("photo"),
+  async (req, res) => {
+    let newPhoto = req.file ? `/uploads/${req.file.filename}` : null;
+
+    try {
+      const [pets] = await db.query("SELECT * FROM pets WHERE id = ?", [
+        req.params.id,
+      ]);
+
+      if (pets.length === 0) {
+        return res.status(404).json({
+          message: "Тварину не знайдено",
+        });
+      }
+
+      const currentPet = pets[0];
+      const body = req.body || {};
+
+      const {
         name,
         type,
         breed,
@@ -97,20 +132,84 @@ router.put("/pets/:id", authMiddleware, adminMiddleware, async (req, res) => {
         birth_date,
         color,
         chip_number,
-        photo,
         is_own,
+      } = body;
+
+      if (!name?.trim() || !type) {
+        return res.status(400).json({
+          message: "Ім'я та тип тварини обов'язкові",
+        });
+      }
+
+      const photo = newPhoto || currentPet.photo;
+
+      const formattedBirthDate =
+        birth_date === undefined
+          ? currentPet.birth_date
+          : birth_date
+            ? birth_date.slice(0, 10)
+            : null;
+
+      await db.query(
+        `UPDATE pets SET
+          name = ?, type = ?, breed = ?, gender = ?,
+          birth_date = ?, color = ?, chip_number = ?,
+          photo = ?, is_own = ?
+        WHERE id = ?`,
+        [
+          name.trim(),
+          type,
+          breed ?? null,
+          gender ?? null,
+          formattedBirthDate,
+          color ?? null,
+          chip_number ?? null,
+          photo,
+          is_own === undefined
+            ? currentPet.is_own
+            : is_own === "true" || is_own === true || is_own === 1,
+          req.params.id,
+        ],
+      );
+
+      if (newPhoto && currentPet.photo) {
+        const oldName = path.basename(currentPet.photo);
+
+        if (currentPet.photo.startsWith("/uploads/")) {
+          const oldPath = path.join(uploadsDir, oldName);
+
+          if (fs.existsSync(oldPath)) {
+            fs.unlinkSync(oldPath);
+          }
+        }
+      }
+
+      const [updatedPets] = await db.query("SELECT * FROM pets WHERE id = ?", [
         req.params.id,
-      ],
-    );
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Тварину не знайдено" });
+      ]);
+
+      return res.json({
+        message: "Дані тварини оновлено",
+        pet: updatedPets[0],
+      });
+    } catch (error) {
+      console.error("Помилка редагування тварини:", error);
+
+      if (newPhoto) {
+        const newPath = path.join(uploadsDir, path.basename(newPhoto));
+
+        if (fs.existsSync(newPath)) {
+          fs.unlinkSync(newPath);
+        }
+      }
+
+      return res.status(500).json({
+        message: "Не вдалося оновити тварину",
+      });
     }
-    res.json({ message: "Дані тварини оновлено" });
-  } catch (error) {
-    console.error("Помилка редагування тварини:", error);
-    res.status(500).json({ message: "Не вдалося оновити тварину" });
-  }
-});
+  },
+);
+
 router.get("/users", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const [users] = await db.query(

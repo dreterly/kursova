@@ -1,35 +1,50 @@
-
 const API_URL = "http://localhost:5000/api/gps";
 
-export async function getMyPetLocations(userId) {
-  const response = await fetch(`${API_URL}/user/${userId}`);
+// Отримати токен авторизації
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
 
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-
-    throw new Error(
-      data.message || "Не вдалося отримати GPS-дані"
-    );
-  }
-
-  return response.json();
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-export async function saveDemoGpsLocations(userId) {
+// Отримати GPS-історію власних тварин
+export async function getMyPetLocations(userId) {
   const response = await fetch(
-    `${API_URL}/demo/user/${userId}`,
+    `${API_URL}/user/${encodeURIComponent(userId)}`,
     {
-      method: "POST",
-    }
+      method: "GET",
+      headers: {
+        ...getAuthHeaders(),
+      },
+    },
   );
 
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
+  const data = await response.json().catch(() => ({}));
 
-    throw new Error(
-      data.message || "Не вдалося зберегти GPS-точки"
-    );
+  if (!response.ok) {
+    throw new Error(data.message || "Не вдалося отримати GPS-дані");
   }
 
-  return response.json();
+  return data;
+}
+
+// Зберегти демонстраційні GPS-точки
+export async function saveDemoGpsLocations(userId) {
+  const response = await fetch(
+    `${API_URL}/demo/user/${encodeURIComponent(userId)}`,
+    {
+      method: "POST",
+      headers: {
+        ...getAuthHeaders(),
+      },
+    },
+  );
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.message || "Не вдалося зберегти GPS-точки");
+  }
+
+  return data;
 }

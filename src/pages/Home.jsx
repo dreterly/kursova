@@ -16,9 +16,24 @@ export function Home() {
     async function loadData() {
       try {
         const announcementsData = await getAnnouncements();
-        setAnnouncements(announcementsData);
+
+        console.log("Оголошення з API:", announcementsData);
+
+        const normalizedAnnouncements = announcementsData.map(
+          (announcement) => ({
+            ...announcement,
+            photo:
+              announcement.photo ||
+              announcement.pet_photo ||
+              announcement.image ||
+              announcement.pet?.photo ||
+              null,
+          }),
+        );
+
+        setAnnouncements(normalizedAnnouncements);
       } catch (error) {
-        console.error(error);
+        console.error("Помилка завантаження оголошень:", error);
         setError("Не вдалося завантажити оголошення");
       } finally {
         setLoading(false);
@@ -70,7 +85,6 @@ export function Home() {
 
   return (
     <main className="home">
-      {/* HERO */}
       <section className="hero">
         <div className="hero-content">
           <p className="hero-label">PETFINDER</p>
@@ -94,20 +108,16 @@ export function Home() {
         </div>
       </section>
 
-      {/* ОГОЛОШЕННЯ */}
       <section className="latest-announcements">
         <div className="section-header">
           <h2>Останні оголошення</h2>
-
           <p>Нові повідомлення про загублених та знайдених тварин</p>
         </div>
 
         {allAnnouncements.length === 0 ? (
           <div className="no-results">
             <div className="no-results-icon">🐾</div>
-
             <h3>Оголошень поки немає</h3>
-
             <p>Тут з'являться оголошення про загублених та знайдених тварин.</p>
           </div>
         ) : (

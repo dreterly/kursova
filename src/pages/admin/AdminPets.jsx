@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 
 import { getPets, deletePet } from "../../services/petsApi.js";
+import { getPhotoUrl } from "../../utils/photoUrl.js";
 
 import "./adminPets.css";
 
@@ -27,11 +28,10 @@ export function AdminPets() {
 
       const data = await getPets();
 
-      setAdminPets(data);
-    } catch (error) {
-      console.error(error);
-
-      setError(error.message || "Не вдалося завантажити тварин");
+      setAdminPets(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Помилка завантаження тварин:", err);
+      setError(err.message || "Не вдалося завантажити тварин");
     } finally {
       setLoading(false);
     }
@@ -44,20 +44,19 @@ export function AdminPets() {
   async function handleDelete(id) {
     const confirmed = window.confirm("Ви дійсно хочете видалити цю тварину?");
 
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     try {
       await deletePet(id);
 
-      setAdminPets((currentPets) => currentPets.filter((pet) => pet.id !== id));
+      setAdminPets((currentPets) =>
+        currentPets.filter((pet) => String(pet.id) !== String(id)),
+      );
 
       alert("Тварину видалено");
-    } catch (error) {
-      console.error(error);
-
-      alert(error.message || "Не вдалося видалити тварину");
+    } catch (err) {
+      console.error("Помилка видалення тварини:", err);
+      alert(err.message || "Не вдалося видалити тварину");
     }
   }
 
@@ -91,7 +90,6 @@ export function AdminPets() {
             </div>
 
             <h2>Не вдалося завантажити тварин</h2>
-
             <p>{error}</p>
 
             <button
@@ -127,9 +125,7 @@ export function AdminPets() {
 
           <div>
             <span className="admin-pets-label">PETFINDER ADMIN</span>
-
             <h1>Тварини</h1>
-
             <p>Керування тваринами в системі PETFINDER</p>
           </div>
         </div>
@@ -146,71 +142,96 @@ export function AdminPets() {
             </div>
 
             <h2>Тварин поки немає</h2>
-
             <p>У системі ще немає зареєстрованих тварин.</p>
           </div>
         ) : (
           <div className="admin-pets-list">
-            {adminPets.map((pet) => (
-              <div className="admin-pet-card" key={pet.id}>
-                <div className="admin-pet-image">
-                  {pet.photo ? (
-                    <img src={pet.photo} alt={pet.name} />
-                  ) : (
-                    <div className="admin-pet-no-image">
+            {adminPets.map((pet) => {
+              const photoUrl = getPhotoUrl(pet.photo);
+
+              return (
+                <div className="admin-pet-card" key={pet.id}>
+                  <div className="admin-pet-image">
+                    {photoUrl ? (
+                      <img
+                        src={photoUrl}
+                        alt={pet.name || "Фото тварини"}
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.style.display = "none";
+                          event.currentTarget.nextElementSibling.style.display =
+                            "flex";
+                        }}
+                      />
+                    ) : null}
+
+                    <div
+                      className="admin-pet-no-image"
+                      style={{ display: photoUrl ? "none" : "flex" }}
+                    >
                       <PawPrint />
                     </div>
-                  )}
+                  </div>
+
+                  <div className="admin-pet-info">
+                    <h3>{pet.name || "Без імені"}</h3>
+
+                    <p>
+                      {pet.type || "Вид не вказано"}
+                      {" • "}
+                      {pet.breed || "Порода не вказана"}
+                    </p>
+
+                    <p className="admin-pet-user">
+                      👤 Користувач №{pet.user_id ?? "—"}
+                    </p>
+
+                    <span
+                      className={`admin-pet-status ${
+                        pet.is_own === true ||
+                        pet.is_own === 1 ||
+                        pet.is_own === "1"
+                          ? "own"
+                          : "announcement"
+                      }`}
+                    >
+                      {pet.is_own === true ||
+                      pet.is_own === 1 ||
+                      pet.is_own === "1"
+                        ? "Власна тварина"
+                        : "Тварина з оголошення"}
+                    </span>
+                  </div>
+
+                  <div className="admin-pet-actions">
+                    <Link
+                      to={`/admin/pets/${pet.id}`}
+                      className="admin-view-button"
+                    >
+                      <Eye />
+                      Переглянути
+                    </Link>
+
+                    <Link
+                      to={`/admin/pets/edit/${pet.id}`}
+                      className="admin-edit-button"
+                    >
+                      <Pencil />
+                      Редагувати
+                    </Link>
+
+                    <button
+                      type="button"
+                      className="admin-delete-button"
+                      onClick={() => handleDelete(pet.id)}
+                    >
+                      <Trash2 />
+                      Видалити
+                    </button>
+                  </div>
                 </div>
-
-                <div className="admin-pet-info">
-                  <h3>{pet.name || "Без імені"}</h3>
-
-                  <p>
-                    {pet.type || "Вид не вказано"}
-                    {" • "}
-                    {pet.breed || "Порода не вказана"}
-                  </p>
-
-                  <p className="admin-pet-user">👤 Користувач №{pet.user_id}</p>
-
-                  <span
-                    className={`admin-pet-status ${
-                      pet.is_own ? "own" : "announcement"
-                    }`}
-                  >
-                    {pet.is_own ? "Власна тварина" : "Тварина з оголошення"}
-                  </span>
-                </div>
-
-                <div className="admin-pet-actions">
-                  <Link
-                    to={`/admin/pets/${pet.id}`}
-                    className="admin-view-button"
-                  >
-                    <Eye />
-                    Переглянути
-                  </Link>
-
-                  <Link
-                    to={`/admin/pets/edit/${pet.id}`}
-                    className="admin-edit-button"
-                  >
-                    <Pencil />
-                    Редагувати
-                  </Link>
-
-                  <button
-                    type="button"
-                    className="admin-delete-button"
-                    onClick={() => handleDelete(pet.id)}
-                  >
-                    <Trash2 />
-                    Видалити
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

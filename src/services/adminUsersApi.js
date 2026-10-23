@@ -1,4 +1,3 @@
-
 const API_URL = "http://localhost:5000/api/admin/users";
 
 export async function updateAdminUser(id, user) {
@@ -16,14 +15,11 @@ export async function updateAdminUser(id, user) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.message || "Не вдалося оновити користувача"
-    );
+    throw new Error(data.message || "Не вдалося оновити користувача");
   }
 
   return data;
 }
-
 
 export async function deleteAdminUser(id) {
   const token = localStorage.getItem("token");
@@ -38,9 +34,7 @@ export async function deleteAdminUser(id) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.message || "Не вдалося видалити користувача"
-    );
+    throw new Error(data.message || "Не вдалося видалити користувача");
   }
 
   return data;

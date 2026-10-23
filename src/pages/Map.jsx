@@ -1,15 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMap,
-} from "react-leaflet";
-
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -17,8 +8,18 @@ import "./map.css";
 
 import { getAnnouncements } from "../services/announcementsApi.js";
 
-// Автоматично масштабуємо карту,
-// щоб усі маркери були видимі
+const API_BASE_URL = "http://localhost:5000";
+
+function getPhotoUrl(photo) {
+  if (!photo) return null;
+
+  if (photo.startsWith("http://") || photo.startsWith("https://")) {
+    return photo;
+  }
+
+  return `${API_BASE_URL}${photo.startsWith("/") ? "" : "/"}${photo}`;
+}
+
 function MapBounds({ announcements }) {
   const map = useMap();
 
@@ -30,15 +31,12 @@ function MapBounds({ announcements }) {
       Number(announcement.longitude),
     ]);
 
-    map.fitBounds(bounds, {
-      padding: [50, 50],
-    });
+    map.fitBounds(bounds, { padding: [50, 50] });
   }, [announcements, map]);
 
   return null;
 }
 
-// Створюємо красивий маркер
 function createMarkerIcon(type) {
   const isLost = type === "lost";
 
@@ -66,12 +64,12 @@ export function Map() {
       try {
         const data = await getAnnouncements();
 
-        // Беремо тільки оголошення,
-        // у яких є координати
         const announcementsWithLocation = data.filter(
           (announcement) =>
-            announcement.latitude !== null &&
-            announcement.longitude !== null
+            announcement.latitude != null &&
+            announcement.longitude != null &&
+            Number.isFinite(Number(announcement.latitude)) &&
+            Number.isFinite(Number(announcement.longitude)),
         );
 
         setAnnouncements(announcementsWithLocation);
@@ -112,9 +110,7 @@ export function Map() {
       <div className="map-header">
         <div>
           <h1>Карта повідомлень</h1>
-          <p>
-            Переглядайте місця, де були загублені або знайдені тварини
-          </p>
+          <p>Переглядайте місця, де були загублені або знайдені тварини</p>
         </div>
 
         <div className="map-counter">
@@ -149,64 +145,80 @@ export function Map() {
 
           <MapBounds announcements={announcements} />
 
-          {announcements.map((announcement) => (
-            <Marker
-              key={announcement.id}
-              position={[
-                Number(announcement.latitude),
-                Number(announcement.longitude),
-              ]}
-              icon={createMarkerIcon(announcement.type)}
-            >
-              <Popup>
-                <div className="map-popup">
-                  <span
-                    className={`map-popup-type ${announcement.type}`}
-                  >
-                    {announcement.type === "lost"
-                      ? "Загублений"
-                      : "Знайдений"}
-                  </span>
+          {announcements.map((announcement) => {
+            const photoUrl = getPhotoUrl(
+              announcement.photo ||
+                announcement.pet_photo ||
+                announcement.image,
+            );
 
-                  <h3>
-                    {announcement.name || "Тварина"}
-                  </h3>
+            return (
+              <Marker
+                key={announcement.id}
+                position={[
+                  Number(announcement.latitude),
+                  Number(announcement.longitude),
+                ]}
+                icon={createMarkerIcon(announcement.type)}
+              >
+                <Popup>
+                  <div className="map-popup">
+                    {photoUrl && (
+                      <img
+                        className="map-popup-image"
+                        src={photoUrl}
+                        alt={announcement.name || "Фото тварини"}
+                        onError={(event) => {
+                          console.error(
+                            "Не вдалося завантажити фото на карті:",
+                            event.currentTarget.src,
+                          );
+                          event.currentTarget.style.display = "none";
+                        }}
+                      />
+                    )}
 
-                  {announcement.pet_type && (
-                    <p>
-                      <strong>Тип:</strong>{" "}
-                      {announcement.pet_type}
-                    </p>
-                  )}
+                    <span className={`map-popup-type ${announcement.type}`}>
+                      {announcement.type === "lost"
+                        ? "Загублений"
+                        : "Знайдений"}
+                    </span>
 
-                  {announcement.city && (
-                    <p>
-                      <strong>Місто:</strong>{" "}
-                      {announcement.city}
-                    </p>
-                  )}
+                    <h3>{announcement.name || "Тварина"}</h3>
 
-                  {announcement.address && (
-                    <p>
-                      <strong>Місце:</strong>{" "}
-                      {announcement.address}
-                    </p>
-                  )}
+                    {announcement.pet_type && (
+                      <p>
+                        <strong>Тип:</strong> {announcement.pet_type}
+                      </p>
+                    )}
 
-                  {announcement.description && (
-                    <p>{announcement.description}</p>
-                  )}
+                    {announcement.city && (
+                      <p>
+                        <strong>Місто:</strong> {announcement.city}
+                      </p>
+                    )}
 
-                  <Link
-                    to={`/announcements/${announcement.id}`}
-                    className="map-popup-button"
-                  >
-                    Переглянути
-                  </Link>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
+                    {announcement.address && (
+                      <p>
+                        <strong>Місце:</strong> {announcement.address}
+                      </p>
+                    )}
+
+                    {announcement.description && (
+                      <p>{announcement.description}</p>
+                    )}
+
+                    <Link
+                      to={`/announcements/${announcement.id}`}
+                      className="map-popup-button"
+                    >
+                      Переглянути
+                    </Link>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
         </MapContainer>
       </div>
     </main>

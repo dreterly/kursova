@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { PawPrint, Bell, User, LogOut, ChevronDown } from "lucide-react";
-
+import { PawPrint, User, LogOut, ChevronDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { logout } from "../services/auth.js";
-
 import "./header.css";
 
 export default function Header() {
@@ -14,7 +11,6 @@ export default function Header() {
   const navigate = useNavigate();
 
   const savedUser = localStorage.getItem("user");
-
   const user = savedUser ? JSON.parse(savedUser) : null;
 
   function handleSearch(event) {
@@ -32,16 +28,12 @@ export default function Header() {
 
   function handleLogout() {
     setShowMenu(false);
-
     logout();
-
     navigate("/login");
   }
 
   return (
     <header className="header">
-      {/* Логотип */}
-
       <Link to="/" className="logo">
         <PawPrint className="logo-icon" size={50} strokeWidth={2.5} />
 
@@ -50,14 +42,7 @@ export default function Header() {
         </h1>
       </Link>
 
-      {/* Пошук */}
-
       <form className="home-search" onSubmit={handleSearch}>
-        {/* <Search
-          className="search-icon"
-          size={18}
-        /> */}
-
         <input
           type="text"
           placeholder="Пошук тварини..."
@@ -68,25 +53,9 @@ export default function Header() {
         <button type="submit">Пошук</button>
       </form>
 
-      {/* Створити оголошення */}
-
       <Link to="/create-announcement" className="create-button">
         + Створити оголошення
       </Link>
-
-      {/* Сповіщення */}
-
-      <Link
-        to="/profile/notifications"
-        className="notification"
-        aria-label="Сповіщення"
-      >
-        <Bell size={25} strokeWidth={2.25} />
-
-        <span className="notification-badge">2</span>
-      </Link>
-
-      {/* Профіль */}
 
       {user ? (
         <div className="profile-menu">
@@ -106,8 +75,6 @@ export default function Header() {
             />
           </button>
 
-          {/* Випадаюче меню */}
-
           {showMenu && (
             <div className="profile-dropdown">
               <Link
@@ -116,7 +83,6 @@ export default function Header() {
                 onClick={() => setShowMenu(false)}
               >
                 <User size={18} />
-
                 <span>Особистий кабінет</span>
               </Link>
 
@@ -126,7 +92,6 @@ export default function Header() {
                 onClick={() => setShowMenu(false)}
               >
                 <User size={18} />
-
                 <span>Налаштування</span>
               </Link>
 
@@ -137,7 +102,6 @@ export default function Header() {
                 onClick={handleLogout}
               >
                 <LogOut size={18} />
-
                 <span>Вийти</span>
               </button>
             </div>
@@ -146,7 +110,6 @@ export default function Header() {
       ) : (
         <Link to="/login" className="login-button">
           <div className="avatar">?</div>
-
           <span>Увійти</span>
         </Link>
       )}

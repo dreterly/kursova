@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 import { createPet } from "../../services/petsApi.js";
-
 import "./addPets.css";
 
 export function AddPets() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    image: "",
     name: "",
     type: "",
     breed: "",
@@ -21,31 +19,50 @@ export function AddPets() {
     chipNumber: "",
   });
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setForm({
-      ...form,
+    setForm((previousForm) => ({
+      ...previousForm,
       [name]: value,
-    });
+    }));
   }
 
   function handleImageChange(event) {
-    const file = event.target.files[0];
+    const file = event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
+    if (!file.type.startsWith("image/")) {
+      setError("Будь ласка, виберіть файл зображення.");
+      event.target.value = "";
+      return;
+    }
 
-    setForm({
-      ...form,
-      image: imageUrl,
-    });
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Розмір фотографії не повинен перевищувати 5 МБ.");
+      event.target.value = "";
+      return;
+    }
+
+    setError("");
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   }
 
   async function handleSubmit(event) {
@@ -58,31 +75,38 @@ export function AddPets() {
       const savedUser = localStorage.getItem("user");
 
       if (!savedUser) {
-        throw new Error("Користувач не авторизований");
+        throw new Error("Користувач не авторизований.");
       }
 
       const user = JSON.parse(savedUser);
 
-      await createPet({
-        user_id: user.id,
-        name: form.name,
-        type: form.type,
-        breed: form.breed,
-        gender: form.gender,
-        birth_date: form.birthDate || null,
-        color: form.color,
-        chip_number: form.chipNumber,
-        photo: form.image,
-        is_own: true,
-      });
+      if (!user.id) {
+        throw new Error("Не вдалося визначити користувача.");
+      }
+
+      const formData = new FormData();
+
+      formData.append("user_id", String(user.id));
+      formData.append("name", form.name.trim());
+      formData.append("type", form.type);
+      formData.append("breed", form.breed.trim());
+      formData.append("gender", form.gender);
+      formData.append("birth_date", form.birthDate);
+      formData.append("color", form.color.trim());
+      formData.append("chip_number", form.chipNumber.trim());
+      formData.append("is_own", "true");
+
+      if (imageFile) {
+        formData.append("photo", imageFile);
+      }
+
+      await createPet(formData);
 
       alert("Тварину успішно додано!");
-
       navigate("/profile");
     } catch (error) {
-      console.error(error);
-
-      setError(error.message || "Не вдалося додати тварину");
+      console.error("Помилка додавання тварини:", error);
+      setError(error.message || "Не вдалося додати тварину.");
     } finally {
       setLoading(false);
     }
@@ -102,7 +126,6 @@ export function AddPets() {
           </button>
 
           <h1>Додати тварину</h1>
-
           <p>Заповніть інформацію про свого улюбленця</p>
         </div>
 
@@ -115,15 +138,15 @@ export function AddPets() {
             <input
               id="pet-image"
               type="file"
-              name="image"
-              accept="image/*"
+              name="photo"
+              accept="image/jpeg,image/png,image/webp,image/gif"
               onChange={handleImageChange}
             />
 
-            {form.image && (
+            {imagePreview && (
               <img
-                src={form.image}
-                alt="Попередній перегляд"
+                src={imagePreview}
+                alt="Попередній перегляд фотографії тварини"
                 className="pet-image-preview"
               />
             )}
@@ -132,7 +155,6 @@ export function AddPets() {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="pet-name">Ім'я</label>
-
               <input
                 id="pet-name"
                 type="text"
@@ -146,7 +168,6 @@ export function AddPets() {
 
             <div className="form-group">
               <label htmlFor="pet-type">Вид</label>
-
               <select
                 id="pet-type"
                 name="type"
@@ -155,13 +176,9 @@ export function AddPets() {
                 required
               >
                 <option value="">Оберіть вид</option>
-
                 <option value="Кіт">Кіт</option>
-
                 <option value="Кішка">Кішка</option>
-
                 <option value="Собака">Собака</option>
-
                 <option value="Інше">Інше</option>
               </select>
             </div>
@@ -170,7 +187,6 @@ export function AddPets() {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="pet-breed">Порода</label>
-
               <input
                 id="pet-breed"
                 type="text"
@@ -183,7 +199,6 @@ export function AddPets() {
 
             <div className="form-group">
               <label htmlFor="pet-gender">Стать</label>
-
               <select
                 id="pet-gender"
                 name="gender"
@@ -191,9 +206,7 @@ export function AddPets() {
                 onChange={handleChange}
               >
                 <option value="">Оберіть стать</option>
-
                 <option value="Самець">Самець</option>
-
                 <option value="Самка">Самка</option>
               </select>
             </div>
@@ -202,7 +215,6 @@ export function AddPets() {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="pet-birth-date">Дата народження</label>
-
               <input
                 id="pet-birth-date"
                 type="date"
@@ -214,7 +226,6 @@ export function AddPets() {
 
             <div className="form-group">
               <label htmlFor="pet-color">Колір</label>
-
               <input
                 id="pet-color"
                 type="text"
@@ -228,20 +239,19 @@ export function AddPets() {
 
           <div className="form-group">
             <label htmlFor="pet-features">Особливі ознаки</label>
-
             <textarea
               id="pet-features"
               name="features"
               placeholder="Опишіть особливі ознаки тварини..."
               value={form.features}
               onChange={handleChange}
-              rows="4"
+              rows={4}
             />
+            <small>Особливі ознаки поки не зберігаються в базі даних.</small>
           </div>
 
           <div className="form-group">
             <label htmlFor="pet-chip">Номер мікрочипа</label>
-
             <input
               id="pet-chip"
               type="text"
@@ -257,6 +267,7 @@ export function AddPets() {
               type="button"
               className="cancel-button"
               onClick={() => navigate(-1)}
+              disabled={loading}
             >
               Скасувати
             </button>

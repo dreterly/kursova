@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -23,56 +23,85 @@ export function AdminAnnouncements() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function loadAnnouncements() {
+  const loadAnnouncements = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
 
       const data = await getAnnouncements();
 
-      setAdminAnnouncements(data);
+      setAdminAnnouncements(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error(error);
-
+      console.error("Помилка завантаження оголошень:", error);
       setError(error.message || "Не вдалося завантажити оголошення");
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadAnnouncements();
-  }, []);
+  }, [loadAnnouncements]);
 
   async function handleDelete(id) {
     const confirmed = window.confirm(
       "Ви дійсно хочете видалити це оголошення?",
     );
 
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     try {
       await deleteAnnouncement(id);
 
       setAdminAnnouncements((currentAnnouncements) =>
-        currentAnnouncements.filter((announcement) => announcement.id !== id),
+        currentAnnouncements.filter(
+          (announcement) => String(announcement.id) !== String(id),
+        ),
       );
 
-      alert("Оголошення видалено");
+      window.alert("Оголошення успішно видалено");
     } catch (error) {
-      console.error(error);
-
-      alert(error.message || "Не вдалося видалити оголошення");
+      console.error("Помилка видалення оголошення:", error);
+      window.alert(error.message || "Не вдалося видалити оголошення");
     }
+  }
+
+  function getAnnouncementType(type) {
+    if (type === "lost") return "Загублений";
+    if (type === "found") return "Знайдений";
+    return "Не вказано";
+  }
+
+  function getAnnouncementStatus(status) {
+    switch (status) {
+      case "active":
+        return "Активне";
+      case "found":
+        return "Знайдено";
+      case "closed":
+        return "Закрите";
+      default:
+        return status || "Не вказано";
+    }
+  }
+
+  function formatDate(date) {
+    if (!date) return "Не вказано";
+
+    const parsedDate = new Date(date);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+      return "Не вказано";
+    }
+
+    return parsedDate.toLocaleDateString("uk-UA");
   }
 
   if (loading) {
     return (
       <main className="admin-announcements">
         <div className="admin-announcements-state">
-          <div className="admin-announcements-loader"></div>
+          <div className="admin-announcements-loader" />
           <p>Завантаження оголошень...</p>
         </div>
       </main>
@@ -86,7 +115,7 @@ export function AdminAnnouncements() {
           <button
             type="button"
             className="admin-announcements-back"
-          onClick={() => navigate("/admin")}
+            onClick={() => navigate("/admin")}
           >
             <ArrowLeft />
             Повернутися назад
@@ -98,7 +127,6 @@ export function AdminAnnouncements() {
             </div>
 
             <h2>Не вдалося завантажити оголошення</h2>
-
             <p>{error}</p>
 
             <button
@@ -121,7 +149,7 @@ export function AdminAnnouncements() {
         <button
           type="button"
           className="admin-announcements-back"
-         onClick={() => navigate("/admin")}
+          onClick={() => navigate("/admin")}
         >
           <ArrowLeft />
           Повернутися назад
@@ -134,9 +162,7 @@ export function AdminAnnouncements() {
 
           <div>
             <span className="admin-announcements-label">PETFINDER ADMIN</span>
-
             <h1>Оголошення</h1>
-
             <p>Керування оголошеннями PETFINDER</p>
           </div>
         </div>
@@ -153,7 +179,6 @@ export function AdminAnnouncements() {
             </div>
 
             <h2>Оголошень поки немає</h2>
-
             <p>У системі ще не створено жодного оголошення.</p>
           </div>
         ) : (
@@ -178,15 +203,16 @@ export function AdminAnnouncements() {
 
                     <td>
                       <strong className="announcement-name">
-                        {announcement.name || "Невідома тварина"}
+                        {announcement.name ||
+                          announcement.pet_name ||
+                          announcement.pet?.name ||
+                          "Невідома тварина"}
                       </strong>
                     </td>
 
                     <td>
-                      <span className={`admin-type ${announcement.type}`}>
-                        {announcement.type === "lost"
-                          ? "Загублений"
-                          : "Знайдений"}
+                      <span className={`admin-type ${announcement.type || ""}`}>
+                        {getAnnouncementType(announcement.type)}
                       </span>
                     </td>
 
@@ -195,20 +221,14 @@ export function AdminAnnouncements() {
                     </td>
 
                     <td className="announcement-date">
-                      {announcement.created_at
-                        ? new Date(announcement.created_at).toLocaleDateString(
-                            "uk-UA",
-                          )
-                        : "Не вказано"}
+                      {formatDate(announcement.created_at)}
                     </td>
 
                     <td>
-                      <span className={`admin-status ${announcement.status}`}>
-                        {announcement.status === "active"
-                          ? "Активне"
-                          : announcement.status === "found"
-                            ? "Знайдено"
-                            : "Закрите"}
+                      <span
+                        className={`admin-status ${announcement.status || ""}`}
+                      >
+                        {getAnnouncementStatus(announcement.status)}
                       </span>
                     </td>
 

@@ -4,6 +4,7 @@ import { ArrowLeft, Pencil, FileText, PawPrint, RefreshCw } from "lucide-react";
 
 import { getPetById } from "../../services/petsApi.js";
 import { getAnnouncements } from "../../services/announcementsApi.js";
+import { getPhotoUrl } from "../../utils/photoUrl.js";
 
 import "./adminPetDetails.css";
 
@@ -12,35 +13,52 @@ export function AdminPetDetails() {
 
   const [pet, setPet] = useState(null);
   const [announcement, setAnnouncement] = useState(null);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
+
     async function loadData() {
       try {
         setLoading(true);
         setError("");
 
-        const petData = await getPetById(id);
-        const announcementsData = await getAnnouncements();
+        const [petData, announcementsData] = await Promise.all([
+          getPetById(id),
+          getAnnouncements(),
+        ]);
 
-        const relatedAnnouncement = announcementsData.find(
-          (item) => item.pet_id === Number(id),
+        if (!isMounted) return;
+
+        const announcements = Array.isArray(announcementsData)
+          ? announcementsData
+          : [];
+
+        const relatedAnnouncement = announcements.find(
+          (item) => String(item.pet_id) === String(id),
         );
 
         setPet(petData);
         setAnnouncement(relatedAnnouncement || null);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error("Помилка завантаження даних тварини:", err);
 
-        setError(error.message || "Не вдалося завантажити дані");
+        if (isMounted) {
+          setError(err.message || "Не вдалося завантажити дані");
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     loadData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
   if (loading) {
@@ -69,7 +87,6 @@ export function AdminPetDetails() {
             </div>
 
             <h2>Не вдалося завантажити дані</h2>
-
             <p>{error}</p>
 
             <button
@@ -101,13 +118,16 @@ export function AdminPetDetails() {
             </div>
 
             <h2>Тварину не знайдено</h2>
-
             <p>Тварина з таким ідентифікатором не існує.</p>
           </div>
         </div>
       </main>
     );
   }
+
+  const photoUrl = getPhotoUrl(pet.photo);
+  const isOwnPet =
+    pet.is_own === true || pet.is_own === 1 || pet.is_own === "1";
 
   return (
     <main className="admin-pet-details">
@@ -119,14 +139,24 @@ export function AdminPetDetails() {
 
         <div className="admin-pet-details-card">
           <div className="admin-pet-details-image">
-            {pet.photo ? (
-              <img src={pet.photo} alt={pet.name || "Тварина"} />
-            ) : (
-              <div className="admin-pet-details-no-image">
-                <PawPrint />
-                <span>Фото відсутнє</span>
-              </div>
-            )}
+            {photoUrl ? (
+              <img
+                src={photoUrl}
+                alt={pet.name || "Фото тварини"}
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                  event.currentTarget.nextElementSibling.style.display = "flex";
+                }}
+              />
+            ) : null}
+
+            <div
+              className="admin-pet-details-no-image"
+              style={{ display: photoUrl ? "none" : "flex" }}
+            >
+              <PawPrint />
+              <span>Фото відсутнє</span>
+            </div>
           </div>
 
           <div className="admin-pet-details-info">
@@ -184,15 +214,15 @@ export function AdminPetDetails() {
 
               <div>
                 <span>ID користувача</span>
-                <strong>{pet.user_id}</strong>
+                <strong>{pet.user_id ?? "Не вказано"}</strong>
               </div>
             </div>
 
             <div className="admin-pet-details-status">
               <span>Тип запису</span>
 
-              <strong className={pet.is_own ? "own" : "announcement"}>
-                {pet.is_own
+              <strong className={isOwnPet ? "own" : "announcement"}>
+                {isOwnPet
                   ? "Власна тварина користувача"
                   : "Тварина з оголошення"}
               </strong>
@@ -204,9 +234,7 @@ export function AdminPetDetails() {
           <div className="admin-related-announcement-header">
             <div>
               <span className="admin-related-label">ІНФОРМАЦІЯ</span>
-
               <h2>Пов'язане оголошення</h2>
-
               <p>Оголошення, у якому вказана ця тварина</p>
             </div>
 
@@ -216,14 +244,18 @@ export function AdminPetDetails() {
           {announcement ? (
             <div className="admin-related-announcement-card">
               <div className="admin-related-content">
-                <span className={`admin-related-type ${announcement.type}`}>
-                  {announcement.type === "lost" ? "Загублений" : "Знайдений"}
+                <span
+                  className={`admin-related-type ${announcement.type || ""}`}
+                >
+                  {announcement.type === "lost"
+                    ? "Загублений"
+                    : announcement.type === "found"
+                      ? "Знайдений"
+                      : "Оголошення"}
                 </span>
 
                 <h3>{announcement.description || "Опис відсутній"}</h3>
-
                 <p>📍 {announcement.city || "Місто не вказано"}</p>
-
                 <p>{announcement.address || "Місце не вказано"}</p>
 
                 <p className="admin-related-status">
@@ -246,9 +278,7 @@ export function AdminPetDetails() {
           ) : (
             <div className="no-related-announcement">
               <FileText />
-
               <h3>Пов'язаного оголошення немає</h3>
-
               <p>Для цієї тварини ще не створено оголошення.</p>
             </div>
           )}

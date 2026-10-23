@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
@@ -89,9 +88,7 @@ export function EditAnnouncement() {
     } catch (error) {
       console.error(error);
 
-      setError(
-        error.message || "Не вдалося оновити оголошення"
-      );
+      setError(error.message || "Не вдалося оновити оголошення");
     } finally {
       setSaving(false);
     }
@@ -114,10 +111,7 @@ export function EditAnnouncement() {
         <div className="edit-announcement-state error-state">
           <p>{error}</p>
 
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-          >
+          <button type="button" onClick={() => navigate(-1)}>
             <ArrowLeft />
             Повернутися назад
           </button>
@@ -128,11 +122,8 @@ export function EditAnnouncement() {
 
   return (
     <main className="edit-announcement">
-
       <div className="edit-announcement-header">
-
         <div>
-
           <button
             type="button"
             className="back-button"
@@ -144,46 +135,24 @@ export function EditAnnouncement() {
 
           <h1>Редагувати оголошення</h1>
 
-          <p>
-            Змініть інформацію про ваше оголошення
-          </p>
-
+          <p>Змініть інформацію про ваше оголошення</p>
         </div>
-
       </div>
 
-      {error && (
-        <div className="edit-form-error">
-          {error}
-        </div>
-      )}
+      {error && <div className="edit-form-error">{error}</div>}
 
-      <form
-        className="edit-announcement-form"
-        onSubmit={handleSubmit}
-      >
-
+      <form className="edit-announcement-form" onSubmit={handleSubmit}>
         <label>
           Тип оголошення
+          <select name="type" value={form.type} onChange={handleChange}>
+            <option value="lost">Загублений</option>
 
-          <select
-            name="type"
-            value={form.type}
-            onChange={handleChange}
-          >
-            <option value="lost">
-              Загублений
-            </option>
-
-            <option value="found">
-              Знайдений
-            </option>
+            <option value="found">Знайдений</option>
           </select>
         </label>
 
         <label>
           Місто
-
           <input
             type="text"
             name="city"
@@ -195,7 +164,6 @@ export function EditAnnouncement() {
 
         <label>
           Місце
-
           <input
             type="text"
             name="address"
@@ -207,7 +175,6 @@ export function EditAnnouncement() {
 
         <label>
           Опис
-
           <textarea
             name="description"
             value={form.description}
@@ -218,10 +185,8 @@ export function EditAnnouncement() {
         </label>
 
         <div className="coordinates-row">
-
           <label>
             Широта
-
             <input
               type="number"
               step="any"
@@ -234,7 +199,6 @@ export function EditAnnouncement() {
 
           <label>
             Довгота
-
             <input
               type="number"
               step="any"
@@ -244,33 +208,20 @@ export function EditAnnouncement() {
               placeholder="28.6587"
             />
           </label>
-
         </div>
 
         <label>
           Статус
+          <select name="status" value={form.status} onChange={handleChange}>
+            <option value="active">Активне</option>
 
-          <select
-            name="status"
-            value={form.status}
-            onChange={handleChange}
-          >
-            <option value="active">
-              Активне
-            </option>
+            <option value="found">Тварину знайдено</option>
 
-            <option value="found">
-              Тварину знайдено
-            </option>
-
-            <option value="closed">
-              Закрите
-            </option>
+            <option value="closed">Закрите</option>
           </select>
         </label>
 
         <div className="edit-announcement-buttons">
-
           <button
             type="button"
             className="cancel-edit-button"
@@ -280,20 +231,11 @@ export function EditAnnouncement() {
             Скасувати
           </button>
 
-          <button
-            type="submit"
-            className="save-edit-button"
-            disabled={saving}
-          >
-            {saving
-              ? "Збереження..."
-              : "Зберегти зміни"}
+          <button type="submit" className="save-edit-button" disabled={saving}>
+            {saving ? "Збереження..." : "Зберегти зміни"}
           </button>
-
         </div>
-
       </form>
-
     </main>
   );
 }

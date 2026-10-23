@@ -1,7 +1,3 @@
-/* =====================================================
-   GPS MONITORING
-===================================================== */
-
 .gps-monitoring {
   min-height: 100%;
   padding: 30px;
@@ -14,27 +10,18 @@
   margin: 0 auto;
 }
 
-/* =====================================================
-   BACK BUTTON
-===================================================== */
-
 .back-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   margin-bottom: 24px;
   padding: 10px 16px;
-
   border: 1px solid #e5e5e5;
   border-radius: 10px;
-
   background: #ffffff;
   color: #343a40;
-
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -50,30 +37,21 @@
   transform: translateX(-2px);
 }
 
-/* =====================================================
-   PAGE HEADER
-===================================================== */
-
 .gps-monitoring-header {
   display: flex;
   align-items: center;
   gap: 16px;
-
   margin-bottom: 28px;
 }
 
 .gps-monitoring-icon {
   width: 54px;
   height: 54px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
-
   border-radius: 14px;
-
   background: #e6195e;
   color: #ffffff;
 }
@@ -85,45 +63,29 @@
 
 .gps-monitoring-header h1 {
   margin: 0 0 5px;
-
   color: #343a40;
-
   font-size: 30px;
   font-weight: 700;
 }
 
 .gps-monitoring-header p {
   margin: 0;
-
   color: #777777;
-
   font-size: 15px;
 }
-
-/* =====================================================
-   MAIN CONTENT
-===================================================== */
 
 .gps-content {
   display: grid;
   grid-template-columns: 350px minmax(0, 1fr);
   gap: 20px;
-
   align-items: start;
 }
 
-/* =====================================================
-   LEFT PANEL
-===================================================== */
-
 .gps-pets-panel {
   padding: 20px;
-
   background: #ffffff;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
@@ -131,15 +93,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 16px;
 }
 
 .gps-panel-title h2 {
   margin: 0;
-
   color: #343a40;
-
   font-size: 20px;
   font-weight: 700;
 }
@@ -147,25 +106,16 @@
 .gps-panel-title span {
   min-width: 28px;
   height: 28px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0 8px;
-
   border-radius: 20px;
-
   background: #fce3ec;
   color: #e6195e;
-
   font-size: 13px;
   font-weight: 700;
 }
-
-/* =====================================================
-   PET LIST
-===================================================== */
 
 .gps-pets-list {
   display: flex;
@@ -175,22 +125,15 @@
 
 .gps-pet-card {
   width: 100%;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 13px;
-
   border: 1px solid #eeeeee;
   border-radius: 12px;
-
   background: #ffffff;
-
   text-align: left;
-
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
@@ -202,22 +145,17 @@
 .gps-pet-card.active {
   background: #fff3f7;
   border-color: #e6195e;
-
   box-shadow: 0 3px 10px rgba(230, 25, 94, 0.08);
 }
 
 .gps-pet-icon {
   width: 42px;
   height: 42px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
-
   border-radius: 11px;
-
   background: #fce3ec;
   color: #e6195e;
 }
@@ -234,22 +172,16 @@
 
 .gps-pet-info h3 {
   margin: 0 0 3px;
-
   color: #343a40;
-
   font-size: 15px;
   font-weight: 700;
 }
 
 .gps-pet-info p {
   margin: 0;
-
   overflow: hidden;
-
   color: #888888;
-
   font-size: 12px;
-
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -258,11 +190,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-
   flex-shrink: 0;
-
   color: #555555;
-
   font-size: 12px;
   font-weight: 600;
 }
@@ -272,22 +201,15 @@
   height: 16px;
 }
 
-/* =====================================================
-   PET INFORMATION
-===================================================== */
-
 .gps-details {
   margin-top: 20px;
   padding-top: 20px;
-
   border-top: 1px solid #eeeeee;
 }
 
 .gps-details h3 {
   margin: 0 0 16px;
-
   color: #343a40;
-
   font-size: 16px;
   font-weight: 700;
 }
@@ -296,7 +218,6 @@
   display: flex;
   align-items: flex-start;
   gap: 11px;
-
   margin-bottom: 16px;
 }
 
@@ -307,17 +228,13 @@
 .gps-detail-row > svg {
   width: 19px;
   height: 19px;
-
   flex-shrink: 0;
-
   margin-top: 2px;
-
   color: #e6195e;
 }
 
 .gps-detail-row div {
   min-width: 0;
-
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -325,46 +242,34 @@
 
 .gps-detail-row span {
   color: #999999;
-
   font-size: 12px;
 }
 
 .gps-detail-row strong {
   color: #343a40;
-
   font-size: 13px;
   line-height: 1.4;
 }
-
-/* =====================================================
-   HISTORY COUNT
-===================================================== */
 
 .gps-history-count {
   display: flex;
   align-items: center;
   gap: 9px;
-
   margin-top: 18px;
   padding: 12px;
-
   border-radius: 10px;
-
   background: #fff8da;
 }
 
 .gps-history-count svg {
   width: 18px;
   height: 18px;
-
   flex-shrink: 0;
-
   color: #d1b600;
 }
 
 .gps-history-count span {
   color: #555555;
-
   font-size: 13px;
 }
 
@@ -372,20 +277,12 @@
   color: #343a40;
 }
 
-/* =====================================================
-   MAP SECTION
-===================================================== */
-
 .gps-map-section {
   min-width: 0;
-
   padding: 20px;
-
   background: #ffffff;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
@@ -393,26 +290,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 15px;
-
   margin-bottom: 16px;
 }
 
 .gps-map-header h2 {
   margin: 0 0 4px;
-
   color: #343a40;
-
   font-size: 21px;
   font-weight: 700;
 }
 
 .gps-map-header p {
   margin: 0;
-
   color: #888888;
-
   font-size: 13px;
   line-height: 1.4;
 }
@@ -421,33 +312,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   padding: 7px 12px;
-
   border-radius: 20px;
-
   background: #fff3c4;
   color: #806f00;
-
   font-size: 12px;
   font-weight: 700;
-
   white-space: nowrap;
 }
-
-/* =====================================================
-   MAP
-===================================================== */
 
 .gps-map-wrapper {
   width: 100%;
   height: 560px;
-
   overflow: hidden;
-
   border: 1px solid #eeeeee;
   border-radius: 13px;
-
   background: #eeeeee;
 }
 
@@ -456,43 +335,28 @@
   height: 100%;
 }
 
-/* =====================================================
-   GPS MARKER
-   Нормальний круглий маячок
-===================================================== */
-
 .gps-marker-wrapper {
   width: 44px !important;
   height: 44px !important;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: transparent !important;
-
   border: none !important;
 }
 
 .gps-marker {
   width: 44px;
   height: 44px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   box-sizing: border-box;
-
   border: 4px solid #ffffff;
   border-radius: 50%;
-
   background: #e6195e;
-
   box-shadow: 0 3px 12px rgba(230, 25, 94, 0.35);
-
   cursor: pointer;
-
   transition: transform 0.2s ease;
 }
 
@@ -502,35 +366,25 @@
 
 .gps-marker span {
   display: block;
-
   font-size: 19px;
   line-height: 1;
 }
 
-/* =====================================================
-   LEAFLET POPUP
-===================================================== */
-
 .gps-popup {
   min-width: 210px;
-
   padding: 2px;
 }
 
 .gps-popup h3 {
   margin: 0 0 10px;
-
   color: #343a40;
-
   font-size: 16px;
   font-weight: 700;
 }
 
 .gps-popup p {
   margin: 7px 0;
-
   color: #555555;
-
   font-size: 13px;
   line-height: 1.4;
 }
@@ -539,17 +393,11 @@
   color: #343a40;
 }
 
-/* =====================================================
-   HISTORY
-===================================================== */
-
 .gps-history {
   margin-top: 20px;
   padding: 20px;
-
   border: 1px solid #eeeeee;
   border-radius: 14px;
-
   background: #ffffff;
 }
 
@@ -557,47 +405,33 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 15px;
-
   margin-bottom: 18px;
 }
 
 .gps-history-header h2 {
   margin: 0 0 4px;
-
   color: #343a40;
-
   font-size: 19px;
   font-weight: 700;
 }
 
 .gps-history-header p {
   margin: 0;
-
   color: #888888;
-
   font-size: 13px;
   line-height: 1.4;
 }
 
 .gps-history-total {
   padding: 7px 12px;
-
   border-radius: 20px;
-
   background: #fce3ec;
   color: #e6195e;
-
   font-size: 12px;
   font-weight: 700;
-
   white-space: nowrap;
 }
-
-/* =====================================================
-   HISTORY LIST
-===================================================== */
 
 .gps-history-list {
   display: flex;
@@ -606,20 +440,17 @@
 }
 
 .gps-history-item {
+  width: 100%;
   display: flex;
   align-items: center;
-
   gap: 12px;
-
   padding: 12px 14px;
-
   border: 1px solid #eeeeee;
   border-radius: 11px;
-
   background: #fafafa;
-
-  cursor: default;
-
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
   transition:
     border-color 0.2s ease,
     background 0.2s ease,
@@ -632,22 +463,34 @@
   transform: translateX(2px);
 }
 
-/* =====================================================
-   HISTORY ICON
-===================================================== */
+.gps-history-item.selected {
+  background: #fff3f7;
+  border-color: #e6195e;
+  box-shadow: 0 3px 10px rgba(230, 25, 94, 0.08);
+}
+
+.gps-history-item.selected .gps-history-dot {
+  background: #e6195e;
+  color: #ffffff;
+}
+
+.gps-history-item:focus {
+  outline: none;
+}
+
+.gps-history-item:focus-visible {
+  outline: 2px solid #e6195e;
+  outline-offset: 2px;
+}
 
 .gps-history-dot {
   width: 36px;
   height: 36px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
-
   border-radius: 50%;
-
   background: #fce3ec;
   color: #e6195e;
 }
@@ -657,47 +500,32 @@
   height: 18px;
 }
 
-/* =====================================================
-   HISTORY TEXT
-===================================================== */
-
 .gps-history-info {
   min-width: 0;
   flex: 1;
-
   display: flex;
   flex-direction: column;
-
   gap: 4px;
 }
 
 .gps-history-info strong {
   color: #343a40;
-
   font-size: 13px;
   font-weight: 700;
 }
 
 .gps-history-info span {
   color: #777777;
-
   font-size: 12px;
   line-height: 1.4;
 }
-
-/* =====================================================
-   HISTORY BATTERY
-===================================================== */
 
 .gps-history-battery {
   display: flex;
   align-items: center;
   gap: 5px;
-
   flex-shrink: 0;
-
   color: #555555;
-
   font-size: 12px;
   font-weight: 600;
 }
@@ -707,90 +535,62 @@
   height: 17px;
 }
 
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
 .gps-empty {
   min-height: 400px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 40px;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   background: #ffffff;
-
   text-align: center;
 }
 
 .gps-empty > svg {
   width: 52px;
   height: 52px;
-
   margin-bottom: 16px;
-
   color: #e6195e;
 }
 
 .gps-empty h2 {
   margin: 0 0 8px;
-
   color: #343a40;
-
   font-size: 21px;
 }
 
 .gps-empty p {
   max-width: 420px;
-
   margin: 0;
-
   color: #888888;
-
   font-size: 14px;
   line-height: 1.5;
 }
 
-/* =====================================================
-   LOADING
-===================================================== */
-
 .gps-state {
   min-height: 500px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   gap: 15px;
-
   text-align: center;
 }
 
 .gps-state p {
   margin: 0;
-
   color: #777777;
-
   font-size: 15px;
 }
 
 .gps-spinner {
   width: 42px;
   height: 42px;
-
   border: 4px solid #f6d1df;
   border-top-color: #e6195e;
-
   border-radius: 50%;
-
   animation: gps-spin 0.8s linear infinite;
 }
 
@@ -800,13 +600,8 @@
   }
 }
 
-/* =====================================================
-   ERROR
-===================================================== */
-
 .gps-error p {
   color: #e6195e;
-
   font-weight: 600;
 }
 
@@ -814,20 +609,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   padding: 10px 16px;
-
   border: none;
   border-radius: 10px;
-
   background: #e6195e;
   color: #ffffff;
-
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: background 0.2s ease;
 }
 
@@ -840,9 +629,9 @@
   height: 18px;
 }
 
-/* =====================================================
-   RESPONSIVE — TABLET
-===================================================== */
+.leaflet-interactive:focus {
+  outline: none;
+}
 
 @media (max-width: 1100px) {
   .gps-content {
@@ -853,10 +642,6 @@
     height: 500px;
   }
 }
-
-/* =====================================================
-   RESPONSIVE — MOBILE
-===================================================== */
 
 @media (max-width: 850px) {
   .gps-monitoring {
@@ -951,10 +736,6 @@
   }
 }
 
-/* =====================================================
-   VERY SMALL SCREENS
-===================================================== */
-
 @media (max-width: 420px) {
   .gps-monitoring {
     padding: 10px;
@@ -1002,36 +783,4 @@
   .gps-history-battery {
     font-size: 11px;
   }
-}
-.gps-history-item {
-  width: 100%;
-  border: 1px solid #eeeeee;
-  font-family: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.gps-history-item.selected {
-  background: #fff3f7;
-  border-color: #e6195e;
-  box-shadow: 0 3px 10px rgba(230, 25, 94, 0.08);
-}
-
-.gps-history-item.selected .gps-history-dot {
-  background: #e6195e;
-  color: #ffffff;
-}
-
-.gps-history-item:focus {
-  outline: none;
-}
-
-.gps-history-item:focus-visible {
-  outline: 2px solid #e6195e;
-  outline-offset: 2px;
-}
-
-/* Прибираємо стандартне виділення Leaflet */
-.leaflet-interactive:focus {
-  outline: none;
 }

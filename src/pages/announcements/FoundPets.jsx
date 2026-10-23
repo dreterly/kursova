@@ -24,9 +24,23 @@ export function FoundPets() {
       try {
         const announcementsData = await getAnnouncements();
 
-        setAnnouncements(announcementsData);
+        console.log("Знайдені оголошення з API:", announcementsData);
+
+        const normalizedAnnouncements = announcementsData.map(
+          (announcement) => ({
+            ...announcement,
+            photo:
+              announcement.photo ||
+              announcement.pet_photo ||
+              announcement.image ||
+              announcement.pet?.photo ||
+              null,
+          }),
+        );
+
+        setAnnouncements(normalizedAnnouncements);
       } catch (error) {
-        console.error(error);
+        console.error("Помилка завантаження оголошень:", error);
         setError("Не вдалося завантажити оголошення");
       } finally {
         setLoading(false);
@@ -86,8 +100,6 @@ export function FoundPets() {
   return (
     <main className="found-pets">
       <div className="found-pets-container">
-        {/* Заголовок */}
-
         <div className="found-pets-header">
           <button
             type="button"
@@ -105,7 +117,6 @@ export function FoundPets() {
 
             <div>
               <h1>Знайдені тварини</h1>
-
               <p>
                 Переглядайте знайдених тварин та допомагайте повернути їх
                 власникам
@@ -113,8 +124,6 @@ export function FoundPets() {
             </div>
           </div>
         </div>
-
-        {/* Фільтри */}
 
         <section className="found-filters">
           <div className="filters-title">
@@ -173,15 +182,10 @@ export function FoundPets() {
           </div>
         </section>
 
-        {/* Інформація про результати */}
-
         <div className="found-results-info">
           <strong>Знайдені тварини</strong>
-
           <span>Знайдено оголошень: {foundPets.length}</span>
         </div>
-
-        {/* Картки */}
 
         {foundPets.length > 0 ? (
           <div className="found-pets-list">
@@ -199,7 +203,6 @@ export function FoundPets() {
             </div>
 
             <h2>Оголошень не знайдено</h2>
-
             <p>Спробуйте змінити пошуковий запит або параметри фільтрації.</p>
 
             <button type="button" onClick={clearFilters}>

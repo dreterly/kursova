@@ -87,7 +87,6 @@ export function Settings() {
         password: form.password,
       });
 
-      // Оновлюємо дані користувача в localStorage
       const currentUser = JSON.parse(localStorage.getItem("user"));
 
       const updatedUser = {
@@ -175,8 +174,6 @@ export function Settings() {
         )}
 
         <form className="settings-form" onSubmit={handleSubmit}>
-          {/* Особисті дані */}
-
           <section className="settings-section">
             <div className="section-heading">
               <div className="section-heading-icon">
@@ -247,8 +244,6 @@ export function Settings() {
             </div>
           </section>
 
-          {/* Безпека */}
-
           <section className="settings-section">
             <div className="section-heading">
               <div className="section-heading-icon">
@@ -257,7 +252,6 @@ export function Settings() {
 
               <div>
                 <h2>Безпека</h2>
-
                 <p>Змініть пароль для захисту акаунта</p>
               </div>
             </div>
@@ -284,8 +278,6 @@ export function Settings() {
             </div>
           </section>
 
-          {/* Кнопки */}
-
           <div className="settings-actions">
             <button
               type="button"
@@ -302,7 +294,6 @@ export function Settings() {
               disabled={saving}
             >
               <Save />
-
               {saving ? "Збереження..." : "Зберегти зміни"}
             </button>
           </div>

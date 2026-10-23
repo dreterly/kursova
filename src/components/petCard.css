@@ -1,17 +1,13 @@
-/* Картка тварини */
-
 .pet-card {
   width: 100%;
   max-width: 270px;
   min-width: 0;
   box-sizing: border-box;
   overflow: hidden;
-
   background: #ffffff;
   border: 1px solid #eeeeee;
   border-radius: 16px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -21,8 +17,6 @@
   transform: translateY(-4px);
   box-shadow: 0 8px 22px rgba(230, 25, 94, 0.14);
 }
-
-/* Фото */
 
 .pet-card-image {
   position: relative;
@@ -44,22 +38,17 @@
   transform: scale(1.04);
 }
 
-/* Статус */
-
 .pet-status {
   position: absolute;
   top: 10px;
   left: 10px;
   max-width: calc(100% - 20px);
   box-sizing: border-box;
-
   padding: 5px 9px;
   border-radius: 8px;
-
   font-size: 11px;
   font-weight: 700;
   color: #ffffff;
-
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
@@ -76,14 +65,10 @@
   color: #5c5000;
 }
 
-/* Контент */
-
 .pet-card-content {
   padding: 15px;
   overflow-wrap: anywhere;
 }
-
-/* Ім'я */
 
 .pet-card-content h3 {
   margin: 0 0 11px;
@@ -92,8 +77,6 @@
   font-weight: 700;
   line-height: 1.35;
 }
-
-/* Інформація */
 
 .pet-info {
   display: flex;
@@ -107,7 +90,6 @@
   align-items: flex-start;
   gap: 7px;
   margin: 0;
-
   color: #687386;
   font-size: 13px;
   line-height: 1.4;
@@ -121,29 +103,23 @@
   color: #e6195e;
 }
 
-/* Кнопка */
-
 .pet-details-button {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 100%;
   min-height: 40px;
   box-sizing: border-box;
   padding: 9px 12px;
-
   border: none;
   border-radius: 9px;
   background-color: #e6195e;
   color: #ffffff;
-
   text-decoration: none;
   text-align: center;
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
-
   transition:
     background-color 0.2s ease,
     transform 0.15s ease;
@@ -159,8 +135,6 @@
   outline-offset: 3px;
 }
 
-/* Планшет */
-
 @media (max-width: 900px) {
   .pet-card-image {
     height: 160px;
@@ -170,8 +144,6 @@
     padding: 13px;
   }
 }
-
-/* Телефон */
 
 @media (max-width: 600px) {
   .pet-card {
@@ -196,8 +168,6 @@
   }
 }
 
-/* Пристрої без наведення */
-
 @media (hover: none) {
   .pet-card:hover {
     transform: none;
@@ -208,8 +178,6 @@
     transform: none;
   }
 }
-
-/* Зменшення анімацій за налаштуваннями пристрою */
 
 @media (prefers-reduced-motion: reduce) {
   .pet-card,

@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, PawPrint, Save, RefreshCw } from "lucide-react";
+import {
+  ArrowLeft,
+  PawPrint,
+  Save,
+  RefreshCw,
+  ImagePlus,
+  X,
+} from "lucide-react";
 
 import { getPetById, updateAdminPet } from "../../services/petsApi.js";
+import { getPhotoUrl } from "../../utils/photoUrl.js";
 
 import "./editAdminPet.css";
 
@@ -22,10 +30,15 @@ export function EditAdminPet() {
     is_own: true,
   });
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
+
     async function loadPet() {
       try {
         setLoading(true);
@@ -33,27 +46,51 @@ export function EditAdminPet() {
 
         const pet = await getPetById(id);
 
+        if (!isMounted) return;
+
         setForm({
           name: pet.name || "",
           type: pet.type || "",
           breed: pet.breed || "",
           gender: pet.gender || "",
-          birth_date: pet.birth_date ? pet.birth_date.slice(0, 10) : "",
+          birth_date: pet.birth_date ? String(pet.birth_date).slice(0, 10) : "",
           color: pet.color || "",
           chip_number: pet.chip_number || "",
           photo: pet.photo || "",
-          is_own: Boolean(pet.is_own),
+          is_own: pet.is_own === true || pet.is_own === 1 || pet.is_own === "1",
         });
-      } catch (error) {
-        console.error(error);
-        setError("Не вдалося завантажити тварину");
+
+        setImagePreview(getPhotoUrl(pet.photo || ""));
+      } catch (err) {
+        console.error("Помилка завантаження тварини:", err);
+
+        if (isMounted) {
+          setError(err.message || "Не вдалося завантажити тварину");
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     loadPet();
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
+
+  useEffect(() => {
+    if (!imageFile) return;
+
+    const previewUrl = URL.createObjectURL(imageFile);
+    setImagePreview(previewUrl);
+
+    return () => {
+      URL.revokeObjectURL(previewUrl);
+    };
+  }, [imageFile]);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -64,27 +101,75 @@ export function EditAdminPet() {
     }));
   }
 
+  function handleImageChange(event) {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Вибери файл зображення.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Розмір фото не повинен перевищувати 5 МБ.");
+      event.target.value = "";
+      return;
+    }
+
+    setImageFile(file);
+  }
+
+  function handleRemoveNewImage() {
+    setImageFile(null);
+    setImagePreview(getPhotoUrl(form.photo || ""));
+
+    const input = document.getElementById("pet-photo");
+
+    if (input) {
+      input.value = "";
+    }
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
-      await updateAdminPet(id, {
-        name: form.name,
-        type: form.type,
-        breed: form.breed,
-        gender: form.gender,
-        birth_date: form.birth_date || null,
-        color: form.color,
-        chip_number: form.chip_number || null,
-        photo: form.photo || null,
-        is_own: form.is_own,
-      });
+      setSaving(true);
+
+      let dataToSend;
+
+      if (imageFile) {
+        dataToSend = new FormData();
+
+        dataToSend.append("name", form.name);
+        dataToSend.append("type", form.type);
+        dataToSend.append("breed", form.breed);
+        dataToSend.append("gender", form.gender);
+        dataToSend.append("birth_date", form.birth_date || "");
+        dataToSend.append("color", form.color);
+        dataToSend.append("chip_number", form.chip_number);
+        dataToSend.append("is_own", String(form.is_own));
+        dataToSend.append("photo", imageFile);
+      } else {
+        dataToSend = {
+          ...form,
+          birth_date: form.birth_date || null,
+          chip_number: form.chip_number || null,
+          photo: form.photo || null,
+        };
+      }
+
+      await updateAdminPet(id, dataToSend);
 
       alert("Дані тварини успішно оновлено");
       navigate("/admin/pets");
-    } catch (error) {
-      console.error(error);
-      alert(error.message || "Не вдалося оновити тварину");
+    } catch (err) {
+      console.error("Помилка оновлення тварини:", err);
+      alert(err.message || "Не вдалося оновити тварину");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -118,7 +203,6 @@ export function EditAdminPet() {
             </div>
 
             <h2>Не вдалося завантажити тварину</h2>
-
             <p>{error}</p>
 
             <button
@@ -154,9 +238,7 @@ export function EditAdminPet() {
 
           <div>
             <span className="edit-admin-pet-label">PETFINDER ADMIN</span>
-
             <h1>Редагування тварини</h1>
-
             <p>Зміна інформації про тварину в системі PETFINDER</p>
           </div>
         </div>
@@ -164,14 +246,12 @@ export function EditAdminPet() {
         <form className="edit-admin-pet-form" onSubmit={handleSubmit}>
           <div className="edit-admin-pet-form-header">
             <h2>Дані тварини</h2>
-
             <span>ID: #{id}</span>
           </div>
 
           <div className="edit-admin-pet-fields">
             <label>
               <span>Ім'я тварини</span>
-
               <input
                 type="text"
                 name="name"
@@ -184,7 +264,6 @@ export function EditAdminPet() {
 
             <label>
               <span>Вид</span>
-
               <select
                 name="type"
                 value={form.type}
@@ -201,7 +280,6 @@ export function EditAdminPet() {
 
             <label>
               <span>Порода</span>
-
               <input
                 type="text"
                 name="breed"
@@ -213,7 +291,6 @@ export function EditAdminPet() {
 
             <label>
               <span>Стать</span>
-
               <select name="gender" value={form.gender} onChange={handleChange}>
                 <option value="">Не вказано</option>
                 <option value="Самець">Самець</option>
@@ -223,7 +300,6 @@ export function EditAdminPet() {
 
             <label>
               <span>Дата народження</span>
-
               <input
                 type="date"
                 name="birth_date"
@@ -234,7 +310,6 @@ export function EditAdminPet() {
 
             <label>
               <span>Колір</span>
-
               <input
                 type="text"
                 name="color"
@@ -246,7 +321,6 @@ export function EditAdminPet() {
 
             <label>
               <span>Номер чипа</span>
-
               <input
                 type="text"
                 name="chip_number"
@@ -256,21 +330,52 @@ export function EditAdminPet() {
               />
             </label>
 
-            <label>
-              <span>Фото</span>
+            <div className="edit-admin-pet-full-field">
+              <span className="edit-admin-pet-field-label">Фото тварини</span>
+
+              {imagePreview ? (
+                <div className="edit-admin-pet-photo-preview">
+                  <img
+                    src={imagePreview}
+                    alt={`Фото: ${form.name || "тварина"}`}
+                    onError={() => setImagePreview("")}
+                  />
+
+                  {imageFile && (
+                    <button
+                      type="button"
+                      className="edit-admin-pet-remove-photo"
+                      onClick={handleRemoveNewImage}
+                    >
+                      <X size={16} />
+                      Скасувати нове фото
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <p className="edit-admin-pet-no-photo">Фото не додано</p>
+              )}
+
+              <label htmlFor="pet-photo" className="edit-admin-pet-upload">
+                <ImagePlus size={20} />
+                Вибрати фото з комп'ютера
+              </label>
 
               <input
-                type="text"
-                name="photo"
-                value={form.photo}
-                onChange={handleChange}
-                placeholder="/images/pets/photo.jpg"
+                id="pet-photo"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="edit-admin-pet-file-input"
               />
-            </label>
+
+              <p className="edit-admin-pet-hint">
+                Формат зображення: JPG, PNG або WebP. Максимум 5 МБ.
+              </p>
+            </div>
 
             <label className="edit-admin-pet-full-field">
               <span>Тип тварини в системі</span>
-
               <select
                 name="is_own"
                 value={form.is_own ? "true" : "false"}
@@ -282,7 +387,6 @@ export function EditAdminPet() {
                 }
               >
                 <option value="true">Власна тварина користувача</option>
-
                 <option value="false">Тварина з оголошення</option>
               </select>
             </label>
@@ -293,13 +397,18 @@ export function EditAdminPet() {
               type="button"
               className="cancel-admin-pet-button"
               onClick={() => navigate("/admin/pets")}
+              disabled={saving}
             >
               Скасувати
             </button>
 
-            <button type="submit" className="save-admin-pet-button">
+            <button
+              type="submit"
+              className="save-admin-pet-button"
+              disabled={saving}
+            >
               <Save />
-              Зберегти зміни
+              {saving ? "Збереження..." : "Зберегти зміни"}
             </button>
           </div>
         </form>

@@ -9,7 +9,6 @@ import "./lostPets.css";
 
 export function LostPets() {
   const navigate = useNavigate();
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [type, setType] = useState("");
@@ -27,10 +26,23 @@ export function LostPets() {
       try {
         const announcementsData = await getAnnouncements();
 
-        setAnnouncements(announcementsData);
-      } catch (error) {
-        console.error(error);
+        console.log("Оголошення про загублених тварин:", announcementsData);
 
+        const normalizedAnnouncements = announcementsData.map(
+          (announcement) => ({
+            ...announcement,
+            photo:
+              announcement.photo ||
+              announcement.pet_photo ||
+              announcement.image ||
+              announcement.pet?.photo ||
+              null,
+          }),
+        );
+
+        setAnnouncements(normalizedAnnouncements);
+      } catch (error) {
+        console.error("Помилка завантаження оголошень:", error);
         setError("Не вдалося завантажити оголошення");
       } finally {
         setLoading(false);
@@ -44,9 +56,7 @@ export function LostPets() {
     const value = event.target.value;
 
     if (value.trim()) {
-      setSearchParams({
-        search: value,
-      });
+      setSearchParams({ search: value });
     } else {
       setSearchParams({});
     }
@@ -61,7 +71,7 @@ export function LostPets() {
 
   const lostPets = announcements.filter((announcement) => {
     const announcementDate = announcement.created_at
-      ? announcement.created_at.slice(0, 10)
+      ? String(announcement.created_at).slice(0, 10)
       : "";
 
     return (
@@ -73,32 +83,22 @@ export function LostPets() {
     );
   });
 
-  /* =========================
-     LOADING
-  ========================= */
-
   if (loading) {
     return (
       <main className="lost-pets">
         <div className="lost-pets-message">
           <div className="lost-loader"></div>
-
           <p>Завантаження оголошень...</p>
         </div>
       </main>
     );
   }
 
-  /* =========================
-     ERROR
-  ========================= */
-
   if (error) {
     return (
       <main className="lost-pets">
         <div className="lost-pets-message error">
           <p>{error}</p>
-
           <button type="button" onClick={() => navigate(-1)}>
             <ArrowLeft />
             Повернутися назад
@@ -108,15 +108,9 @@ export function LostPets() {
     );
   }
 
-  /* =========================
-     PAGE
-  ========================= */
-
   return (
     <main className="lost-pets">
       <div className="lost-pets-container">
-        {/* HEADER */}
-
         <div className="lost-pets-header">
           <button
             type="button"
@@ -134,25 +128,20 @@ export function LostPets() {
 
             <div>
               <h1>Загублені тварини</h1>
-
               <p>Переглядайте оголошення та допомагайте знайти улюбленців</p>
             </div>
           </div>
         </div>
 
-        {/* FILTERS */}
-
         <section className="lost-filters">
           <div className="filters-title">
             <SlidersHorizontal />
-
             <span>Пошук та фільтри</span>
           </div>
 
           <div className="filters-row">
             <div className="search-wrapper">
               <Search />
-
               <input
                 type="text"
                 placeholder="Пошук за ім'ям..."
@@ -166,13 +155,9 @@ export function LostPets() {
               onChange={(event) => setType(event.target.value)}
             >
               <option value="">Усі види</option>
-
               <option value="Кіт">Кіт</option>
-
               <option value="Кішка">Кішка</option>
-
               <option value="Собака">Собака</option>
-
               <option value="Інше">Інше</option>
             </select>
 
@@ -181,11 +166,8 @@ export function LostPets() {
               onChange={(event) => setCity(event.target.value)}
             >
               <option value="">Усі міста</option>
-
               <option value="Житомир">Житомир</option>
-
               <option value="Київ">Київ</option>
-
               <option value="Львів">Львів</option>
             </select>
 
@@ -207,15 +189,10 @@ export function LostPets() {
           </div>
         </section>
 
-        {/* RESULTS */}
-
         <div className="lost-results-info">
           <strong>Загублені тварини</strong>
-
           <span>Знайдено оголошень: {lostPets.length}</span>
         </div>
-
-        {/* CARDS */}
 
         {lostPets.length > 0 ? (
           <div className="lost-pets-list">
@@ -233,7 +210,6 @@ export function LostPets() {
             </div>
 
             <h2>Оголошень не знайдено</h2>
-
             <p>Спробуйте змінити пошуковий запит або параметри фільтрації.</p>
 
             <button type="button" onClick={clearFilters}>

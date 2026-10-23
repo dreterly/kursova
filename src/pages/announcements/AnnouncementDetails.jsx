@@ -11,6 +11,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 import { getAnnouncementById } from "../../services/announcementsApi.js";
+import { getPhotoUrl } from "../../utils/PhotoUrl.js";
 
 import "./announcementDetails.css";
 
@@ -23,19 +24,56 @@ export function AnnouncementDetails() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
+
     async function loadData() {
+      setLoading(true);
+      setError("");
+      setAnnouncement(null);
+
       try {
         const announcementData = await getAnnouncementById(id);
-        setAnnouncement(announcementData);
+
+        if (!isMounted) return;
+
+        if (!announcementData) {
+          throw new Error("Оголошення не знайдено");
+        }
+
+        console.log("Деталі оголошення з API:", announcementData);
+
+        setAnnouncement({
+          ...announcementData,
+          photo:
+            announcementData.photo ||
+            announcementData.pet_photo ||
+            announcementData.image ||
+            announcementData.pet?.photo ||
+            null,
+        });
       } catch (error) {
-        console.error(error);
-        setError("Оголошення не знайдено");
+        console.error("Помилка завантаження оголошення:", error);
+
+        if (isMounted) {
+          setError("Оголошення не знайдено");
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
-    loadData();
+    if (id) {
+      loadData();
+    } else {
+      setError("Не вказано ID оголошення");
+      setLoading(false);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
   if (loading) {
@@ -74,10 +112,42 @@ export function AnnouncementDetails() {
 
   const isLost = announcement.type === "lost";
 
+  const photoUrl = getPhotoUrl(announcement.photo);
+
+  const announcementDate =
+    announcement.date ||
+    announcement.created_at ||
+    announcement.lost_date ||
+    null;
+
+  const formattedDate = announcementDate
+    ? new Date(announcementDate).toLocaleDateString("uk-UA")
+    : "Не вказано";
+
+  const petName =
+    announcement.name ||
+    announcement.pet_name ||
+    announcement.pet?.name ||
+    "Тварина";
+
+  const petType =
+    announcement.pet_type ||
+    announcement.species ||
+    announcement.pet?.type ||
+    "Не вказано";
+
+  const petBreed =
+    announcement.breed || announcement.pet?.breed || "Не вказано";
+
+  const contact =
+    announcement.contact ||
+    announcement.contact_phone ||
+    announcement.phone ||
+    "";
+
   return (
     <main className="announcement-details">
       <div className="announcement-details-container">
-        {/* Верхня частина */}
         <div className="announcement-details-header">
           <button
             type="button"
@@ -100,15 +170,21 @@ export function AnnouncementDetails() {
           </div>
         </div>
 
-        {/* Картка */}
         <div className="announcement-details-card">
-          {/* Фото */}
           <div className="announcement-details-image-wrapper">
-            {announcement.photo ? (
+            {photoUrl ? (
               <img
                 className="announcement-details-image"
-                src={announcement.photo}
-                alt={announcement.name || "Тварина"}
+                src={photoUrl}
+                alt={petName}
+                onError={(event) => {
+                  console.error(
+                    "Не вдалося завантажити фото оголошення:",
+                    event.currentTarget.src,
+                  );
+
+                  event.currentTarget.style.display = "none";
+                }}
               />
             ) : (
               <div className="announcement-details-no-image">
@@ -126,16 +202,15 @@ export function AnnouncementDetails() {
             </span>
           </div>
 
-          {/* Інформація */}
           <div className="announcement-details-content">
-            <h2 className="pet-name">{announcement.name || "Тварина"}</h2>
+            <h2 className="pet-name">{petName}</h2>
 
             <div className="details-info">
               <div className="details-info-item">
                 <PawPrint />
                 <div>
                   <span>Вид</span>
-                  <strong>{announcement.pet_type || "Не вказано"}</strong>
+                  <strong>{petType}</strong>
                 </div>
               </div>
 
@@ -143,7 +218,7 @@ export function AnnouncementDetails() {
                 <Tag />
                 <div>
                   <span>Порода</span>
-                  <strong>{announcement.breed || "Не вказано"}</strong>
+                  <strong>{petBreed}</strong>
                 </div>
               </div>
 
@@ -159,7 +234,9 @@ export function AnnouncementDetails() {
                 <Map />
                 <div>
                   <span>Адреса</span>
-                  <strong>{announcement.address || "Не вказано"}</strong>
+                  <strong>
+                    {announcement.address || announcement.place || "Не вказано"}
+                  </strong>
                 </div>
               </div>
 
@@ -167,26 +244,17 @@ export function AnnouncementDetails() {
                 <CalendarDays />
                 <div>
                   <span>Дата</span>
-                  <strong>
-                    {announcement.created_at
-                      ? new Date(announcement.created_at).toLocaleDateString(
-                          "uk-UA",
-                        )
-                      : "Не вказано"}
-                  </strong>
+                  <strong>{formattedDate}</strong>
                 </div>
               </div>
             </div>
 
-            {/* Опис */}
             <div className="details-description">
               <h3>Опис</h3>
-
               <p>{announcement.description || "Опис не вказаний"}</p>
             </div>
 
-            {/* Контакт */}
-            {announcement.contact && (
+            {contact && (
               <div className="contact-info">
                 <div className="contact-icon">
                   <Phone />
@@ -194,12 +262,11 @@ export function AnnouncementDetails() {
 
                 <div>
                   <span>Контакт</span>
-                  <strong>{announcement.contact}</strong>
+                  <strong>{contact}</strong>
                 </div>
               </div>
             )}
 
-            {/* Карта */}
             <button
               type="button"
               className="map-button"

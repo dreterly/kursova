@@ -49,6 +49,11 @@ export function Profile() {
       });
   }, []);
 
+  const getPhotoUrl = (photo) =>
+    photo.startsWith("http")
+      ? photo
+      : `http://localhost:5000${photo.startsWith("/") ? "" : "/"}${photo}`;
+
   return (
     <main className="profile">
       <div className="profile-container">
@@ -128,29 +133,38 @@ export function Profile() {
                       <Link
                         to={`/profile/pets/${pet.id}`}
                         key={pet.id}
-                        className={`pet-profile-card ${
+                        className={`profile-pet-card ${
                           isSelected ? "selected" : ""
                         }`}
                         onClick={() => setSelectedPetId(pet.id)}
                       >
-                        <div className="pet-profile-image">
+                        <div className="profile-pet-photo">
                           {pet.photo ? (
-                            <img src={pet.photo} alt={pet.name} />
+                            <img
+                              src={getPhotoUrl(pet.photo)}
+                              alt={pet.name}
+                              onError={(event) => {
+                                console.error(
+                                  "Не вдалося завантажити фото:",
+                                  event.currentTarget.src,
+                                );
+                              }}
+                            />
                           ) : (
-                            <div className="pet-no-photo">
+                            <div className="profile-pet-nophoto">
                               <PawPrint />
                             </div>
                           )}
 
                           {isSelected && (
-                            <span className="selected-icon">
+                            <span className="profile-pet-check">
                               <Check />
                             </span>
                           )}
                         </div>
 
-                        <div className="pet-profile-content">
-                          <div>
+                        <div className="profile-pet-info">
+                          <div className="profile-pet-text">
                             <h3>{pet.name}</h3>
 
                             <p>
@@ -159,9 +173,8 @@ export function Profile() {
                             </p>
                           </div>
 
-                          <span className="chip-badge">
+                          <span className="profile-pet-chip">
                             <MapPin />
-
                             {pet.chip_number ? "Чипований" : "Без чипа"}
                           </span>
                         </div>
@@ -169,8 +182,8 @@ export function Profile() {
                     );
                   })}
 
-                  <Link to="/profile/pets/add" className="add-pet-card">
-                    <div className="add-pet-icon">
+                  <Link to="/profile/pets/add" className="profile-add-card">
+                    <div className="profile-add-icon">
                       <Plus />
                     </div>
 

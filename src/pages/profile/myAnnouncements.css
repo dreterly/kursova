@@ -1,17 +1,18 @@
 .my-announcements {
   min-height: 100vh;
-  padding: 35px;
+  padding: 30px;
   box-sizing: border-box;
   background-color: #f8f9fa;
+  overflow-x: clip;
 }
 
 .my-announcements-header {
-  max-width: 1100px;
-  margin: 0 auto 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto 25px;
 }
 
 .my-announcements-header h1 {
@@ -19,20 +20,28 @@
   color: #2d3142;
   font-size: 28px;
   font-weight: 750;
+  overflow-wrap: anywhere;
 }
 
 .my-announcements-header p {
   margin: 6px 0 0;
-  color: #777;
+  color: #777777;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .create-announcement-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 11px 17px;
+  border: 1px solid #e6195e;
   border-radius: 10px;
   background-color: #e6195e;
   color: #ffffff;
   text-decoration: none;
+  text-align: center;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
@@ -48,22 +57,61 @@
   box-shadow: 0 5px 12px rgba(230, 25, 94, 0.2);
 }
 
-/* Список */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #687386;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-button svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.back-button:hover {
+  border-color: #f3c5d4;
+  background-color: #fff7fa;
+  color: #e6195e;
+  transform: translateX(-2px);
+  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.08);
+}
+
+.back-button:active {
+  transform: translateX(0);
+}
 
 .my-announcements-list {
-  max-width: 1100px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
-
-/* Картка */
 
 .my-announcement-card {
   display: flex;
   align-items: center;
   gap: 20px;
+  min-width: 0;
   padding: 18px;
   box-sizing: border-box;
   background-color: #ffffff;
@@ -81,8 +129,6 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
 }
 
-/* Фото */
-
 .my-announcement-image {
   width: 110px;
   height: 100px;
@@ -93,9 +139,9 @@
 }
 
 .my-announcement-image img {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
   transition: transform 0.25s ease;
 }
@@ -105,16 +151,14 @@
 }
 
 .announcement-no-photo {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  width: 100%;
+  height: 100%;
   background-color: #fff7cc;
+  font-size: 30px;
 }
-
-/* Інформація */
 
 .my-announcement-info {
   flex: 1;
@@ -126,15 +170,17 @@
   color: #222222;
   font-size: 19px;
   font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .my-announcement-info p {
   margin: 5px 0;
   color: #777777;
   font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
-
-/* Тип */
 
 .announcement-type {
   display: inline-block;
@@ -155,13 +201,12 @@
   color: #8a7600;
 }
 
-/* Кнопки */
-
 .my-announcement-actions {
-  min-width: 135px;
   display: flex;
   flex-direction: column;
   gap: 7px;
+  width: 145px;
+  flex-shrink: 0;
 }
 
 .my-announcement-actions a,
@@ -170,15 +215,16 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 35px;
+  min-height: 36px;
   padding: 8px 10px;
   box-sizing: border-box;
   border-radius: 8px;
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
-  cursor: pointer;
+  text-align: center;
   text-decoration: none;
+  cursor: pointer;
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
@@ -188,15 +234,14 @@
 
 .my-announcement-actions a:hover,
 .my-announcement-actions button:hover {
-  transform: translateX(-2px);
+  transform: translateY(-1px);
 }
 
 .my-announcement-actions svg {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
-
-/* Переглянути */
 
 .view-button {
   border: 1px solid #eeeeee;
@@ -205,12 +250,10 @@
 }
 
 .view-button:hover {
+  border-color: #dddddd;
   background-color: #f0f1f3;
   color: #2d3142;
-  border-color: #dddddd;
 }
-
-/* Редагувати */
 
 .edit-button {
   border: 1px solid #f6e033;
@@ -219,12 +262,10 @@
 }
 
 .edit-button:hover {
+  border-color: #e4ce22;
   background-color: #fffbe0;
   color: #6f6100;
-  border-color: #e4ce22;
 }
-
-/* Видалити */
 
 .delete-button {
   border: 1px solid #ffd1dc;
@@ -233,19 +274,17 @@
 }
 
 .delete-button:hover {
+  border-color: #ffb7c8;
   background-color: #fff0f4;
   color: #c91450;
-  border-color: #ffb7c8;
 }
-
-/* Порожній список */
 
 .my-announcements-empty {
   padding: 45px 25px;
-  text-align: center;
-  background-color: #ffffff;
   border: 1px solid #eeeeee;
   border-radius: 16px;
+  background-color: #ffffff;
+  text-align: center;
 }
 
 .empty-icon {
@@ -278,27 +317,29 @@
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
+  transition: background-color 0.2s ease;
 }
 
 .empty-create-button:hover {
   background-color: #c91450;
 }
 
-/* Завантаження / помилка */
-
 .my-announcements-state {
-  min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
+  min-height: 300px;
+  padding: 20px;
   color: #687386;
   font-size: 14px;
+  text-align: center;
 }
 
 .my-announcements-state p {
   margin: 0;
+  line-height: 1.5;
 }
 
 .my-announcements-spinner {
@@ -337,77 +378,148 @@
   background-color: #c91450;
 }
 
-/* Адаптивність */
-
-@media (max-width: 700px) {
+@media (max-width: 850px) {
   .my-announcements {
-    padding: 20px 15px;
+    padding: 24px 18px;
+  }
+
+  .my-announcement-card {
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .my-announcement-image {
+    width: 95px;
+    height: 95px;
+  }
+
+  .my-announcement-actions {
+    width: 130px;
+  }
+}
+
+@media (max-width: 650px) {
+  .my-announcements {
+    padding: 18px 12px;
   }
 
   .my-announcements-header {
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .my-announcements-header h1 {
+    font-size: 25px;
+  }
+
+  .my-announcements-header p {
+    font-size: 13px;
   }
 
   .create-announcement-button {
     width: 100%;
     box-sizing: border-box;
-    text-align: center;
+    white-space: normal;
+  }
+
+  .my-announcements-list {
+    gap: 12px;
   }
 
   .my-announcement-card {
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: column;
+    gap: 14px;
+    padding: 14px;
+    border-radius: 13px;
   }
 
   .my-announcement-image {
     width: 100%;
-    height: 180px;
+    height: 190px;
+  }
+
+  .my-announcement-info h3 {
+    font-size: 18px;
   }
 
   .my-announcement-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
     width: 100%;
+  }
+
+  .my-announcement-actions a,
+  .my-announcement-actions button {
+    gap: 4px;
+    min-width: 0;
+    padding: 9px 5px;
+    font-size: 11px;
+  }
+
+  .my-announcement-actions svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .my-announcements-empty {
+    padding: 30px 16px;
   }
 }
 
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 14px;
-  padding: 7px 11px;
-  border: 1px solid #eeeeee;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #687386;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.15s ease,
-    box-shadow 0.2s ease;
+@media (max-width: 380px) {
+  .my-announcements {
+    padding: 15px 9px;
+  }
+
+  .my-announcements-header h1 {
+    font-size: 22px;
+  }
+
+  .my-announcement-image {
+    height: 160px;
+  }
+
+  .my-announcement-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .my-announcement-actions a,
+  .my-announcement-actions button {
+    min-height: 38px;
+    font-size: 12px;
+  }
 }
 
-.back-button svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
+.back-button:focus-visible,
+.create-announcement-button:focus-visible,
+.my-announcement-actions a:focus-visible,
+.my-announcement-actions button:focus-visible,
+.empty-create-button:focus-visible,
+.my-announcements-state.error-state button:focus-visible {
+  outline: 3px solid rgba(230, 25, 94, 0.3);
+  outline-offset: 3px;
 }
 
-.back-button:hover {
-  border-color: #f3c5d4;
-  background-color: #fff7fa;
-  color: #e6195e;
-  transform: translateX(-2px);
-  box-shadow: 0 3px 8px rgba(230, 25, 94, 0.08);
-}
+@media (prefers-reduced-motion: reduce) {
+  .my-announcement-card,
+  .my-announcement-image img,
+  .create-announcement-button,
+  .my-announcement-actions a,
+  .my-announcement-actions button,
+  .back-button {
+    transition: none;
+  }
 
-.back-button:active {
-  transform: translateX(0);
-}
+  .my-announcements-spinner {
+    animation-duration: 2s;
+  }
 
+  .my-announcement-card:hover,
+  .create-announcement-button:hover {
+    transform: none;
+  }
+}

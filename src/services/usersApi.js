@@ -1,6 +1,5 @@
 const API_URL = "http://localhost:5000/api/auth";
 
-// Оновити дані профілю
 export async function updateProfile(user) {
   const token = localStorage.getItem("token");
 

@@ -1,8 +1,12 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const db = require("../config/db");
+
+const SALT_ROUNDS = 10;
 
 // POST /api/auth/register
 // Реєстрація нового користувача
@@ -10,15 +14,13 @@ router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Перевіряємо, чи всі поля заповнені
     if (!name || !email || !password) {
       return res.status(400).json({
         message: "Заповніть усі поля",
       });
     }
 
-    // Перевіряємо, чи існує користувач з таким email
-    const [users] = await db.query("SELECT * FROM users WHERE email = ?", [
+    const [users] = await db.query("SELECT id FROM users WHERE email = ?", [
       email,
     ]);
 
@@ -28,16 +30,13 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Додаємо нового користувача
+    // Хешуємо пароль перед збереженням у базі даних
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
     const [result] = await db.query(
-      `INSERT INTO users
-      (
-        name,
-        email,
-        password
-      )
-      VALUES (?, ?, ?)`,
-      [name, email, password],
+      `INSERT INTO users (name, email, password)
+       VALUES (?, ?, ?)`,
+      [name, email, hashedPassword],
     );
 
     res.status(201).json({
@@ -59,14 +58,12 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Перевіряємо, чи заповнені поля
     if (!email || !password) {
       return res.status(400).json({
         message: "Введіть email і пароль",
       });
     }
 
-    // Шукаємо користувача за email
     const [users] = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
@@ -79,26 +76,48 @@ router.post("/login", async (req, res) => {
 
     const user = users[0];
 
-    // Перевіряємо пароль
-    if (user.password !== password) {
+    // Перевіряємо пароль за допомогою bcrypt
+    let isPasswordValid = false;
+
+    try {
+      isPasswordValid = await bcrypt.compare(password, user.password);
+    } catch {
+      // Старий пароль міг зберігатися звичайним текстом
+      isPasswordValid = false;
+    }
+
+    // Тимчасова сумісність з акаунтами, створеними до хешування.
+    // Після успішного входу старий пароль одразу хешується.
+    if (!isPasswordValid && user.password === password) {
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+      await db.query("UPDATE users SET password = ? WHERE id = ?", [
+        hashedPassword,
+        user.id,
+      ]);
+
+      isPasswordValid = true;
+    }
+
+    if (!isPasswordValid) {
       return res.status(401).json({
         message: "Неправильний email або пароль",
       });
     }
 
-    // Створюємо token
+    // Створюємо токен
     const token = jwt.sign(
-      {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-      "petfinder_secret_key",
-      {
-        expiresIn: "7d",
-      },
-    );
+  {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  },
+  process.env.JWT_SECRET,
+  {
+    expiresIn: "7d",
+  },
+);
 
     res.json({
       message: "Вхід успішний",
@@ -118,8 +137,9 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
 // PUT /api/auth/profile
-// Оновити дані поточного користувача
+// Оновлення даних поточного користувача
 router.put("/profile", authMiddleware, async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -130,14 +150,10 @@ router.put("/profile", authMiddleware, async (req, res) => {
       });
     }
 
-    // Перевіряємо, чи не зайнятий email іншим користувачем
     const [existingUsers] = await db.query(
-      `
-      SELECT id
-      FROM users
-      WHERE email = ?
-        AND id != ?
-      `,
+      `SELECT id
+       FROM users
+       WHERE email = ? AND id != ?`,
       [email, req.user.id],
     );
 
@@ -147,34 +163,30 @@ router.put("/profile", authMiddleware, async (req, res) => {
       });
     }
 
-    // Якщо пароль не вводили — змінюємо тільки ім'я та email
     if (!password) {
+      // Якщо пароль не змінюють, залишаємо його без змін
       await db.query(
-        `
-        UPDATE users
-        SET name = ?, email = ?
-        WHERE id = ?
-        `,
+        `UPDATE users
+         SET name = ?, email = ?
+         WHERE id = ?`,
         [name, email, req.user.id],
       );
     } else {
-      // Якщо пароль введено — змінюємо і його
+      // Новий пароль теж обов'язково хешуємо
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
       await db.query(
-        `
-        UPDATE users
-        SET name = ?, email = ?, password = ?
-        WHERE id = ?
-        `,
-        [name, email, password, req.user.id],
+        `UPDATE users
+         SET name = ?, email = ?, password = ?
+         WHERE id = ?`,
+        [name, email, hashedPassword, req.user.id],
       );
     }
 
     const [users] = await db.query(
-      `
-      SELECT id, name, email, role
-      FROM users
-      WHERE id = ?
-      `,
+      `SELECT id, name, email, role
+       FROM users
+       WHERE id = ?`,
       [req.user.id],
     );
 

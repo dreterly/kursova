@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ArrowLeft, Battery, Clock, MapPin, PawPrint } from "lucide-react";
 
 import L from "leaflet";
@@ -17,10 +18,6 @@ import { getMyPetLocations, saveDemoGpsLocations } from "../services/gpsApi.js";
 import "leaflet/dist/leaflet.css";
 import "./gpsMonitoring.css";
 
-/* =====================================================
-   GPS MARKER
-===================================================== */
-
 function createGpsMarkerIcon() {
   return L.divIcon({
     className: "gps-marker-wrapper",
@@ -35,10 +32,6 @@ function createGpsMarkerIcon() {
   });
 }
 
-/* =====================================================
-   MAP CONTENT
-===================================================== */
-
 function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
   const map = useMap();
 
@@ -51,7 +44,6 @@ function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
     ]);
   }, [pet]);
 
-  // Початкове позиціонування карти
   useEffect(() => {
     if (!pet || route.length === 0) return;
 
@@ -63,7 +55,6 @@ function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
     });
   }, [pet, map, route]);
 
-  // Перехід до вибраної точки
   useEffect(() => {
     if (!selectedPoint) return;
 
@@ -76,8 +67,6 @@ function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
 
   return (
     <>
-      {/* Маршрут */}
-
       {route.length > 1 && (
         <Polyline
           positions={route}
@@ -88,8 +77,6 @@ function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
           }}
         />
       )}
-
-      {/* Точки маршруту */}
 
       {pet.history.map((location, index) => {
         const latitude = Number(location.latitude);
@@ -139,8 +126,6 @@ function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
         );
       })}
 
-      {/* Остання позиція */}
-
       {route.length > 0 && (
         <Marker
           position={route[route.length - 1]}
@@ -174,20 +159,17 @@ function SelectedPetMap({ pet, selectedPoint, onPointSelect }) {
   );
 }
 
-/* =====================================================
-   GPS MONITORING
-===================================================== */
-
 export function GPSMonitoring() {
+  const location = useLocation();
+  const navigationState = useMemo(() => location.state || {}, [location.state]);
+
   const [pets, setPets] = useState([]);
-  const [selectedPetId, setSelectedPetId] = useState(null);
+  const [selectedPetId, setSelectedPetId] = useState(
+    navigationState.petId ?? null,
+  );
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  /* ===================================================
-     USER
-  =================================================== */
 
   const user = useMemo(() => {
     try {
@@ -198,10 +180,6 @@ export function GPSMonitoring() {
       return null;
     }
   }, []);
-
-  /* ===================================================
-     ЗАВАНТАЖЕННЯ ТА ОНОВЛЕННЯ GPS
-  =================================================== */
 
   useEffect(() => {
     let cancelled = false;
@@ -222,28 +200,25 @@ export function GPSMonitoring() {
         }
 
         const data = await getMyPetLocations(user.id);
-
-        // Групуємо GPS-записи за тваринами
         const grouped = {};
 
-        data.forEach((location) => {
-          const petId = location.pet_id;
+        data.forEach((locationItem) => {
+          const petId = locationItem.pet_id;
 
           if (!grouped[petId]) {
             grouped[petId] = {
               pet_id: petId,
-              name: location.name,
-              type: location.type,
-              breed: location.breed,
-              chip_number: location.chip_number,
+              name: locationItem.name,
+              type: locationItem.type,
+              breed: locationItem.breed,
+              chip_number: locationItem.chip_number,
               history: [],
             };
           }
 
-          grouped[petId].history.push(location);
+          grouped[petId].history.push(locationItem);
         });
 
-        // Формуємо список тварин
         const petsArray = Object.values(grouped).map((pet) => {
           const lastLocation = pet.history[pet.history.length - 1];
 
@@ -261,17 +236,48 @@ export function GPSMonitoring() {
         setPets(petsArray);
         setError("");
 
-        // Зберігаємо вибрану тварину, якщо вона ще є у списку
+        const preferredId = navigationState.petId;
+
         setSelectedPetId((currentId) => {
-          if (petsArray.some((pet) => pet.pet_id === currentId)) {
-            return currentId;
+          const candidate = preferredId ?? currentId;
+
+          if (
+            petsArray.some((pet) => String(pet.pet_id) === String(candidate))
+          ) {
+            return candidate;
           }
 
           return petsArray[0]?.pet_id ?? null;
         });
 
-        // Старий об'єкт точки більше не потрібен після оновлення історії
-        setSelectedPoint(null);
+        if (navigationState.selectedLocation) {
+          const targetPetId = navigationState.petId;
+          const targetPet = petsArray.find(
+            (p) => String(p.pet_id) === String(targetPetId),
+          );
+
+          if (targetPet) {
+            const incoming = navigationState.selectedLocation;
+
+            const matched = targetPet.history.find((loc) => {
+              if (incoming.id != null && loc.id != null) {
+                return String(loc.id) === String(incoming.id);
+              }
+
+              return (
+                Number(loc.latitude) === Number(incoming.latitude) &&
+                Number(loc.longitude) === Number(incoming.longitude) &&
+                String(loc.recorded_at) === String(incoming.recorded_at)
+              );
+            });
+
+            setSelectedPoint(matched || incoming);
+          } else {
+            setSelectedPoint(null);
+          }
+        } else {
+          setSelectedPoint(null);
+        }
       } catch (err) {
         console.error("Помилка завантаження GPS:", err);
 
@@ -285,11 +291,8 @@ export function GPSMonitoring() {
       }
     }
 
-    // Запускаємо перше завантаження
     loadGpsData(true);
 
-    // Кожні 10 хвилин зберігаємо нові демонстраційні координати
-    // та повторно завантажуємо історію з MySQL
     const intervalId = setInterval(
       async () => {
         if (!user?.id || cancelled) return;
@@ -311,39 +314,24 @@ export function GPSMonitoring() {
       10 * 60 * 1000,
     );
 
-    // Зупиняємо таймер, коли користувач залишає сторінку
     return () => {
       cancelled = true;
       clearInterval(intervalId);
     };
-  }, [user]);
+  }, [user, navigationState]);
 
-  /* ===================================================
-     ОБРАНА ТВАРИНА
-  =================================================== */
-
-  const selectedPet = pets.find((pet) => pet.pet_id === selectedPetId);
-
-  /* ===================================================
-     ЗМІНА ТВАРИНИ
-  =================================================== */
+  const selectedPet = pets.find(
+    (pet) => String(pet.pet_id) === String(selectedPetId),
+  );
 
   const handlePetChange = (pet) => {
     setSelectedPetId(pet.pet_id);
     setSelectedPoint(null);
   };
 
-  /* ===================================================
-     ВИБІР GPS ТОЧКИ
-  =================================================== */
-
-  const handlePointSelect = (location) => {
-    setSelectedPoint(location);
+  const handlePointSelect = (locationItem) => {
+    setSelectedPoint(locationItem);
   };
-
-  /* ===================================================
-     LOADING
-  =================================================== */
 
   if (loading) {
     return (
@@ -356,10 +344,6 @@ export function GPSMonitoring() {
     );
   }
 
-  /* ===================================================
-     ERROR
-  =================================================== */
-
   if (error) {
     return (
       <main className="gps-monitoring">
@@ -369,10 +353,6 @@ export function GPSMonitoring() {
       </main>
     );
   }
-
-  /* ===================================================
-     EMPTY
-  =================================================== */
 
   if (pets.length === 0) {
     return (
@@ -388,15 +368,9 @@ export function GPSMonitoring() {
     );
   }
 
-  /* ===================================================
-     MAIN
-  =================================================== */
-
   return (
     <main className="gps-monitoring">
       <div className="gps-monitoring-container">
-        {/* BACK */}
-
         <button
           type="button"
           className="back-button"
@@ -405,8 +379,6 @@ export function GPSMonitoring() {
           <ArrowLeft />
           Повернутися назад
         </button>
-
-        {/* HEADER */}
 
         <div className="gps-monitoring-header">
           <div className="gps-monitoring-icon">
@@ -419,11 +391,7 @@ export function GPSMonitoring() {
           </div>
         </div>
 
-        {/* CONTENT */}
-
         <div className="gps-content">
-          {/* PETS */}
-
           <aside className="gps-pets-panel">
             <div className="gps-panel-title">
               <h2>Мої тварини</h2>
@@ -436,7 +404,7 @@ export function GPSMonitoring() {
                   key={pet.pet_id}
                   type="button"
                   className={`gps-pet-card ${
-                    selectedPetId === pet.pet_id ? "active" : ""
+                    String(selectedPetId) === String(pet.pet_id) ? "active" : ""
                   }`}
                   onClick={() => handlePetChange(pet)}
                 >
@@ -460,8 +428,6 @@ export function GPSMonitoring() {
                 </button>
               ))}
             </div>
-
-            {/* PET DETAILS */}
 
             {selectedPet && (
               <div className="gps-details">
@@ -513,8 +479,6 @@ export function GPSMonitoring() {
             )}
           </aside>
 
-          {/* MAP */}
-
           {selectedPet && (
             <section className="gps-map-section">
               <div className="gps-map-header">
@@ -546,8 +510,6 @@ export function GPSMonitoring() {
                 </MapContainer>
               </div>
 
-              {/* HISTORY */}
-
               <div className="gps-history">
                 <div className="gps-history-header">
                   <div>
@@ -565,22 +527,33 @@ export function GPSMonitoring() {
                   {selectedPet.history
                     .slice()
                     .reverse()
-                    .map((location, reverseIndex) => {
+                    .map((locationItem, reverseIndex) => {
                       const originalIndex =
                         selectedPet.history.length - 1 - reverseIndex;
 
-                      const isSelected = selectedPoint === location;
+                      const isSelected =
+                        selectedPoint &&
+                        ((selectedPoint.id != null &&
+                          locationItem.id != null &&
+                          String(selectedPoint.id) ===
+                            String(locationItem.id)) ||
+                          (Number(selectedPoint.latitude) ===
+                            Number(locationItem.latitude) &&
+                            Number(selectedPoint.longitude) ===
+                              Number(locationItem.longitude) &&
+                            String(selectedPoint.recorded_at) ===
+                              String(locationItem.recorded_at)));
 
                       return (
                         <button
                           key={`${selectedPet.pet_id}-${
-                            location.id ?? originalIndex
+                            locationItem.id ?? originalIndex
                           }`}
                           type="button"
                           className={`gps-history-item ${
                             isSelected ? "selected" : ""
                           }`}
-                          onClick={() => handlePointSelect(location)}
+                          onClick={() => handlePointSelect(locationItem)}
                         >
                           <div className="gps-history-dot">
                             <MapPin />
@@ -590,20 +563,20 @@ export function GPSMonitoring() {
                             <strong>Точка маршруту {originalIndex + 1}</strong>
 
                             <span>
-                              {new Date(location.recorded_at).toLocaleString(
-                                "uk-UA",
-                              )}
+                              {new Date(
+                                locationItem.recorded_at,
+                              ).toLocaleString("uk-UA")}
                             </span>
 
                             <span>
-                              📍 {Number(location.latitude).toFixed(5)},{" "}
-                              {Number(location.longitude).toFixed(5)}
+                              📍 {Number(locationItem.latitude).toFixed(5)},{" "}
+                              {Number(locationItem.longitude).toFixed(5)}
                             </span>
                           </div>
 
                           <div className="gps-history-battery">
                             <Battery />
-                            {location.battery}%
+                            {locationItem.battery}%
                           </div>
                         </button>
                       );

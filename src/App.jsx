@@ -17,7 +17,7 @@ import { Profile } from "./pages/profile/Profile.jsx";
 import { AddPets } from "./pages/profile/AddPets.jsx";
 import { PetProfile } from "./pages/profile/PetProfile.jsx";
 import { MyAnnouncements } from "./pages/profile/MyAnnouncements.jsx";
-import { Notifications } from "./pages/profile/Notifications.jsx";
+// import { Notifications } from "./pages/profile/Notifications.jsx";
 import { Settings } from "./pages/profile/Settings.jsx";
 
 import { AdminDashboard } from "./pages/admin/AdminDashboard.jsx";
@@ -110,14 +110,14 @@ function App() {
             }
           />
 
-          <Route
+          {/* <Route
             path="/profile/notifications"
             element={
               <ProtectedRoute>
                 <Notifications />
               </ProtectedRoute>
             }
-          />
+          /> */}
 
           <Route
             path="/profile/settings"

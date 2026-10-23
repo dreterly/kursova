@@ -1,13 +1,18 @@
+/* Загальна сторінка */
+
 .notifications-page {
   min-height: 100vh;
-  padding: 35px;
+  padding: 30px;
   box-sizing: border-box;
   background-color: #f8f9fa;
+  overflow-x: clip;
 }
 
 .notifications-container {
+  width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  min-width: 0;
 }
 
 .notifications-header {
@@ -20,35 +25,29 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-
   margin-bottom: 18px;
-  padding: 7px 11px;
-
+  padding: 8px 12px;
   border: 1px solid #eeeeee;
   border-radius: 8px;
-
   background-color: #ffffff;
   color: #687386;
-
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
-
   cursor: pointer;
-
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
     border-color 0.2s ease,
-    transform 0.15s ease,
+    transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .back-button svg {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
 
 .back-button:hover {
@@ -69,20 +68,17 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
 }
 
 .notifications-title-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 48px;
   height: 48px;
-
   flex-shrink: 0;
-
   border-radius: 13px;
-
   background-color: #ffebf1;
   color: #e6195e;
 }
@@ -92,19 +88,23 @@
   height: 25px;
 }
 
+.notifications-title > div:last-child {
+  min-width: 0;
+}
+
 .notifications-title h1 {
   margin: 0;
-
   color: #2d3142;
   font-size: 28px;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .notifications-title p {
   margin: 5px 0 0;
-
-  color: #777;
+  color: #777777;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 /* Список */
@@ -115,22 +115,18 @@
   gap: 12px;
 }
 
-/* Картка */
+/* Картка повідомлення */
 
 .notification-card {
   display: flex;
   align-items: center;
   gap: 15px;
-
+  min-width: 0;
   padding: 18px;
-
   background-color: #ffffff;
-
   border: 1px solid #eeeeee;
   border-radius: 15px;
-
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -139,9 +135,7 @@
 
 .notification-card:hover {
   transform: translateY(-2px);
-
   border-color: #f3c5d4;
-
   box-shadow: 0 5px 16px rgba(230, 25, 94, 0.08);
 }
 
@@ -151,14 +145,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 45px;
   height: 45px;
-
   flex-shrink: 0;
-
   border-radius: 50%;
-
   background-color: #ffe8f0;
   color: #e6195e;
 }
@@ -172,53 +162,171 @@
 
 .notification-content {
   flex: 1;
+  min-width: 0;
 }
 
 .notification-content h3 {
   margin: 0 0 5px;
-
   color: #333333;
-
   font-size: 16px;
   font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .notification-content p {
   margin: 0 0 6px;
-
   color: #666666;
-
   font-size: 14px;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .notification-content span {
   color: #999999;
   font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Порожній список, якщо використовується в JSX */
+
+.notifications-empty {
+  padding: 40px 20px;
+  border: 1px solid #eeeeee;
+  border-radius: 15px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.notifications-empty svg {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 12px;
+  color: #e6195e;
+}
+
+.notifications-empty h2 {
+  margin: 0 0 8px;
+  color: #333333;
+  font-size: 18px;
+}
+
+.notifications-empty p {
+  margin: 0;
+  color: #777777;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 /* Адаптивність */
 
+@media (max-width: 800px) {
+  .notifications-page {
+    padding: 24px 18px;
+  }
+}
+
 @media (max-width: 600px) {
   .notifications-page {
-    padding: 20px 15px;
+    padding: 18px 12px;
+  }
+
+  .notifications-header {
+    margin-bottom: 20px;
+  }
+
+  .notifications-title {
+    gap: 11px;
+  }
+
+  .notifications-title-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+  }
+
+  .notifications-title-icon svg {
+    width: 22px;
+    height: 22px;
   }
 
   .notifications-title h1 {
-    font-size: 24px;
+    font-size: 23px;
   }
 
   .notifications-title p {
     font-size: 13px;
   }
 
+  .notifications-list {
+    gap: 10px;
+  }
+
   .notification-card {
     align-items: flex-start;
-    padding: 15px;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
   }
 
   .notification-icon {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .notification-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .notification-content h3 {
+    font-size: 15px;
+  }
+
+  .notification-content p {
+    font-size: 13px;
+  }
+
+  .notification-content span {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .notifications-page {
+    padding: 15px 10px;
+  }
+
+  .notifications-title h1 {
+    font-size: 21px;
+  }
+
+  .notification-card {
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .notification-icon {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* Клавіатура та доступність */
+
+.back-button:focus-visible {
+  outline: 3px solid rgba(230, 25, 94, 0.3);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-button,
+  .notification-card {
+    transition: none;
+  }
+
+  .notification-card:hover,
+  .back-button:hover {
+    transform: none;
   }
 }

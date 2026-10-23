@@ -1,20 +1,13 @@
-/* =========================
-   HOME
-========================= */
-
 .home {
   min-height: 100%;
-  background-color: #f8f9fa;
   padding-bottom: 50px;
+  background-color: #f8f9fa;
+  overflow-x: clip;
 }
-
-/* =========================
-   HERO
-========================= */
 
 .hero {
   position: relative;
-  padding: 65px 20px 55px;
+  padding: 68px 20px 58px;
   text-align: center;
   background: linear-gradient(135deg, #fffdf0 0%, #fff8d0 100%);
   border-bottom: 1px solid #f0e7a5;
@@ -26,19 +19,23 @@
 }
 
 .hero-label {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   color: #e6195e;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
 }
 
 .hero h1 {
-  margin: 0;
+  max-width: 720px;
+  margin: 0 auto;
   color: #252b36;
-  font-size: 42px;
+  font-size: clamp(30px, 4vw, 44px);
   font-weight: 800;
   line-height: 1.2;
+  letter-spacing: -0.8px;
+  overflow-wrap: anywhere;
 }
 
 .hero-description {
@@ -46,27 +43,32 @@
   margin: 18px auto 28px;
   color: #687386;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
-
-/* =========================
-   КНОПКИ
-========================= */
 
 .home-buttons {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
 .home-button {
-  min-width: 125px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 145px;
+  min-height: 44px;
+  box-sizing: border-box;
   padding: 11px 24px;
+  border: 1px solid transparent;
   border-radius: 10px;
-  text-decoration: none;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 700;
+  text-align: center;
+  text-decoration: none;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -85,6 +87,7 @@
 
 .lost-button:hover {
   background-color: #c91450;
+  color: #ffffff;
   box-shadow: 0 6px 14px rgba(230, 25, 94, 0.22);
 }
 
@@ -96,17 +99,23 @@
 
 .found-button:hover {
   background-color: #e4d020;
+  color: #514800;
   box-shadow: 0 6px 14px rgba(228, 208, 32, 0.24);
 }
 
-/* =========================
-   ОСТАННІ ОГОЛОШЕННЯ
-========================= */
+.home-button:focus-visible,
+.all-announcements:focus-visible,
+.retry-button:focus-visible {
+  outline: 3px solid rgba(230, 25, 94, 0.3);
+  outline-offset: 3px;
+}
 
 .latest-announcements {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
   margin: 0 auto;
-  padding: 45px 20px 20px;
+  padding: 46px 24px 20px;
   text-align: center;
 }
 
@@ -115,38 +124,36 @@
 }
 
 .section-header h2 {
-  margin: 0 0 8px;
+  margin: 0 0 9px;
   color: #252b36;
-  font-size: 27px;
+  font-size: clamp(23px, 3vw, 28px);
   font-weight: 750;
+  line-height: 1.3;
 }
 
 .section-header p {
   margin: 0;
   color: #7a8492;
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 1.6;
 }
-
-/* =========================
-   КАРТКИ
-========================= */
 
 .announcements-list {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  justify-items: center;
+  gap: 24px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  align-items: flex-start;
 }
 
-/* =========================
-   ПЕРЕГЛЯНУТИ ВСІ
-========================= */
-
 .all-announcements {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
   margin-top: 30px;
   padding: 10px 22px;
   border: 1.5px solid #e6195e;
@@ -156,6 +163,7 @@
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -169,12 +177,10 @@
   transform: translateY(-1px);
 }
 
-/* =========================
-   ПУСТИЙ СТАН
-========================= */
-
 .no-results {
+  width: 100%;
   max-width: 430px;
+  box-sizing: border-box;
   margin: 10px auto 0;
   padding: 35px 25px;
   background-color: #ffffff;
@@ -192,33 +198,34 @@
   margin: 0 0 8px;
   color: #343a40;
   font-size: 18px;
+  line-height: 1.4;
 }
 
 .no-results p {
   margin: 0;
   color: #7a8492;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* =========================
-   LOADING / ERROR
-========================= */
-
 .home-state {
-  min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
+  min-height: 350px;
+  padding: 24px;
+  box-sizing: border-box;
   color: #687386;
   font-size: 14px;
+  text-align: center;
 }
 
 .loading-spinner {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
   border: 3px solid #f3c5d4;
   border-top-color: #e6195e;
   border-radius: 50%;
@@ -234,9 +241,11 @@
 .error-state p {
   color: #c91450;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 .retry-button {
+  min-height: 40px;
   padding: 9px 18px;
   border: none;
   border-radius: 9px;
@@ -253,43 +262,125 @@
   background-color: #c91450;
 }
 
-/* =========================
-   АДАПТИВНІСТЬ
-========================= */
-
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .hero {
-    padding: 50px 18px 45px;
-  }
-
-  .hero h1 {
-    font-size: 32px;
-  }
-
-  .hero-description {
-    font-size: 14px;
-  }
-
-  .latest-announcements {
-    padding: 35px 15px 20px;
+    padding: 54px 20px 48px;
   }
 
   .announcements-list {
-    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .latest-announcements {
+    padding: 38px 20px 20px;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
+  .home {
+    padding-bottom: 30px;
+  }
+
+  .hero {
+    padding: 42px 16px 38px;
+  }
+
+  .hero-label {
+    margin-bottom: 10px;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
   .hero h1 {
-    font-size: 27px;
+    font-size: 29px;
+    letter-spacing: -0.4px;
+  }
+
+  .hero-description {
+    margin: 15px auto 23px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .home-buttons {
+    gap: 10px;
   }
 
   .home-button {
-    width: 100%;
-    max-width: 220px;
+    flex: 1 1 140px;
+    min-width: 0;
+    max-width: 240px;
+    min-height: 44px;
+    padding: 11px 14px;
+  }
+
+  .latest-announcements {
+    padding: 32px 14px 18px;
+  }
+
+  .section-header {
+    margin-bottom: 22px;
   }
 
   .section-header h2 {
     font-size: 23px;
+  }
+
+  .section-header p {
+    font-size: 13px;
+  }
+
+  .announcements-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .all-announcements {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero {
+    padding: 34px 12px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  .home-button {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .latest-announcements {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .announcements-list {
+    gap: 14px;
+  }
+
+  .no-results {
+    padding: 25px 16px;
+  }
+}
+
+@media (hover: none) {
+  .home-button:hover,
+  .all-announcements:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home *,
+  .home *::before,
+  .home *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

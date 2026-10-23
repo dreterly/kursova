@@ -1,39 +1,33 @@
 .admin-pet-details {
   min-height: 100vh;
+  box-sizing: border-box;
   padding: 35px 30px 60px;
   background-color: #f8f9fa;
+  overflow-x: hidden;
 }
 
 .admin-pet-details-container {
   width: 100%;
   max-width: 1050px;
+  min-width: 0;
   margin: 0 auto;
 }
-
-/* ============================= */
-/* НАЗАД */
-/* ============================= */
 
 .back-admin-pets {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-
   margin-bottom: 25px;
   padding: 8px 13px;
-
   border: 1px solid #eeeeee;
   border-radius: 8px;
-
   background-color: #ffffff;
   color: #687386;
-
+  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
-
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
@@ -44,56 +38,41 @@
 .back-admin-pets svg {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
 
 .back-admin-pets:hover {
   border-color: #f3c5d4;
   background-color: #fff7fa;
   color: #e6195e;
-
   transform: translateX(-2px);
 }
 
-/* ============================= */
-/* ОСНОВНА КАРТКА */
-/* ============================= */
-
 .admin-pet-details-card {
   display: flex;
+  align-items: flex-start;
   gap: 30px;
-
+  min-width: 0;
   padding: 25px;
-
   border: 1px solid #eeeeee;
   border-radius: 18px;
-
   background-color: #ffffff;
-
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
 }
-
-/* ============================= */
-/* ФОТО */
-/* ============================= */
 
 .admin-pet-details-image {
   width: 330px;
   height: 330px;
-
   flex-shrink: 0;
-
   overflow: hidden;
   border-radius: 15px;
-
   background-color: #f8f9fa;
 }
 
 .admin-pet-details-image img {
   display: block;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
@@ -102,12 +81,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  gap: 10px;
   width: 100%;
   height: 100%;
-
-  gap: 10px;
-
   color: #c4cad1;
 }
 
@@ -120,10 +96,6 @@
   font-size: 13px;
 }
 
-/* ============================= */
-/* ІНФОРМАЦІЯ */
-/* ============================= */
-
 .admin-pet-details-info {
   flex: 1;
   min-width: 0;
@@ -133,70 +105,58 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-
   gap: 20px;
   margin-bottom: 25px;
 }
 
+.admin-pet-details-heading {
+  min-width: 0;
+}
+
 .admin-pet-details-label {
   display: block;
-
   margin-bottom: 6px;
-
   color: #e6195e;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 2px;
 }
 
 .admin-pet-details-header h1 {
   margin: 0 0 6px;
-
   color: #343a40;
-
   font-size: 30px;
   font-weight: 750;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .admin-pet-details-header p {
   margin: 0;
-
   color: #687386;
-
   font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
-
-/* ============================= */
-/* РЕДАГУВАТИ */
-/* ============================= */
 
 .admin-pet-details-edit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   gap: 6px;
-
-  width: 120px;
-  height: 36px;
-
   box-sizing: border-box;
-
+  width: 120px;
+  min-height: 36px;
+  padding: 8px 10px;
   border: 1px solid #f6e033;
   border-radius: 8px;
-
   background-color: #ffffff;
   color: #777;
-
+  font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-
   text-decoration: none;
-
   flex-shrink: 0;
-
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
@@ -206,88 +166,69 @@
 .admin-pet-details-edit svg {
   width: 14px;
   height: 14px;
+  flex-shrink: 0;
 }
 
 .admin-pet-details-edit:hover {
   background-color: #fffbe0;
   color: #665b00;
-
   transform: translateY(-1px);
 }
 
-/* ============================= */
-/* ДАНІ */
-/* ============================= */
-
 .admin-pet-details-data {
   display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
 .admin-pet-details-data div {
+  min-width: 0;
   padding: 13px;
-
   border-radius: 10px;
-
   background-color: #f8f9fa;
 }
 
 .admin-pet-details-data span,
 .admin-pet-details-status span {
   display: block;
-
   margin-bottom: 5px;
-
   color: #888;
-
   font-size: 11px;
 }
 
 .admin-pet-details-data strong {
   color: #343a40;
-
   font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
-
-/* ============================= */
-/* ТИП ТВАРИНИ */
-/* ============================= */
 
 .admin-pet-details-status {
   margin-top: 15px;
   padding: 14px;
-
   border-radius: 10px;
-
   background-color: #fffbe0;
 }
 
 .admin-pet-details-status strong {
   color: #665b00;
-
   font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .admin-pet-details-status strong.announcement {
   color: #e6195e;
 }
 
-/* ============================= */
-/* ПОВ'ЯЗАНЕ ОГОЛОШЕННЯ */
-/* ============================= */
-
 .admin-related-announcement {
+  box-sizing: border-box;
+  min-width: 0;
   margin-top: 20px;
   padding: 25px;
-
   border: 1px solid #eeeeee;
   border-radius: 18px;
-
   background-color: #ffffff;
-
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
 }
 
@@ -295,76 +236,67 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  gap: 15px;
   margin-bottom: 20px;
+}
+
+.admin-related-announcement-heading {
+  min-width: 0;
 }
 
 .admin-related-label {
   display: block;
-
   margin-bottom: 4px;
-
   color: #e6195e;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 1.5px;
 }
 
 .admin-related-announcement-header h2 {
   margin: 0;
-
   color: #343a40;
-
   font-size: 20px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .admin-related-announcement-header p {
   margin: 5px 0 0;
-
   color: #687386;
-
   font-size: 13px;
+  line-height: 1.5;
 }
 
 .admin-related-announcement-header > svg {
   width: 24px;
   height: 24px;
-
+  flex-shrink: 0;
   color: #e6195e;
 }
-
-/* ============================= */
-/* ОГОЛОШЕННЯ */
-/* ============================= */
 
 .admin-related-announcement-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 20px;
-
+  min-width: 0;
   padding: 18px;
-
   border-radius: 12px;
-
   background-color: #f8f9fa;
 }
 
 .admin-related-content {
+  flex: 1;
   min-width: 0;
 }
 
 .admin-related-type {
   display: inline-flex;
-
+  align-items: center;
   margin-bottom: 8px;
   padding: 5px 10px;
-
   border-radius: 20px;
-
   font-size: 11px;
   font-weight: 700;
 }
@@ -380,55 +312,44 @@
 }
 
 .admin-related-announcement-card h3 {
-  max-width: 650px;
-
   margin: 0 0 10px;
-
   color: #343a40;
-
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .admin-related-announcement-card p {
   margin: 5px 0;
-
   color: #687386;
-
   font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .admin-related-status span {
   color: #888;
 }
 
-/* ============================= */
-/* ПЕРЕГЛЯНУТИ ОГОЛОШЕННЯ */
-/* ============================= */
-
 .admin-related-view {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  width: 175px;
-  height: 36px;
-
   box-sizing: border-box;
-
+  width: 175px;
+  min-height: 36px;
+  padding: 8px 12px;
   flex-shrink: 0;
-
   border-radius: 8px;
-
   background-color: #e6195e;
   color: #ffffff;
-
+  font-family: inherit;
   font-size: 11px;
   font-weight: 700;
-
+  line-height: 1.4;
+  text-align: center;
   text-decoration: none;
-
   transition:
     background-color 0.2s ease,
     transform 0.15s ease,
@@ -437,85 +358,59 @@
 
 .admin-related-view:hover {
   background-color: #c91450;
-
   transform: translateY(-1px);
-
   box-shadow: 0 4px 10px rgba(230, 25, 94, 0.18);
 }
-
-/* ============================= */
-/* НЕМАЄ ОГОЛОШЕННЯ */
-/* ============================= */
 
 .no-related-announcement {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin: 0;
   padding: 30px 20px;
-
   border-radius: 12px;
-
   background-color: #f8f9fa;
-
   text-align: center;
 }
 
 .no-related-announcement svg {
   width: 30px;
   height: 30px;
-
   margin-bottom: 10px;
-
   color: #c4cad1;
 }
 
 .no-related-announcement h3 {
   margin: 0 0 5px;
-
   color: #343a40;
-
   font-size: 15px;
 }
 
 .no-related-announcement p {
   margin: 0;
-
   color: #687386;
-
   font-size: 12px;
+  line-height: 1.6;
 }
 
-/* ============================= */
-/* LOADING */
-/* ============================= */
-
 .admin-pet-details-state {
-  min-height: 500px;
-
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
-
   gap: 12px;
-
+  min-height: 300px;
   color: #687386;
-
   font-size: 14px;
+  text-align: center;
 }
 
 .admin-pet-details-loader {
   width: 34px;
   height: 34px;
-
   border: 3px solid #f3d7e1;
   border-top-color: #e6195e;
-
   border-radius: 50%;
-
   animation: admin-pet-details-spin 0.8s linear infinite;
 }
 
@@ -525,28 +420,20 @@
   }
 }
 
-/* ============================= */
-/* ПОМИЛКА / НЕМАЄ ТВАРИНИ */
-/* ============================= */
-
 .admin-pet-details-error,
 .admin-pet-details-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  box-sizing: border-box;
+  width: 100%;
   max-width: 500px;
-
   margin: 50px auto 0;
   padding: 35px 25px;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   background-color: #ffffff;
-
   text-align: center;
-
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
 }
 
@@ -555,14 +442,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 55px;
   height: 55px;
-
   margin-bottom: 15px;
-
   border-radius: 14px;
-
   background-color: #fff0f5;
   color: #e6195e;
 }
@@ -576,44 +459,32 @@
 .admin-pet-details-error h2,
 .admin-pet-details-empty h2 {
   margin: 0 0 8px;
-
   color: #343a40;
-
   font-size: 20px;
 }
 
 .admin-pet-details-error p,
 .admin-pet-details-empty p {
   margin: 0 0 20px;
-
   color: #687386;
-
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .admin-pet-details-retry {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   gap: 7px;
-
   padding: 10px 18px;
-
   border: none;
   border-radius: 9px;
-
   background-color: #e6195e;
   color: #ffffff;
-
   font-family: inherit;
-
   font-size: 13px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition:
     background-color 0.2s ease,
     transform 0.15s ease;
@@ -629,9 +500,13 @@
   transform: translateY(-1px);
 }
 
-/* ============================= */
-/* АДАПТИВ */
-/* ============================= */
+.back-admin-pets:focus-visible,
+.admin-pet-details-edit:focus-visible,
+.admin-related-view:focus-visible,
+.admin-pet-details-retry:focus-visible {
+  outline: 3px solid rgba(230, 25, 94, 0.25);
+  outline-offset: 3px;
+}
 
 @media (max-width: 850px) {
   .admin-pet-details-card {
@@ -642,6 +517,10 @@
     width: 100%;
     height: 320px;
   }
+
+  .admin-pet-details-info {
+    width: 100%;
+  }
 }
 
 @media (max-width: 700px) {
@@ -651,10 +530,15 @@
 
   .admin-pet-details-header {
     flex-direction: column;
+    gap: 12px;
+  }
+
+  .admin-pet-details-edit {
+    width: 100%;
   }
 
   .admin-pet-details-data {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .admin-related-announcement-card {
@@ -675,6 +559,7 @@
   .admin-pet-details-card,
   .admin-related-announcement {
     padding: 16px;
+    border-radius: 14px;
   }
 
   .admin-pet-details-image {
@@ -685,7 +570,43 @@
     font-size: 25px;
   }
 
-  .admin-pet-details-edit {
-    width: 100%;
+  .admin-related-announcement-header h2 {
+    font-size: 18px;
+  }
+
+  .admin-pet-details-error,
+  .admin-pet-details-empty {
+    padding: 30px 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .admin-pet-details {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .admin-pet-details-header h1 {
+    font-size: 22px;
+  }
+
+  .admin-pet-details-image {
+    height: 220px;
+  }
+
+  .admin-pet-details-card,
+  .admin-related-announcement {
+    padding: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-pet-details *,
+  .admin-pet-details *::before,
+  .admin-pet-details *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

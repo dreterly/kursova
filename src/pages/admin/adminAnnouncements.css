@@ -1,41 +1,33 @@
 .admin-announcements {
   min-height: 100vh;
+  box-sizing: border-box;
   padding: 35px 30px 60px;
   background-color: #f8f9fa;
+  overflow-x: hidden;
 }
 
 .admin-announcements-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  min-width: 0;
 }
-
-/* ============================= */
-/* НАЗАД */
-/* ============================= */
 
 .admin-announcements-back {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-
   margin-bottom: 25px;
   padding: 8px 13px;
-
   border: 1px solid #eeeeee;
   border-radius: 8px;
-
   background-color: #ffffff;
   color: #687386;
-
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
-
   cursor: pointer;
-
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
@@ -46,6 +38,7 @@
 .admin-announcements-back svg {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
 
 .admin-announcements-back:hover {
@@ -55,30 +48,22 @@
   transform: translateX(-2px);
 }
 
-/* ============================= */
-/* HEADER */
-/* ============================= */
-
 .admin-announcements-header {
   display: flex;
   align-items: center;
   gap: 16px;
-
   margin-bottom: 25px;
+  min-width: 0;
 }
 
 .admin-announcements-title-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 55px;
   height: 55px;
-
   flex-shrink: 0;
-
   border-radius: 14px;
-
   background-color: #fff0f5;
   color: #e6195e;
 }
@@ -90,54 +75,42 @@
 
 .admin-announcements-label {
   display: block;
-
   margin-bottom: 5px;
-
   color: #e6195e;
-
   font-size: 11px;
   font-weight: 800;
-
   letter-spacing: 2px;
 }
 
 .admin-announcements-header h1 {
   margin: 0 0 5px;
-
   color: #343a40;
-
   font-size: 30px;
   font-weight: 750;
+  overflow-wrap: anywhere;
 }
 
 .admin-announcements-header p {
   margin: 0;
-
   color: #687386;
-
   font-size: 14px;
+  line-height: 1.5;
 }
-
-/* ============================= */
-/* КІЛЬКІСТЬ */
-/* ============================= */
 
 .admin-announcements-count {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  gap: 15px;
   margin-bottom: 18px;
   padding: 15px 18px;
-
   border: 1px solid #f0e7a5;
   border-radius: 12px;
-
   background-color: #fffdf0;
 }
 
 .admin-announcements-count span {
-  color: #777;
+  color: #777777;
   font-size: 13px;
 }
 
@@ -146,53 +119,38 @@
   font-size: 20px;
 }
 
-/* ============================= */
-/* ТАБЛИЦЯ */
-/* ============================= */
-
 .admin-table-wrapper {
+  width: 100%;
   overflow-x: auto;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   background-color: #ffffff;
-
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
+  -webkit-overflow-scrolling: touch;
 }
 
 .admin-table {
   width: 100%;
   min-width: 950px;
-
   border-collapse: collapse;
 }
 
 .admin-table th {
   padding: 14px 15px;
-
   border-bottom: 1px solid #eeeeee;
-
   background-color: #f8f9fa;
   color: #687386;
-
   text-align: left;
-
   font-size: 11px;
   font-weight: 700;
-
   white-space: nowrap;
 }
 
 .admin-table td {
   padding: 14px 15px;
-
   border-top: 1px solid #f0f0f0;
-
-  color: #444;
-
+  color: #444444;
   font-size: 13px;
-
   vertical-align: middle;
 }
 
@@ -204,21 +162,16 @@
   background-color: #fffafb;
 }
 
-/* ============================= */
-/* ІНФОРМАЦІЯ */
-/* ============================= */
-
 .announcement-id {
   color: #9aa1ab !important;
-
   font-size: 12px !important;
   font-weight: 600;
 }
 
 .announcement-name {
   color: #343a40;
-
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .announcement-city {
@@ -227,27 +180,19 @@
 
 .announcement-date {
   color: #687386 !important;
-
   white-space: nowrap;
 }
-
-/* ============================= */
-/* ТИП */
-/* ============================= */
 
 .admin-type {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-width: 82px;
-
   padding: 5px 9px;
-
   border-radius: 20px;
-
   font-size: 11px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .admin-type.lost {
@@ -260,23 +205,16 @@
   color: #8a7600;
 }
 
-/* ============================= */
-/* СТАТУС */
-/* ============================= */
-
 .admin-status {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-width: 65px;
-
   padding: 5px 9px;
-
   border-radius: 20px;
-
   font-size: 11px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .admin-status.active {
@@ -294,10 +232,6 @@
   color: #777777;
 }
 
-/* ============================= */
-/* КНОПКИ */
-/* ============================= */
-
 .admin-actions {
   display: flex;
   align-items: center;
@@ -309,30 +243,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   gap: 6px;
-
   width: 112px;
-  height: 34px;
-
+  min-height: 34px;
   box-sizing: border-box;
-
   margin: 0;
-  padding: 0 8px;
-
+  padding: 7px 8px;
   border-radius: 8px;
-
   font-family: inherit;
   font-size: 10px;
   font-weight: 600;
-
-  line-height: 1;
+  line-height: 1.3;
+  text-align: center;
   text-decoration: none;
-
   cursor: pointer;
-
   white-space: nowrap;
-
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
@@ -344,33 +269,24 @@
 .admin-actions svg {
   width: 14px;
   height: 14px;
-
   flex-shrink: 0;
 }
 
-/* Переглянути */
-
 .admin-view-button {
   border: 1px solid #eeeeee;
-
   background-color: #f8f9fa;
   color: #555555;
 }
 
 .admin-view-button:hover {
   border-color: #dfe2e6;
-
   background-color: #eef0f2;
   color: #343a40;
-
   transform: translateY(-1px);
 }
 
-/* Редагувати */
-
 .admin-edit-button {
   border: 1px solid #f6e033;
-
   background-color: #ffffff;
   color: #777777;
 }
@@ -378,57 +294,41 @@
 .admin-edit-button:hover {
   background-color: #fffbe0;
   color: #665b00;
-
   transform: translateY(-1px);
 }
 
-/* Видалити */
-
 .admin-delete-button {
   border: 1px solid #ffd1dc;
-
   background-color: #ffffff;
   color: #e6195e;
 }
 
 .admin-delete-button:hover {
   border-color: #ffb7c9;
-
   background-color: #ffe8f0;
   color: #c91450;
-
   transform: translateY(-1px);
 }
 
-/* ============================= */
-/* LOADING */
-/* ============================= */
-
 .admin-announcements-state {
-  min-height: 500px;
-
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
-
   gap: 12px;
-
+  min-height: 300px;
+  padding: 30px 15px;
   color: #687386;
-
   font-size: 14px;
+  text-align: center;
 }
 
 .admin-announcements-loader {
   width: 34px;
   height: 34px;
-
   border: 3px solid #f3d7e1;
   border-top-color: #e6195e;
-
   border-radius: 50%;
-
   animation: admin-announcements-spin 0.8s linear infinite;
 }
 
@@ -438,27 +338,18 @@
   }
 }
 
-/* ============================= */
-/* EMPTY */
-/* ============================= */
-
 .admin-announcements-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   max-width: 500px;
-
+  box-sizing: border-box;
   margin: 45px auto 0;
   padding: 40px 25px;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   background-color: #ffffff;
-
   text-align: center;
-
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
 }
 
@@ -466,14 +357,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 60px;
   height: 60px;
-
   margin-bottom: 15px;
-
   border-radius: 15px;
-
   background-color: #fff0f5;
   color: #e6195e;
 }
@@ -485,41 +372,29 @@
 
 .admin-announcements-empty h2 {
   margin: 0 0 8px;
-
   color: #343a40;
-
   font-size: 20px;
 }
 
 .admin-announcements-empty p {
   margin: 0;
-
   color: #687386;
-
   font-size: 13px;
+  line-height: 1.5;
 }
-
-/* ============================= */
-/* ERROR */
-/* ============================= */
 
 .admin-announcements-error {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   max-width: 500px;
-
+  box-sizing: border-box;
   margin: 50px auto 0;
   padding: 35px 25px;
-
   border: 1px solid #eeeeee;
   border-radius: 16px;
-
   background-color: #ffffff;
-
   text-align: center;
-
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035);
 }
 
@@ -527,14 +402,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 55px;
   height: 55px;
-
   margin-bottom: 15px;
-
   border-radius: 14px;
-
   background-color: #fff0f5;
   color: #e6195e;
 }
@@ -546,17 +417,13 @@
 
 .admin-announcements-error h2 {
   margin: 0 0 8px;
-
   color: #343a40;
-
   font-size: 20px;
 }
 
 .admin-announcements-error p {
   margin: 0 0 20px;
-
   color: #687386;
-
   font-size: 13px;
   line-height: 1.5;
 }
@@ -565,23 +432,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   gap: 7px;
-
   padding: 10px 18px;
-
   border: none;
   border-radius: 9px;
-
   background-color: #e6195e;
   color: #ffffff;
-
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition:
     background-color 0.2s ease,
     transform 0.15s ease;
@@ -596,10 +456,6 @@
   background-color: #c91450;
   transform: translateY(-1px);
 }
-
-/* ============================= */
-/* АДАПТИВ */
-/* ============================= */
 
 @media (max-width: 900px) {
   .admin-announcements {
@@ -622,9 +478,15 @@
     padding: 20px 14px 35px;
   }
 
+  .admin-announcements-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
   .admin-announcements-title-icon {
     width: 45px;
     height: 45px;
+    border-radius: 12px;
   }
 
   .admin-announcements-title-icon svg {
@@ -642,5 +504,78 @@
 
   .admin-announcements-label {
     font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .admin-announcements-count {
+    padding: 13px 14px;
+  }
+
+  .admin-announcements-empty,
+  .admin-announcements-error {
+    margin-top: 30px;
+    padding: 30px 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .admin-announcements {
+    padding: 18px 10px 30px;
+  }
+
+  .admin-announcements-header {
+    gap: 10px;
+  }
+
+  .admin-announcements-title-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .admin-announcements-title-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .admin-announcements-header h1 {
+    font-size: 22px;
+  }
+
+  .admin-announcements-header p {
+    font-size: 11px;
+  }
+
+  .admin-announcements-back {
+    margin-bottom: 20px;
+  }
+
+  .admin-announcements-count span {
+    font-size: 12px;
+  }
+
+  .admin-announcements-count strong {
+    font-size: 18px;
+  }
+
+  .admin-announcements-empty h2,
+  .admin-announcements-error h2 {
+    font-size: 18px;
+  }
+}
+
+.admin-announcements button:focus-visible,
+.admin-announcements a:focus-visible {
+  outline: 3px solid rgba(230, 25, 94, 0.35);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-announcements *,
+  .admin-announcements *::before,
+  .admin-announcements *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

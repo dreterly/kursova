@@ -1,14 +1,11 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  ArrowLeft,
-  FileText,
-  Save,
-  RefreshCw,
-} from "lucide-react";
+import { ArrowLeft, FileText, Save, RefreshCw } from "lucide-react";
 
-import { getAnnouncements, updateAdminAnnouncement } from "../../services/announcementsApi.js";
+import {
+  getAnnouncements,
+  updateAdminAnnouncement,
+} from "../../services/announcementsApi.js";
 
 import "./editAdminAnnouncement.css";
 
@@ -38,7 +35,7 @@ export function EditAdminAnnouncement() {
         const announcements = await getAnnouncements();
 
         const announcement = announcements.find(
-          (item) => item.id === Number(id)
+          (item) => item.id === Number(id),
         );
 
         if (!announcement) {
@@ -56,9 +53,7 @@ export function EditAdminAnnouncement() {
         });
       } catch (error) {
         console.error(error);
-        setError(
-          error.message || "Не вдалося завантажити оголошення"
-        );
+        setError(error.message || "Не вдалося завантажити оголошення");
       } finally {
         setLoading(false);
       }
@@ -85,12 +80,8 @@ export function EditAdminAnnouncement() {
         description: form.description,
         city: form.city,
         address: form.address,
-        latitude: form.latitude
-          ? Number(form.latitude)
-          : null,
-        longitude: form.longitude
-          ? Number(form.longitude)
-          : null,
+        latitude: form.latitude ? Number(form.latitude) : null,
+        longitude: form.longitude ? Number(form.longitude) : null,
         status: form.status,
       });
 
@@ -100,9 +91,7 @@ export function EditAdminAnnouncement() {
     } catch (error) {
       console.error(error);
 
-      alert(
-        error.message || "Не вдалося оновити оголошення"
-      );
+      alert(error.message || "Не вдалося оновити оголошення");
     }
   }
 
@@ -121,7 +110,6 @@ export function EditAdminAnnouncement() {
     return (
       <main className="edit-admin-announcement">
         <div className="edit-admin-announcement-container">
-
           <button
             type="button"
             className="edit-admin-announcement-back"
@@ -132,7 +120,6 @@ export function EditAdminAnnouncement() {
           </button>
 
           <div className="edit-admin-announcement-error">
-
             <div className="edit-admin-announcement-error-icon">
               <FileText />
             </div>
@@ -149,7 +136,6 @@ export function EditAdminAnnouncement() {
               <RefreshCw />
               Спробувати ще раз
             </button>
-
           </div>
         </div>
       </main>
@@ -159,7 +145,6 @@ export function EditAdminAnnouncement() {
   return (
     <main className="edit-admin-announcement">
       <div className="edit-admin-announcement-container">
-
         <button
           type="button"
           className="edit-admin-announcement-back"
@@ -170,7 +155,6 @@ export function EditAdminAnnouncement() {
         </button>
 
         <div className="edit-admin-announcement-header">
-
           <div className="edit-admin-announcement-title-icon">
             <FileText />
           </div>
@@ -182,18 +166,11 @@ export function EditAdminAnnouncement() {
 
             <h1>Редагування оголошення</h1>
 
-            <p>
-              Зміна інформації про оголошення PETFINDER
-            </p>
+            <p>Зміна інформації про оголошення PETFINDER</p>
           </div>
-
         </div>
 
-        <form
-          className="edit-admin-announcement-form"
-          onSubmit={handleSubmit}
-        >
-
+        <form className="edit-admin-announcement-form" onSubmit={handleSubmit}>
           <div className="edit-admin-announcement-form-header">
             <h2>Дані оголошення</h2>
 
@@ -201,44 +178,25 @@ export function EditAdminAnnouncement() {
           </div>
 
           <div className="edit-admin-announcement-fields">
-
             <label>
               <span>Тип оголошення</span>
 
-              <select
-                name="type"
-                value={form.type}
-                onChange={handleChange}
-              >
-                <option value="lost">
-                  Загублений
-                </option>
+              <select name="type" value={form.type} onChange={handleChange}>
+                <option value="lost">Загублений</option>
 
-                <option value="found">
-                  Знайдений
-                </option>
+                <option value="found">Знайдений</option>
               </select>
             </label>
 
             <label>
               <span>Статус</span>
 
-              <select
-                name="status"
-                value={form.status}
-                onChange={handleChange}
-              >
-                <option value="active">
-                  Активне
-                </option>
+              <select name="status" value={form.status} onChange={handleChange}>
+                <option value="active">Активне</option>
 
-                <option value="found">
-                  Знайдено
-                </option>
+                <option value="found">Знайдено</option>
 
-                <option value="closed">
-                  Закрите
-                </option>
+                <option value="closed">Закрите</option>
               </select>
             </label>
 
@@ -303,11 +261,9 @@ export function EditAdminAnnouncement() {
                 placeholder="28.6587000"
               />
             </label>
-
           </div>
 
           <div className="edit-admin-announcement-buttons">
-
             <button
               type="button"
               className="cancel-admin-announcement-button"
@@ -316,16 +272,11 @@ export function EditAdminAnnouncement() {
               Скасувати
             </button>
 
-            <button
-              type="submit"
-              className="save-admin-announcement-button"
-            >
+            <button type="submit" className="save-admin-announcement-button">
               <Save />
               Зберегти зміни
             </button>
-
           </div>
-
         </form>
       </div>
     </main>

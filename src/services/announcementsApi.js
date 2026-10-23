@@ -1,8 +1,6 @@
 const API_URL = "http://localhost:5000/api/announcements";
 
-// =========================================
 // Отримати всі оголошення
-// =========================================
 
 export async function getAnnouncements() {
   const response = await fetch(API_URL);
@@ -14,9 +12,7 @@ export async function getAnnouncements() {
   return response.json();
 }
 
-// =========================================
 // Отримати оголошення конкретного користувача
-// =========================================
 
 export async function getAnnouncementsByUserId(userId) {
   const response = await fetch(`${API_URL}/user/${userId}`);
@@ -28,9 +24,7 @@ export async function getAnnouncementsByUserId(userId) {
   return response.json();
 }
 
-// =========================================
 // Отримати одне оголошення
-// =========================================
 
 export async function getAnnouncementById(id) {
   const response = await fetch(`${API_URL}/${id}`);
@@ -42,9 +36,7 @@ export async function getAnnouncementById(id) {
   return response.json();
 }
 
-// =========================================
 // Створити оголошення
-// =========================================
 
 export async function createAnnouncement(announcement) {
   const response = await fetch(API_URL, {
@@ -64,10 +56,7 @@ export async function createAnnouncement(announcement) {
   return data;
 }
 
-// =========================================
 // Оновити власне оголошення
-// =========================================
-
 export async function updateAnnouncement(id, announcement) {
   const token = localStorage.getItem("token");
 
@@ -89,9 +78,7 @@ export async function updateAnnouncement(id, announcement) {
   return data;
 }
 
-// =========================================
 // Видалити власне оголошення
-// =========================================
 
 export async function deleteAnnouncement(id) {
   const token = localStorage.getItem("token");
@@ -112,9 +99,7 @@ export async function deleteAnnouncement(id) {
   return data;
 }
 
-// =========================================
 // Оновити оголошення через адмінпанель
-// =========================================
 
 export async function updateAdminAnnouncement(id, announcement) {
   const token = localStorage.getItem("token");

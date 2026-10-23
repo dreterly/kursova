@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Eye, Pencil, Trash2 } from "lucide-react";
-
+import { getPhotoUrl } from "../../utils/PhotoUrl.js";
 import {
   getAnnouncementsByUserId,
   deleteAnnouncement,
@@ -135,8 +135,11 @@ export function MyAnnouncements() {
               <div className="my-announcement-image">
                 {announcement.photo ? (
                   <img
-                    src={announcement.photo}
+                    src={getPhotoUrl(announcement.photo)}
                     alt={announcement.name || "Тварина"}
+                    onError={(event) => {
+                      event.currentTarget.style.display = "none";
+                    }}
                   />
                 ) : (
                   <div className="announcement-no-photo">🐾</div>

@@ -1,21 +1,17 @@
-/* =========================
-   CREATE ANNOUNCEMENT
-========================= */
-
 .create-announcement {
   min-height: 100vh;
-  padding: 40px 30px 60px;
+  padding: 35px 30px 60px;
+  box-sizing: border-box;
   background-color: #f8f9fa;
+  overflow-x: clip;
 }
 
 .create-announcement-container {
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  min-width: 0;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .create-announcement-header {
   margin-bottom: 25px;
@@ -24,11 +20,12 @@
 .back-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
   margin-bottom: 18px;
   padding: 8px 12px;
   border: 1px solid #eeeeee;
-  border-radius: 8px;
+  border-radius: 9px;
   background-color: #ffffff;
   color: #687386;
   font-family: inherit;
@@ -46,6 +43,7 @@
 .back-button svg {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
 
 .back-button:hover {
@@ -55,20 +53,25 @@
   transform: translateX(-2px);
 }
 
+.back-button:active {
+  transform: translateX(0);
+}
+
 .create-title {
   display: flex;
   align-items: center;
   gap: 15px;
+  min-width: 0;
 }
 
 .create-title-icon {
-  width: 48px;
-  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: 13px;
   background-color: #fff0f5;
   color: #e6195e;
 }
@@ -81,55 +84,50 @@
 .create-title h1 {
   margin: 0 0 5px;
   color: #343a40;
-  font-size: 32px;
-  font-weight: 700;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.2;
+  font-weight: 750;
+  overflow-wrap: anywhere;
 }
 
 .create-title p {
   margin: 0;
   color: #687386;
   font-size: 14px;
+  line-height: 1.5;
 }
-
-/* =========================
-   FORM
-========================= */
 
 .announcement-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 25px;
+  gap: 22px;
+  padding: 28px;
+  box-sizing: border-box;
   border: 1px solid #eeeeee;
-  border-radius: 16px;
+  border-radius: 18px;
   background-color: #ffffff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.035);
 }
 
-/* =========================
-   SECTIONS
-========================= */
-
 .form-section {
+  min-width: 0;
   padding-bottom: 22px;
   border-bottom: 1px solid #eeeeee;
 }
 
 .form-section:last-of-type {
-  border-bottom: none;
   padding-bottom: 0;
+  border-bottom: none;
 }
 
 .form-section h2 {
   margin: 0 0 17px;
   color: #343a40;
   font-size: 18px;
+  line-height: 1.4;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
-
-/* =========================
-   TYPE BUTTONS
-========================= */
 
 .type-buttons {
   display: flex;
@@ -138,15 +136,21 @@
 }
 
 .type-button {
-  flex: 1;
-  min-width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 220px;
+  min-width: 0;
+  min-height: 46px;
   padding: 12px 18px;
+  box-sizing: border-box;
   border: 1px solid #dddddd;
   border-radius: 10px;
   background-color: #ffffff;
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
+  text-align: center;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -166,6 +170,7 @@
 .lost-type.active {
   border-color: #e6195e;
   background-color: #fff0f5;
+  box-shadow: 0 0 0 2px rgba(230, 25, 94, 0.05);
 }
 
 .found-type {
@@ -173,13 +178,10 @@
 }
 
 .found-type.active {
-  border-color: #f6e033;
+  border-color: #e4cf20;
   background-color: #fffbe0;
+  box-shadow: 0 0 0 2px rgba(246, 224, 51, 0.12);
 }
-
-/* =========================
-   FORM GRID
-========================= */
 
 .form-grid {
   display: grid;
@@ -192,6 +194,7 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
+  min-width: 0;
   color: #343a40;
   font-size: 14px;
   font-weight: 600;
@@ -200,7 +203,9 @@
 .announcement-form input,
 .announcement-form select,
 .announcement-form textarea {
+  display: block;
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   padding: 11px 13px;
   border: 1px solid #dddddd;
@@ -217,12 +222,31 @@
 
 .announcement-form input,
 .announcement-form select {
-  height: 43px;
+  height: 44px;
+}
+
+.announcement-form input[type="file"] {
+  height: auto;
+  padding: 9px;
+  background-color: #fafafa;
+  cursor: pointer;
 }
 
 .announcement-form textarea {
+  min-height: 120px;
+  line-height: 1.5;
   resize: vertical;
-  min-height: 110px;
+}
+
+.announcement-form input::placeholder,
+.announcement-form textarea::placeholder {
+  color: #9aa3af;
+}
+
+.announcement-form input:hover,
+.announcement-form select:hover,
+.announcement-form textarea:hover {
+  border-color: #cccccc;
 }
 
 .announcement-form input:focus,
@@ -232,39 +256,41 @@
   box-shadow: 0 0 0 3px rgba(230, 25, 94, 0.08);
 }
 
-/* =========================
-   ERROR
-========================= */
-
 .form-error {
-  padding: 11px 14px;
+  margin: 0;
+  padding: 12px 14px;
+  box-sizing: border-box;
   border: 1px solid #f3c5d4;
   border-radius: 9px;
   background-color: #fff0f5;
   color: #c91450;
   font-size: 13px;
-  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
-
-/* =========================
-   BUTTONS
-========================= */
 
 .form-buttons {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 12px;
   padding-top: 5px;
 }
 
 .cancel-button,
 .submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 150px;
+  min-height: 44px;
   padding: 11px 20px;
+  box-sizing: border-box;
   border-radius: 9px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
+  text-align: center;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -279,7 +305,7 @@
   color: #687386;
 }
 
-.cancel-button:hover {
+.cancel-button:hover:not(:disabled) {
   border-color: #bbbbbb;
   background-color: #f8f9fa;
   transform: translateY(-1px);
@@ -292,9 +318,9 @@
   box-shadow: 0 3px 8px rgba(230, 25, 94, 0.15);
 }
 
-.submit-button:hover {
-  background-color: #c91450;
+.submit-button:hover:not(:disabled) {
   border-color: #c91450;
+  background-color: #c91450;
   transform: translateY(-1px);
 }
 
@@ -305,103 +331,35 @@
   transform: none;
 }
 
-/* =========================
-   ADAPTIVE
-========================= */
-
-@media (max-width: 700px) {
-  .create-announcement {
-    padding: 25px 18px 40px;
-  }
-
-  .create-title {
-    align-items: flex-start;
-  }
-
-  .create-title-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .create-title h1 {
-    font-size: 25px;
-  }
-
-  .create-title p {
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .announcement-form {
-    padding: 18px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .type-buttons {
-    flex-direction: column;
-  }
-
-  .type-button {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .form-buttons {
-    flex-direction: column-reverse;
-  }
-
-  .cancel-button,
-  .submit-button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 450px) {
-  .create-announcement {
-    padding: 20px 14px 35px;
-  }
-
-  .create-title h1 {
-    font-size: 22px;
-  }
-
-  .create-title-icon {
-    display: none;
-  }
-
-  .announcement-form {
-    padding: 15px;
-  }
-}
-/* Вибір місця на карті */
 .location-picker-section {
+  min-width: 0;
   margin-top: 24px;
 }
 
 .location-picker-section h3 {
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   color: #343a40;
   font-size: 18px;
+  line-height: 1.4;
 }
 
 .location-picker-section > p {
-  margin-bottom: 14px;
-  color: #666;
+  margin: 0 0 14px;
+  color: #687386;
+  font-size: 14px;
   line-height: 1.6;
 }
 
 .announcement-location-map {
+  position: relative;
   width: 100%;
   height: 380px;
   margin-top: 12px;
   overflow: hidden;
   border: 2px solid #f0dce4;
   border-radius: 14px;
-  background: #f8f9fa;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
 }
 
 .location-map {
@@ -417,52 +375,285 @@
   gap: 10px 20px;
   margin-top: 14px;
   padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid #eeeeee;
   border-radius: 10px;
-  background: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 .selected-coordinates p {
   margin: 0;
   color: #343a40;
   font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .clear-location-button {
+  min-height: 36px;
   padding: 8px 12px;
   border: 1px solid #e6195e;
   border-radius: 8px;
-  background: white;
+  background-color: #ffffff;
   color: #e6195e;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .clear-location-button:hover {
-  background: #e6195e;
-  color: white;
+  background-color: #e6195e;
+  color: #ffffff;
 }
 
 .location-warning {
-  margin-top: 12px;
-  color: #b45309;
-  font-size: 14px;
+  margin: 12px 0 0;
+  color: #a16207;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
-.form-error {
+.announcement-photo-field {
+  margin-top: 24px;
+}
+
+.announcement-photo-field > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.announcement-photo-field > input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed #d5d5d5;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.announcement-photo-field > p {
+  margin-top: 8px;
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.announcement-image-preview {
   margin-top: 16px;
-  padding: 12px 14px;
+}
+
+.announcement-image-preview img {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.announcement-image-preview button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 0;
   border-radius: 8px;
-  background: #fff0f0;
-  color: #c62828;
+  background: #f8d7da;
+  color: #842029;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .create-announcement {
+    padding: 28px 20px 45px;
+  }
+
+  .announcement-form {
+    padding: 23px;
+    gap: 20px;
+  }
+
+  .form-grid {
+    gap: 15px;
+  }
+
+  .announcement-location-map {
+    height: 340px;
+  }
 }
 
 @media (max-width: 600px) {
+  .create-announcement {
+    padding: 22px 14px 35px;
+  }
+
+  .create-announcement-header {
+    margin-bottom: 20px;
+  }
+
+  .create-title {
+    align-items: flex-start;
+    gap: 11px;
+  }
+
+  .create-title-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+  }
+
+  .create-title-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .create-title h1 {
+    font-size: 24px;
+  }
+
+  .create-title p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .announcement-form {
+    padding: 18px;
+    gap: 18px;
+    border-radius: 14px;
+  }
+
+  .form-section {
+    padding-bottom: 19px;
+  }
+
+  .form-section h2 {
+    font-size: 17px;
+  }
+
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .type-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .type-button {
+    width: 100%;
+    flex: auto;
+  }
+
+  .form-buttons {
+    flex-direction: column-reverse;
+    gap: 9px;
+  }
+
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+    min-width: 0;
+  }
+
   .announcement-location-map {
     height: 300px;
+    border-radius: 11px;
   }
 
   .selected-coordinates {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .clear-location-button {
+    width: 100%;
+  }
+
+  .announcement-image-preview img {
+    max-width: 100%;
+    height: 200px;
+  }
+}
+
+@media (max-width: 380px) {
+  .create-announcement {
+    padding: 18px 10px 28px;
+  }
+
+  .create-title {
+    gap: 9px;
+  }
+
+  .create-title-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .create-title-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .create-title h1 {
+    font-size: 21px;
+  }
+
+  .create-title p {
+    font-size: 12px;
+  }
+
+  .announcement-form {
+    padding: 14px;
+  }
+
+  .announcement-form input,
+  .announcement-form select,
+  .announcement-form textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .announcement-location-map {
+    height: 260px;
+  }
+}
+
+.back-button:focus-visible,
+.type-button:focus-visible,
+.cancel-button:focus-visible,
+.submit-button:focus-visible,
+.clear-location-button:focus-visible {
+  outline: 3px solid rgba(230, 25, 94, 0.3);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-button,
+  .type-button,
+  .announcement-form input,
+  .announcement-form select,
+  .announcement-form textarea,
+  .cancel-button,
+  .submit-button,
+  .clear-location-button {
+    transition: none;
+  }
+
+  .back-button:hover,
+  .type-button:hover,
+  .cancel-button:hover,
+  .submit-button:hover {
+    transform: none;
   }
 }
