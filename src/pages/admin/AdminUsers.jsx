@@ -1,3 +1,4 @@
+import API_BASE_URL from "../../services/api.js";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Pencil, Trash2, Users, RefreshCw } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,7 +21,7 @@ export function AdminUsers() {
 
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:5000/api/admin/users", {
+      const response = await fetch(`${API_BASE_URL}/api/admin/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

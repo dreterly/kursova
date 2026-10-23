@@ -1,6 +1,6 @@
-const API_URL = "http://localhost:5000/api/pets";
-const ADMIN_API_URL = "http://localhost:5000/api/admin/pets";
-
+import API_BASE_URL from "./api.js";
+const API_URL = `${API_BASE_URL}/api/pets`;
+const ADMIN_API_URL = `${API_BASE_URL}/api/admin/pets`;
 // Отримати токен авторизації
 function getAuthHeaders() {
   const token = localStorage.getItem("token");

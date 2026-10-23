@@ -19,9 +19,8 @@ import { getPetById, updatePet, deletePet } from "../../services/petsApi.js";
 import { getPhotoUrl } from "../../utils/photoUrl.js";
 
 import "./petProfile.css";
-
-const GPS_API_URL = "http://localhost:5000/api/gps";
-
+import API_BASE_URL from "../../services/api.js";
+const GPS_API_URL = `${API_BASE_URL}/api/gps`;
 function formatDate(value) {
   if (!value) return "Не вказано";
 

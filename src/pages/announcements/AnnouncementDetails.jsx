@@ -11,7 +11,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 import { getAnnouncementById } from "../../services/announcementsApi.js";
-import { getPhotoUrl } from "../../utils/PhotoUrl.js";
+import { getPhotoUrl } from "../../utils/photoUrl.js";
 
 import "./announcementDetails.css";
 

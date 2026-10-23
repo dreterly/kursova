@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, PawPrint, Tag } from "lucide-react";
 import "./petCard.css";
-
-const API_BASE_URL = "http://localhost:5000";
+import API_BASE_URL from "../services/api.js";
 
 function getPhotoUrl(photo) {
   if (!photo) return null;

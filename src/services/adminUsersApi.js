@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:5000/api/admin/users";
-
+import API_BASE_URL from "./api.js";
+const API_URL = `${API_BASE_URL}/api/admin/users`;
 export async function updateAdminUser(id, user) {
   const token = localStorage.getItem("token");
 

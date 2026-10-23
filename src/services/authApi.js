@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:5000/api/auth";
-
+import API_BASE_URL from "./api.js";
+const API_URL = `${API_BASE_URL}/api/auth`;
 // Реєстрація користувача
 export async function registerUser(user) {
   const response = await fetch(`${API_URL}/register`, {

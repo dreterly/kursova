@@ -1,3 +1,4 @@
+import API_BASE_URL from "../services/api.js";
 
 export function getPhotoUrl(photo) {
   if (!photo) return "";
@@ -6,5 +7,5 @@ export function getPhotoUrl(photo) {
     return photo;
   }
 
-  return `http://localhost:5000${photo.startsWith("/") ? "" : "/"}${photo}`;
+  return `${API_BASE_URL}${photo.startsWith("/") ? "" : "/"}${photo}`;
 }

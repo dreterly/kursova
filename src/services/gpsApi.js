@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000/api/gps";
+import API_BASE_URL from "./api.js";
+const API_URL = `${API_BASE_URL}/api/gps`;
 
 // Отримати токен авторизації
 function getAuthHeaders() {

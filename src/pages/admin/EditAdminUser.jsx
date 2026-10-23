@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, UserCog, Save, RefreshCw } from "lucide-react";
-
+import API_BASE_URL from "../../services/api.js";
 import { updateAdminUser } from "../../services/adminUsersApi.js";
 
 import "./editAdminUser.css";
@@ -28,7 +28,7 @@ export function EditAdminUser() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          `http://localhost:5000/api/admin/users/${id}`,
+          `${API_BASE_URL}/api/admin/users/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

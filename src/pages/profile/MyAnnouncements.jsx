@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Eye, Pencil, Trash2 } from "lucide-react";
-import { getPhotoUrl } from "../../utils/PhotoUrl.js";
+import { getPhotoUrl } from "../../utils/photoUrl.js";
 import {
   getAnnouncementsByUserId,
   deleteAnnouncement,

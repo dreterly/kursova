@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000/api/announcements";
+import API_BASE_URL from "./api.js";
+const API_URL = `${API_BASE_URL}/api/announcements`;
 
 // Отримати всі оголошення
 
@@ -105,7 +106,7 @@ export async function updateAdminAnnouncement(id, announcement) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://localhost:5000/api/admin/announcements/${id}`,
+    `${API_BASE_URL}/api/admin/announcements/${id}`,
     {
       method: "PUT",
       headers: {

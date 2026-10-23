@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   PawPrint,
 } from "lucide-react";
+import { getPhotoUrl } from "../../utils/photoUrl.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -48,11 +49,6 @@ export function Profile() {
         setLoading(false);
       });
   }, []);
-
-  const getPhotoUrl = (photo) =>
-    photo.startsWith("http")
-      ? photo
-      : `http://localhost:5000${photo.startsWith("/") ? "" : "/"}${photo}`;
 
   return (
     <main className="profile">

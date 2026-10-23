@@ -7,8 +7,7 @@ import "leaflet/dist/leaflet.css";
 import "./map.css";
 
 import { getAnnouncements } from "../services/announcementsApi.js";
-
-const API_BASE_URL = "http://localhost:5000";
+import API_BASE_URL from "../services/api.js";
 
 function getPhotoUrl(photo) {
   if (!photo) return null;
